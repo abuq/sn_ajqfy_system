@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "管理法官";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
+}
+<script src="~/Areas/Admin/Content/assets/js/bootstrap.min.js"></script>
+<table id="User" style="height:100%;width:100%"></table>
+<div id="User_toolbar" style="padding:8px;">
+    <form id="search">
+        <button type="button" class="btn btn-success btn-sm adminUser_add">新增法官</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm">删除法官</button>
+    </form>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">新增法官</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交更改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<img src="" style="height:75px;width:100px;" />
+<script type="text/javascript">
+    $(function () {
+        $('.adminUser_add').on("click", function () {
+            $('#myModal').modal({
+
+            });
+        });
+
+        $("#myModal").on("hidden.bs.myModal", function () {
+            debugger
+            $(this).removeData("bs.myModal");
+        });
+
+        /*!
+        * method:用户数据列表(datagrid)的绑定
+        */
+        $('#User').datagrid({
+            fit:true,
+            url:'/Admin/User/List',
+            toolbar: $('#User_toolbar'),
+            rownumbers:true,
+            striped: true,
+            pagination: true,
+            pageSize:10,
+            loadMsg: "正在加载...",
+            columns: [[
+                { field: '', checkbox: true, },
+                {
+                    field: 'UserPic', title: '照片', align: 'center', width: 150, formatter: function (value) {
+                        return '<img src="' + value + '" style="height:100px;width:80px;" />';
+                    }
+                },
+                { field: 'RealName', title: '姓名', align: 'center', width: 80 },
+                { field: 'Dept', title: '部门', align: 'center', width: 80},     
+                { field: 'Job', title: '职务', align: 'center', width: 150 },
+                { field: 'Mobile', title: '手机', align: 'center', width: 120 },
+                { field: 'DeptOrder', title: '部门序号', align: 'center', width: 60 },
+                { field: 'UserOrder', title: '人员序号', align: 'center', width: 60 },
+                {
+                    field: 'ID', title: '操作', align: 'center', width: 100, formatter: function (value) {
+                        return '<button type="button" class="btn btn-info btn-sm">编 辑</button>';
+                    }
+                },
+            ]],
+            onLoadSuccess: function () {
+                $('#User').datagrid('resize');
+            }
+        });
+    });
+
+</script>

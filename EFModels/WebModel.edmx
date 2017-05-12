@@ -1,0 +1,830 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ssfw_sn_ajqfyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aboutuszxb">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Content" Type="ntext" />
+          <Property Name="Aboutusorder" Type="smallint" />
+          <Property Name="Language" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.Admin”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Purview" Type="int" />
+          <Property Name="LastLoginIP" Type="nvarchar" MaxLength="15" />
+          <Property Name="LastLoginTime" Type="smalldatetime" />
+          <Property Name="LastLogoutTime" Type="smalldatetime" />
+          <Property Name="LoginTimes" Type="int" />
+          <Property Name="AdminPurview_Article" Type="int" />
+          <Property Name="AdminPurview_Soft" Type="int" />
+          <Property Name="AdminPurview_Photo" Type="int" />
+          <Property Name="AdminPurview_Guest" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdminPurview_Others" Type="nvarchar" MaxLength="255" />
+          <Property Name="RndPassword" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AdminMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Operator" Type="nvarchar" MaxLength="15" />
+          <Property Name="Operation" Type="nvarchar" MaxLength="100" />
+          <Property Name="AddTime" Type="datetime" />
+          <Property Name="MsgType" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.BigClass_Dept”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="BigClass_Dept">
+          <Key>
+            <PropertyRef Name="BigClassID" />
+          </Key>
+          <Property Name="BigClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BigClassName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsWithin" Type="bit" />
+          <Property Name="IsCount" Type="bit" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.BigClass_New”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="BigClass_New">
+          <Key>
+            <PropertyRef Name="BigClassID" />
+          </Key>
+          <Property Name="BigClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassNumber" Type="int" />
+          <Property Name="BigClassName" Type="nvarchar" MaxLength="80" />
+          <Property Name="ClassType" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.Cdelink_Config”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Cdelink_Config">
+          <Key>
+            <PropertyRef Name="SetupID" />
+            <PropertyRef Name="SiteName" />
+            <PropertyRef Name="ImagePath" />
+          </Key>
+          <Property Name="SetupID" Type="int" Nullable="false" />
+          <Property Name="SiteICP" Type="nvarchar" MaxLength="50" />
+          <Property Name="SiteName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SiteUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="SiteStyle" Type="nvarchar" MaxLength="20" />
+          <Property Name="SiteTitle" Type="nvarchar" MaxLength="200" />
+          <Property Name="SiteDesc" Type="nvarchar" MaxLength="200" />
+          <Property Name="SiteKeys" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserPhone" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserAdd" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserOicq" Type="nvarchar(max)" />
+          <Property Name="UserCard" Type="nvarchar" MaxLength="20" />
+          <Property Name="WaterMark" Type="nvarchar(max)" />
+          <Property Name="Settings" Type="nvarchar(max)" />
+          <Property Name="ImagePath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ThemeTitle" Type="nvarchar" MaxLength="20" />
+          <Property Name="SoftInfo" Type="nvarchar(max)" />
+          <Property Name="UploadExt" Type="nvarchar" MaxLength="50" />
+          <Property Name="SiteLang" Type="tinyint" />
+          <Property Name="AboutInfo" Type="nvarchar(max)" />
+          <Property Name="HelpInfo" Type="nvarchar(max)" />
+          <Property Name="RegInfo" Type="nvarchar(max)" />
+          <Property Name="SiteJpeg" Type="nvarchar" MaxLength="50" />
+          <Property Name="FilterStr" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Cdelinknews">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="Highlight" Type="bit" />
+          <Property Name="Content" Type="ntext" />
+          <Property Name="Summary" Type="nvarchar" MaxLength="255" />
+          <Property Name="PageKeywords" Type="nvarchar" MaxLength="255" />
+          <Property Name="BigClassID" Type="int" />
+          <Property Name="SmallClassID" Type="int" />
+          <Property Name="BigClassName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BigClassNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="SmallClassName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SmallClassNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="FirstImageName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ArticleSource" Type="int" />
+          <Property Name="User" Type="nvarchar" MaxLength="50" />
+          <Property Name="QtUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="IsLogin" Type="bit" />
+          <Property Name="UserType" Type="tinyint" />
+          <Property Name="Hits" Type="int" />
+          <Property Name="Ok" Type="bit" Nullable="false" />
+          <Property Name="Recommended" Type="bit" />
+          <Property Name="IsCount" Type="bit" />
+          <Property Name="IsTop" Type="bit" />
+          <Property Name="ArticleType" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="dtproperties">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="property" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="objectid" Type="int" />
+          <Property Name="property" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="255" />
+          <Property Name="uvalue" Type="nvarchar" MaxLength="255" />
+          <Property Name="lvalue" Type="image" />
+          <Property Name="version" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.SmallClass_Article”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="SmallClass_Article">
+          <Key>
+            <PropertyRef Name="SmallClassID" />
+          </Key>
+          <Property Name="SmallClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SmallClassName" Type="nvarchar" MaxLength="80" />
+          <Property Name="SmallClassNumber" Type="int" />
+          <Property Name="BigClassName" Type="nvarchar" MaxLength="80" />
+          <Property Name="BigClassNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="BigClassID" Type="int" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.Sxr”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Sxr">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserOrder" Type="int" />
+          <Property Name="RealName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDCard" Type="nvarchar" MaxLength="18" />
+          <Property Name="CaseNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="CaseBiaodi" Type="nvarchar" MaxLength="10" />
+          <Property Name="Adds" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserPic" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserState" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.Tj_Room”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Tj_Room">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomOrder" Type="int" />
+          <Property Name="RoomName" Type="nvarchar" MaxLength="20" />
+          <Property Name="RoomState" Type="bit" />
+          <Property Name="RoomPic" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserType" Type="tinyint" />
+          <Property Name="RealName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserPic" Type="nvarchar" MaxLength="255" />
+          <Property Name="Dept" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsTLeader" Type="bit" />
+          <Property Name="IsYLeader" Type="bit" />
+          <Property Name="IsComment" Type="bit" />
+          <Property Name="Job" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeptOrder" Type="int" />
+          <Property Name="UserOrder" Type="int" />
+          <Property Name="LockUser" Type="bit" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.UserComment”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="UserComment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="PJType" Type="nvarchar" MaxLength="20" />
+          <Property Name="CommentDate" Type="smalldatetime" />
+          <Property Name="caseTypes" Type="nvarchar" MaxLength="20" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityContainer Name="ssfw_sn_ajqfyModelStoreContainer">
+          <EntitySet Name="Aboutuszxb" EntityType="Self.Aboutuszxb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminMessage" EntityType="Self.AdminMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cdelinknews" EntityType="Self.Cdelinknews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin].[ID] AS [ID], 
+    [Admin].[UserName] AS [UserName], 
+    [Admin].[Password] AS [Password], 
+    [Admin].[Purview] AS [Purview], 
+    [Admin].[LastLoginIP] AS [LastLoginIP], 
+    [Admin].[LastLoginTime] AS [LastLoginTime], 
+    [Admin].[LastLogoutTime] AS [LastLogoutTime], 
+    [Admin].[LoginTimes] AS [LoginTimes], 
+    [Admin].[AdminPurview_Article] AS [AdminPurview_Article], 
+    [Admin].[AdminPurview_Soft] AS [AdminPurview_Soft], 
+    [Admin].[AdminPurview_Photo] AS [AdminPurview_Photo], 
+    [Admin].[AdminPurview_Guest] AS [AdminPurview_Guest], 
+    [Admin].[AdminPurview_Others] AS [AdminPurview_Others], 
+    [Admin].[RndPassword] AS [RndPassword]
+    FROM [dbo].[Admin] AS [Admin]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="BigClass_Dept" EntityType="Self.BigClass_Dept" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BigClass_Dept].[BigClassID] AS [BigClassID], 
+    [BigClass_Dept].[BigClassName] AS [BigClassName], 
+    [BigClass_Dept].[IsWithin] AS [IsWithin], 
+    [BigClass_Dept].[IsCount] AS [IsCount]
+    FROM [dbo].[BigClass_Dept] AS [BigClass_Dept]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="BigClass_New" EntityType="Self.BigClass_New" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BigClass_New].[BigClassID] AS [BigClassID], 
+    [BigClass_New].[ClassNumber] AS [ClassNumber], 
+    [BigClass_New].[BigClassName] AS [BigClassName], 
+    [BigClass_New].[ClassType] AS [ClassType]
+    FROM [dbo].[BigClass_New] AS [BigClass_New]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Cdelink_Config" EntityType="Self.Cdelink_Config" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Cdelink_Config].[SetupID] AS [SetupID], 
+    [Cdelink_Config].[SiteICP] AS [SiteICP], 
+    [Cdelink_Config].[SiteName] AS [SiteName], 
+    [Cdelink_Config].[SiteUrl] AS [SiteUrl], 
+    [Cdelink_Config].[SiteStyle] AS [SiteStyle], 
+    [Cdelink_Config].[SiteTitle] AS [SiteTitle], 
+    [Cdelink_Config].[SiteDesc] AS [SiteDesc], 
+    [Cdelink_Config].[SiteKeys] AS [SiteKeys], 
+    [Cdelink_Config].[CompName] AS [CompName], 
+    [Cdelink_Config].[Customer] AS [Customer], 
+    [Cdelink_Config].[UserEmail] AS [UserEmail], 
+    [Cdelink_Config].[UserPhone] AS [UserPhone], 
+    [Cdelink_Config].[UserAdd] AS [UserAdd], 
+    [Cdelink_Config].[UserOicq] AS [UserOicq], 
+    [Cdelink_Config].[UserCard] AS [UserCard], 
+    [Cdelink_Config].[WaterMark] AS [WaterMark], 
+    [Cdelink_Config].[Settings] AS [Settings], 
+    [Cdelink_Config].[ImagePath] AS [ImagePath], 
+    [Cdelink_Config].[ThemeTitle] AS [ThemeTitle], 
+    [Cdelink_Config].[SoftInfo] AS [SoftInfo], 
+    [Cdelink_Config].[UploadExt] AS [UploadExt], 
+    [Cdelink_Config].[SiteLang] AS [SiteLang], 
+    [Cdelink_Config].[AboutInfo] AS [AboutInfo], 
+    [Cdelink_Config].[HelpInfo] AS [HelpInfo], 
+    [Cdelink_Config].[RegInfo] AS [RegInfo], 
+    [Cdelink_Config].[SiteJpeg] AS [SiteJpeg], 
+    [Cdelink_Config].[FilterStr] AS [FilterStr]
+    FROM [dbo].[Cdelink_Config] AS [Cdelink_Config]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SmallClass_Article" EntityType="Self.SmallClass_Article" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SmallClass_Article].[SmallClassID] AS [SmallClassID], 
+    [SmallClass_Article].[SmallClassName] AS [SmallClassName], 
+    [SmallClass_Article].[SmallClassNumber] AS [SmallClassNumber], 
+    [SmallClass_Article].[BigClassName] AS [BigClassName], 
+    [SmallClass_Article].[BigClassNumber] AS [BigClassNumber], 
+    [SmallClass_Article].[BigClassID] AS [BigClassID]
+    FROM [dbo].[SmallClass_Article] AS [SmallClass_Article]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Sxr" EntityType="Self.Sxr" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Sxr].[ID] AS [ID], 
+    [Sxr].[UserOrder] AS [UserOrder], 
+    [Sxr].[RealName] AS [RealName], 
+    [Sxr].[IDCard] AS [IDCard], 
+    [Sxr].[CaseNum] AS [CaseNum], 
+    [Sxr].[CaseBiaodi] AS [CaseBiaodi], 
+    [Sxr].[Adds] AS [Adds], 
+    [Sxr].[UserPic] AS [UserPic], 
+    [Sxr].[UserState] AS [UserState]
+    FROM [dbo].[Sxr] AS [Sxr]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tj_Room" EntityType="Self.Tj_Room" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tj_Room].[ID] AS [ID], 
+    [Tj_Room].[RoomOrder] AS [RoomOrder], 
+    [Tj_Room].[RoomName] AS [RoomName], 
+    [Tj_Room].[RoomState] AS [RoomState], 
+    [Tj_Room].[RoomPic] AS [RoomPic]
+    FROM [dbo].[Tj_Room] AS [Tj_Room]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserComment" EntityType="Self.UserComment" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserComment].[ID] AS [ID], 
+    [UserComment].[UserID] AS [UserID], 
+    [UserComment].[PJType] AS [PJType], 
+    [UserComment].[CommentDate] AS [CommentDate], 
+    [UserComment].[caseTypes] AS [caseTypes], 
+    [UserComment].[Mobile] AS [Mobile]
+    FROM [dbo].[UserComment] AS [UserComment]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ssfw_sn_ajqfyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aboutuszxb">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Aboutusorder" Type="Int16" />
+          <Property Name="Language" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AdminMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Operator" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Operation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Precision="3" />
+          <Property Name="MsgType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Cdelinknews">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Highlight" Type="Boolean" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Summary" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PageKeywords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BigClassID" Type="Int32" />
+          <Property Name="SmallClassID" Type="Int32" />
+          <Property Name="BigClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BigClassNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SmallClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SmallClassNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FirstImageName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleSource" Type="Int32" />
+          <Property Name="User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QtUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="IsLogin" Type="Boolean" />
+          <Property Name="UserType" Type="Byte" />
+          <Property Name="Hits" Type="Int32" />
+          <Property Name="Ok" Type="Boolean" Nullable="false" />
+          <Property Name="Recommended" Type="Boolean" />
+          <Property Name="IsCount" Type="Boolean" />
+          <Property Name="IsTop" Type="Boolean" />
+          <Property Name="ArticleType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="dtproperties">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="property" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="objectid" Type="Int32" />
+          <Property Name="property" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="uvalue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="lvalue" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="Byte" />
+          <Property Name="RealName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserPic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Dept" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsTLeader" Type="Boolean" />
+          <Property Name="IsYLeader" Type="Boolean" />
+          <Property Name="IsComment" Type="Boolean" />
+          <Property Name="Job" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeptOrder" Type="Int32" />
+          <Property Name="UserOrder" Type="Int32" />
+          <Property Name="LockUser" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Purview" Type="Int32" />
+          <Property Name="LastLoginIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="0" />
+          <Property Name="LastLogoutTime" Type="DateTime" Precision="0" />
+          <Property Name="LoginTimes" Type="Int32" />
+          <Property Name="AdminPurview_Article" Type="Int32" />
+          <Property Name="AdminPurview_Soft" Type="Int32" />
+          <Property Name="AdminPurview_Photo" Type="Int32" />
+          <Property Name="AdminPurview_Guest" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdminPurview_Others" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RndPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BigClass_Dept">
+          <Key>
+            <PropertyRef Name="BigClassID" />
+          </Key>
+          <Property Name="BigClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BigClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsWithin" Type="Boolean" />
+          <Property Name="IsCount" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BigClass_New">
+          <Key>
+            <PropertyRef Name="BigClassID" />
+          </Key>
+          <Property Name="BigClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassNumber" Type="Int32" />
+          <Property Name="BigClassName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="ClassType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Cdelink_Config">
+          <Key>
+            <PropertyRef Name="SetupID" />
+            <PropertyRef Name="SiteName" />
+            <PropertyRef Name="ImagePath" />
+          </Key>
+          <Property Name="SetupID" Type="Int32" Nullable="false" />
+          <Property Name="SiteICP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SiteName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SiteStyle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SiteTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SiteDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SiteKeys" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Customer" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserPhone" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserAdd" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserOicq" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserCard" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WaterMark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Settings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThemeTitle" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SoftInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UploadExt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SiteLang" Type="Byte" />
+          <Property Name="AboutInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HelpInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RegInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SiteJpeg" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FilterStr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SmallClass_Article">
+          <Key>
+            <PropertyRef Name="SmallClassID" />
+          </Key>
+          <Property Name="SmallClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SmallClassName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="SmallClassNumber" Type="Int32" />
+          <Property Name="BigClassName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="BigClassNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="BigClassID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sxr">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserOrder" Type="Int32" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCard" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="CaseNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CaseBiaodi" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Adds" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserPic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserState" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Tj_Room">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoomOrder" Type="Int32" />
+          <Property Name="RoomName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RoomState" Type="Boolean" />
+          <Property Name="RoomPic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserComment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="PJType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CommentDate" Type="DateTime" Precision="0" />
+          <Property Name="caseTypes" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aboutuszxb" EntityType="Self.Aboutuszxb" />
+          <EntitySet Name="AdminMessage" EntityType="Self.AdminMessage" />
+          <EntitySet Name="Cdelinknews" EntityType="Self.Cdelinknews" />
+          <EntitySet Name="dtproperties" EntityType="Self.dtproperties" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" />
+          <EntitySet Name="BigClass_Dept" EntityType="Self.BigClass_Dept" />
+          <EntitySet Name="BigClass_New" EntityType="Self.BigClass_New" />
+          <EntitySet Name="Cdelink_Config" EntityType="Self.Cdelink_Config" />
+          <EntitySet Name="SmallClass_Article" EntityType="Self.SmallClass_Article" />
+          <EntitySet Name="Sxr" EntityType="Self.Sxr" />
+          <EntitySet Name="Tj_Room" EntityType="Self.Tj_Room" />
+          <EntitySet Name="UserComment" EntityType="Self.UserComment" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ssfw_sn_ajqfyModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Aboutuszxb">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Aboutuszxb">
+              <MappingFragment StoreEntitySet="Aboutuszxb">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Aboutusorder" ColumnName="Aboutusorder" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminMessage">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.AdminMessage">
+              <MappingFragment StoreEntitySet="AdminMessage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="MsgType" ColumnName="MsgType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cdelinknews">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Cdelinknews">
+              <MappingFragment StoreEntitySet="Cdelinknews">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Highlight" ColumnName="Highlight" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="PageKeywords" ColumnName="PageKeywords" />
+                <ScalarProperty Name="BigClassID" ColumnName="BigClassID" />
+                <ScalarProperty Name="SmallClassID" ColumnName="SmallClassID" />
+                <ScalarProperty Name="BigClassName" ColumnName="BigClassName" />
+                <ScalarProperty Name="BigClassNumber" ColumnName="BigClassNumber" />
+                <ScalarProperty Name="SmallClassName" ColumnName="SmallClassName" />
+                <ScalarProperty Name="SmallClassNumber" ColumnName="SmallClassNumber" />
+                <ScalarProperty Name="FirstImageName" ColumnName="FirstImageName" />
+                <ScalarProperty Name="ArticleSource" ColumnName="ArticleSource" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="QtUser" ColumnName="QtUser" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="IsLogin" ColumnName="IsLogin" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Hits" ColumnName="Hits" />
+                <ScalarProperty Name="Ok" ColumnName="Ok" />
+                <ScalarProperty Name="Recommended" ColumnName="Recommended" />
+                <ScalarProperty Name="IsCount" ColumnName="IsCount" />
+                <ScalarProperty Name="IsTop" ColumnName="IsTop" />
+                <ScalarProperty Name="ArticleType" ColumnName="ArticleType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dtproperties">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.dtproperties">
+              <MappingFragment StoreEntitySet="dtproperties">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="objectid" ColumnName="objectid" />
+                <ScalarProperty Name="property" ColumnName="property" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="uvalue" ColumnName="uvalue" />
+                <ScalarProperty Name="lvalue" ColumnName="lvalue" />
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="UserPic" ColumnName="UserPic" />
+                <ScalarProperty Name="Dept" ColumnName="Dept" />
+                <ScalarProperty Name="IsTLeader" ColumnName="IsTLeader" />
+                <ScalarProperty Name="IsYLeader" ColumnName="IsYLeader" />
+                <ScalarProperty Name="IsComment" ColumnName="IsComment" />
+                <ScalarProperty Name="Job" ColumnName="Job" />
+                <ScalarProperty Name="DeptOrder" ColumnName="DeptOrder" />
+                <ScalarProperty Name="UserOrder" ColumnName="UserOrder" />
+                <ScalarProperty Name="LockUser" ColumnName="LockUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Purview" ColumnName="Purview" />
+                <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="LastLogoutTime" ColumnName="LastLogoutTime" />
+                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+                <ScalarProperty Name="AdminPurview_Article" ColumnName="AdminPurview_Article" />
+                <ScalarProperty Name="AdminPurview_Soft" ColumnName="AdminPurview_Soft" />
+                <ScalarProperty Name="AdminPurview_Photo" ColumnName="AdminPurview_Photo" />
+                <ScalarProperty Name="AdminPurview_Guest" ColumnName="AdminPurview_Guest" />
+                <ScalarProperty Name="AdminPurview_Others" ColumnName="AdminPurview_Others" />
+                <ScalarProperty Name="RndPassword" ColumnName="RndPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BigClass_Dept">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.BigClass_Dept">
+              <MappingFragment StoreEntitySet="BigClass_Dept">
+                <ScalarProperty Name="BigClassID" ColumnName="BigClassID" />
+                <ScalarProperty Name="BigClassName" ColumnName="BigClassName" />
+                <ScalarProperty Name="IsWithin" ColumnName="IsWithin" />
+                <ScalarProperty Name="IsCount" ColumnName="IsCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BigClass_New">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.BigClass_New">
+              <MappingFragment StoreEntitySet="BigClass_New">
+                <ScalarProperty Name="BigClassID" ColumnName="BigClassID" />
+                <ScalarProperty Name="ClassNumber" ColumnName="ClassNumber" />
+                <ScalarProperty Name="BigClassName" ColumnName="BigClassName" />
+                <ScalarProperty Name="ClassType" ColumnName="ClassType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cdelink_Config">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Cdelink_Config">
+              <MappingFragment StoreEntitySet="Cdelink_Config">
+                <ScalarProperty Name="SetupID" ColumnName="SetupID" />
+                <ScalarProperty Name="SiteICP" ColumnName="SiteICP" />
+                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+                <ScalarProperty Name="SiteUrl" ColumnName="SiteUrl" />
+                <ScalarProperty Name="SiteStyle" ColumnName="SiteStyle" />
+                <ScalarProperty Name="SiteTitle" ColumnName="SiteTitle" />
+                <ScalarProperty Name="SiteDesc" ColumnName="SiteDesc" />
+                <ScalarProperty Name="SiteKeys" ColumnName="SiteKeys" />
+                <ScalarProperty Name="CompName" ColumnName="CompName" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
+                <ScalarProperty Name="UserAdd" ColumnName="UserAdd" />
+                <ScalarProperty Name="UserOicq" ColumnName="UserOicq" />
+                <ScalarProperty Name="UserCard" ColumnName="UserCard" />
+                <ScalarProperty Name="WaterMark" ColumnName="WaterMark" />
+                <ScalarProperty Name="Settings" ColumnName="Settings" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="ThemeTitle" ColumnName="ThemeTitle" />
+                <ScalarProperty Name="SoftInfo" ColumnName="SoftInfo" />
+                <ScalarProperty Name="UploadExt" ColumnName="UploadExt" />
+                <ScalarProperty Name="SiteLang" ColumnName="SiteLang" />
+                <ScalarProperty Name="AboutInfo" ColumnName="AboutInfo" />
+                <ScalarProperty Name="HelpInfo" ColumnName="HelpInfo" />
+                <ScalarProperty Name="RegInfo" ColumnName="RegInfo" />
+                <ScalarProperty Name="SiteJpeg" ColumnName="SiteJpeg" />
+                <ScalarProperty Name="FilterStr" ColumnName="FilterStr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SmallClass_Article">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.SmallClass_Article">
+              <MappingFragment StoreEntitySet="SmallClass_Article">
+                <ScalarProperty Name="SmallClassID" ColumnName="SmallClassID" />
+                <ScalarProperty Name="SmallClassName" ColumnName="SmallClassName" />
+                <ScalarProperty Name="SmallClassNumber" ColumnName="SmallClassNumber" />
+                <ScalarProperty Name="BigClassName" ColumnName="BigClassName" />
+                <ScalarProperty Name="BigClassNumber" ColumnName="BigClassNumber" />
+                <ScalarProperty Name="BigClassID" ColumnName="BigClassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sxr">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Sxr">
+              <MappingFragment StoreEntitySet="Sxr">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserOrder" ColumnName="UserOrder" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
+                <ScalarProperty Name="CaseNum" ColumnName="CaseNum" />
+                <ScalarProperty Name="CaseBiaodi" ColumnName="CaseBiaodi" />
+                <ScalarProperty Name="Adds" ColumnName="Adds" />
+                <ScalarProperty Name="UserPic" ColumnName="UserPic" />
+                <ScalarProperty Name="UserState" ColumnName="UserState" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tj_Room">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Tj_Room">
+              <MappingFragment StoreEntitySet="Tj_Room">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RoomOrder" ColumnName="RoomOrder" />
+                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+                <ScalarProperty Name="RoomPic" ColumnName="RoomPic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserComment">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.UserComment">
+              <MappingFragment StoreEntitySet="UserComment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PJType" ColumnName="PJType" />
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+                <ScalarProperty Name="caseTypes" ColumnName="caseTypes" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
