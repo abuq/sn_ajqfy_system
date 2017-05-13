@@ -1,0 +1,136 @@
+﻿
+
+
+@using EFModels;
+@model Sxr
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">编辑失信人</h4>
+        </div>
+        <!--主体内容-->
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" id="editFrom">
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <input type="hidden" name="UserOrder" value="@Model.UserOrder" />
+                <input type="hidden" name="UserState" value="@Model.UserState" />
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">姓名</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入姓名" name="RealName" value="@Model.RealName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">失信人身份证号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入失信人身份证号" name="IDCard" value="@Model.IDCard">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">执行案号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入执行案号" name="CaseNum" value="@Model.CaseNum">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">执行标的</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入执行标的" name="CaseBiaodi" value="@Model.CaseBiaodi">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">住址</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入住址" name="Adds" value="@Model.Adds">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">上传图片</label>
+                    <div class="col-sm-10" id="UserPic"> </div>
+                    <input type="hidden" name="UserPic" value="@Model.UserPic" />
+                </div>
+            </form>
+        </div>
+        <!--主体内容-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="ok" type="button" class="btn btn-primary">确认提交</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var picture = new upload();
+        picture.create("UserPic", { height: 120, width: 100 });
+
+        var modal = new myBootstarp();
+        //添加操作
+        $('#ok').on("click", function () {
+            var bootstrapValidator = $("#editFrom").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            var res = bootstrapValidator.isValid();
+            if (res) {//验证通过
+                var UserPic = $('#UserPic').next().val();
+                if (UserPic.length == 0) return modal.alert("请上传失信人照片");
+                modal.Ajax("/Admin/Sxr/Update", $("#editFrom").serialize(), function (r) {
+                    modal.alert("编辑成功");
+                    $('#Sxr').datagrid('reload');
+                    modal.hideModal();
+                });
+            }
+        });
+
+        //表单验证
+        $('#editFrom').bootstrapValidator({
+            live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                RealName: {
+                    validators: {
+                        notEmpty: {
+                            message: '姓名不能为空'
+                        }
+                    }
+                },
+                IDCard: {
+                    validators: {
+                        notEmpty: {
+                            message: '身份证号不能为空'
+                        },
+                        regexp: {
+                            regexp: /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/,
+                            message: '身份证号格式错误'
+                        },
+                    }
+                },
+                CaseNum: {
+                    validators: {
+                        notEmpty: {
+                            message: '执行案号不能为空'
+                        }
+                    }
+                },
+                CaseBiaodi: {
+                    validators: {
+                        notEmpty: {
+                            message: '执行标的不能为空'
+                        }
+                    }
+                },
+                Adds: {
+                    validators: {
+                        notEmpty: {
+                            message: '住址不能为空'
+                        }
+                    }
+                },
+            }
+        });
+    });
+</script>

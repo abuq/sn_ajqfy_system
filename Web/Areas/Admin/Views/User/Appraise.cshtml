@@ -1,0 +1,67 @@
+﻿
+<!--查看评论视图-->
+
+<div class="modal-dialog">
+    <div class="modal-content" style="width:600px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">查看评论</h4>
+        </div>
+        <!--主体内容-->
+        <div class="modal-body" style="width:600px;height:400px;">
+                <table id="Appraise"></table>
+                <div id="Appraise_toolbar" style="padding:8px;">
+
+                </div>
+        </div>  
+        <!--主体内容-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        /*!
+         * method:法官评论数据列表(datagrid)的绑定
+         */
+        $('#Appraise').datagrid({
+            fit:true,
+            url: '/Admin/User/AppraiseList',
+            toolbar: $('#Appraise_toolbar'),
+            //rownumbers: true,
+            fitColumns: true,
+            striped: true,
+            pagination: true,
+            pageSize:10,
+            queryParams: {
+                iUserId:'@Model'
+            },
+            loadMsg: "正在加载...",
+            columns: [[
+                { field: '', checkbox: true, },
+                {
+                    field: 'PJType', title: '满意程度', align: 'center', sortable: true, width: 80, formatter: function (value) {
+                        if (value == 1); return "<span style='color:green'>满意</span>";
+                        if (value == 2); return "<span style='color:blue'>一般</span>";
+                        if (value == 3); return "<span style='color:red'>不满意</span>";
+                    }
+                },
+                { field: 'Mobile', title: '评论人号码', align: 'center', sortable: true, width: 100 },
+                {
+                    field: 'caseTypes', title: '不满意的原因', align: 'center', sortable: true, width: 100, formatter: function (value) {
+                        if (value) return value;
+                        else return "--";
+                    }
+                },
+                { field: 'CommentDate', title: '评论时间', align: 'center', sortable: true, width: 120 },
+            ]],
+            onLoadSuccess: function () {
+            }
+        });
+
+
+
+    });
+</script>

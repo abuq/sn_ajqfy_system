@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "管理失信人";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
+}
+<script src="~/Scripts/mylib/myboot.js"></script>
+<script src="~/Scripts/plug-in/picture/upload.js"></script>
+<table id="Sxr"></table>
+<div id="Sxr_toolbar" style="padding:8px;">
+    <form id="search">
+        <button type="button" class="btn btn-success btn-sm Sxr_add">添加失信人</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm Sxr_cancel">删除失信人</button>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        var modal = new myBootstarp();
+
+        //添加操作
+        $('.Sxr_add').on("click", function () {
+            modal.creatModal("/Admin/Sxr/Add");
+        });
+
+        //编辑操作
+        function sxrUpdate(ID) {
+            modal.creatModal("/Admin/Sxr/Edit?iSxrId=" + ID);
+        }
+
+        //删除操作
+        $('.Sxr_cancel').on("click", function () {
+            var selected = $('#Sxr').datagrid('getSelections');
+            if (selected.length > 0) {
+                var array = [];
+                $(selected).each(function () {
+                    array.push(this.ID);
+                });
+                modal.Ajax("/Admin/Sxr/Cancel", { Ids: array.join() }, function (r) {
+                    $('#Sxr').datagrid("reload");
+                    alert("删除成功");
+                });
+            }
+            else {
+                alert("请选择一条数据进行操作!");
+            }
+        });
+
+        /*!
+        * method:失信人数据列表(datagrid)的绑定
+        */
+        $('#Sxr').datagrid({
+            fit:true,
+            url: '/Admin/Sxr/List',
+            toolbar: $('#Sxr_toolbar'),
+            fitColumns:true,
+            rownumbers:true,
+            striped: true,
+            pagination: true,
+            pageSize:10,
+            loadMsg: "正在加载...",
+            columns: [[
+                { field: '', checkbox: true, },
+                {
+                    field: 'UserPic', title: '照片', align: 'center', width:80,sortable:true, formatter: function (value) {
+                        return '<img src="' + value + '" style="height:100px;width:80px;" />';
+                    }
+                },
+                { field: 'RealName', title: '姓名/名称', align: 'center', sortable: true, width: 80 },
+                { field: 'IDCard', title: '失信人身份证号', align: 'center', sortable: true, width: 120 },
+                { field: 'CaseNum', title: '执行案号', align: 'center', sortable: true, width: 120 },
+                { field: 'CaseBiaodi', title: '执行标的', align: 'center', sortable: true, width: 120 },
+                { field: 'Adds', title: '住址', align: 'center', sortable: true, width: 150 },
+                { field: 'UserOrder', title: '排序号', align: 'center', sortable: true, width: 60 },
+                {
+                    field: 'ID', title: '操作', align: 'center', width: 100, formatter: function (value) {
+                        return ('<button type="button" class="btn btn-info btn-sm sxr_edit" data-id="' + value + '">编 辑</button>&nbsp&nbsp');
+                    }
+                },
+            ]],
+            onLoadSuccess: function () {
+                $('.sxr_edit').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    sxrUpdate(ID);
+                });
+            }
+        });
+    });
+
+</script>

@@ -21,6 +21,37 @@ namespace Web.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        public ActionResult Edit(int ID)
+        {
+            return View(manage.Get(ID));
+        }
+
+        /// <summary>
+        ///  查看评价
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public ActionResult Appraise(int iUserId)
+        {
+            return View(iUserId);
+        }
+
+        /// <summary>
+        /// 分页获取法官评价列表
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public ActionResult AppraiseList(PageInfo info,int iUserId)
+        {
+            return Content(C_Json.toJson(manage.AppraiseList(info, iUserId)));
+        }
+
+
         /// <summary>
         /// 获取法官的数据列表
         /// </summary>
@@ -37,6 +68,7 @@ namespace Web.Areas.Admin.Controllers
         /// <param name="user"></param>
         public void Insert(User user)
         {
+            user.UserType = 1;
             if (manage.Add(user) > 0)
                 result.success = true;
         }

@@ -48,5 +48,68 @@ namespace Sevices
 
             }
         }
+
+        /// <summary>
+        /// 根据ID获取失信人
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public Sxr Get(int ID)
+        {
+            using (var db = new Entities())
+            {
+                var sxr = db.Sxr.Find(ID);
+                return sxr;
+            }
+        }
+
+        /// <summary>
+        /// 添加失信人
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public int Add(Sxr sxr)
+        {
+            using (var db = new Entities())
+            {
+                sxr.UserState = true;
+                db.Sxr.Add(sxr);
+                return db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// 编辑失信人
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public int Edit(Sxr sxr)
+        {
+            using (var db = new Entities())
+            {
+                db.Entry<Sxr>(sxr).State = System.Data.Entity.EntityState.Modified;
+                return db.SaveChanges();
+            }
+        }
+
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public int Cancel(List<int> Ids)
+        {
+            using (var db = new Entities())
+            {
+
+                var sxrList = db.Sxr.Where(m => Ids.Contains(m.ID));
+                foreach (var sxr in sxrList)
+                {
+                    db.Entry<Sxr>(sxr).State = System.Data.Entity.EntityState.Deleted;
+                }
+                return db.SaveChanges();
+            }
+        }
     }
 }

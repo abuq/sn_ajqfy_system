@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "调解室管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
+}
+<script src="~/Scripts/mylib/myboot.js"></script>
+<script src="~/Scripts/plug-in/picture/upload.js"></script>
+<table id="TjRoom"></table>
+<div id="TjRoom_toolbar" style="padding:8px;">
+    <form id="search">
+        <button type="button" class="btn btn-success btn-sm TjRoom_add">添加调解室</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm TjRoom_cancel">删除调解室</button>&nbsp;&nbsp;&nbsp;
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        var modal = new myBootstarp();
+
+        //添加操作
+        $('.TjRoom_add').on("click", function () {
+             modal.creatModal("/Admin/TjRoom/Add");
+        });
+
+        //编辑操作
+        function tjroomUpdate(ID) {
+            modal.creatModal("/Admin/TjRoom/Edit?iRoomId=" + ID);
+        }
+
+        //删除操作
+        $('.TjRoom_cancel').on("click", function () {
+            var selected = $('#TjRoom').datagrid('getSelections');
+            if (selected.length>0) {
+                var array = [];
+                $(selected).each(function () {
+                    array.push(this.ID);
+                });
+                modal.Ajax("/Admin/TjRoom/Cancel", { Ids: array.join() }, function (r) {
+                    $('#TjRoom').datagrid("reload");
+                    alert("删除成功");
+                });
+            }
+            else {
+                alert("请选择一条数据进行操作!");
+            }
+        });
+
+        /*!
+        * method:调解室数据列表(datagrid)的绑定
+        */
+        $('#TjRoom').datagrid({
+            fit:true,
+            url: '/Admin/TjRoom/List',
+            toolbar: $('#TjRoom_toolbar'),
+            fitColumns:true,
+            rownumbers:true,
+            striped: true,
+            pagination: true,
+            pageSize:10,
+            loadMsg: "正在加载...",
+            columns: [[
+                { field: 'ID', title: '调解室ID', align: 'center', sortable: true, width: 80 },
+                { field: 'RoomName', title: '调解室名称', align: 'center', sortable: true, width: 120 },
+                {
+                    field: 'RoomState', title: '状态', align: 'center', sortable: true, width: 80, formatter: function (value) {
+                        if (value) return "<span style='color:red'>使用中</span>";
+                        else return "<span style='color:green'>空闲中</span>";
+                    }
+                },
+                { field: 'RoomOrder', title: '调解室排序', align: 'center', sortable: true, width: 80 },
+                {
+                    field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value,rows) {
+                        return ('<button type="button" class="btn btn-info btn-sm tjroom_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                    }
+                },
+            ]],
+            onLoadSuccess: function () {
+                $('.tjroom_edit').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    tjroomUpdate(ID);
+                });
+            }
+        });
+    });
+
+</script>

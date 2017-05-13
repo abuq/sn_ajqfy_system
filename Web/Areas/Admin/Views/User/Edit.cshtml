@@ -1,0 +1,152 @@
+﻿
+@using EFModels
+@model User
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">编辑法官</h4>
+        </div>
+        <!--主体内容-->
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" id="editFrom">
+                <input  type="hidden" name="ID" value="@Model.ID"/>
+                <input type="hidden" name="Fax" value="@Model.Fax" />
+                <input type="hidden" name="Phone" value="@Model.Phone" />
+                <input type="hidden" name="LockUser" value="@Model.LockUser" />
+                <input type="hidden" name="IsComment" value="@Model.IsComment" />
+                <input type="hidden" name="IsTLeader" value="@Model.IsTLeader" />
+                <input type="hidden" name="IsYLeader" value="@Model.IsYLeader" />
+                <input type="hidden" name="UserType" value="@Model.UserType" />
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">姓名</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="RealName" placeholder="请输入姓名" value="@Model.RealName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">部门</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="Dept" placeholder="请输入部门" value="@Model.Dept">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">职务</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="Job" placeholder="请输入职务" value="@Model.Job">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">手机</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="Mobile" placeholder="请输入手机" value="@Model.Mobile">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">部门序号</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" name="DeptOrder" placeholder="请输入部门序号" value="@Model.DeptOrder">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">人员序号</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" name="UserOrder"  placeholder="请输入人员序号" value="@Model.UserOrder">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">上传图片</label>
+                    <div class="col-sm-10" id="UserPic"> </div>
+                    <input type="hidden" name="UserPic" value="@Model.UserPic" />
+                </div>
+            </form>
+        </div>
+        <!--主体内容-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="ok" type="button" class="btn btn-primary">确认提交</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var picture = new upload();
+        picture.create("UserPic", { height: 120, width: 100 });
+
+        var modal = new myBootstarp();
+        //添加操作
+        $('#ok').on("click", function () {
+            var bootstrapValidator = $("#editFrom").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            var res = bootstrapValidator.isValid();
+            if (res) {//验证通过
+                var UserPic = $('#UserPic').next().val();
+                if (UserPic.length == 0) return modal.alert("请上传本人图片");
+                modal.Ajax("/Admin/User/Update", $("#editFrom").serialize(), function (r) {
+                    modal.alert("编辑成功");
+                    $('#User').datagrid('reload');
+                    modal.hideModal();
+                });
+            }
+        });
+
+        //表单验证
+        $('#editFrom').bootstrapValidator({
+            live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                RealName: {
+                    validators: {
+                        notEmpty: {
+                            message: '姓名不能为空'
+                        }
+                    }
+                },
+                Dept: {
+                    validators: {
+                        notEmpty: {
+                            message: '部门不能为空'
+                        }
+                    }
+                },
+                Job: {
+                    validators: {
+                        notEmpty: {
+                            message: '职务不能为空'
+                        }
+                    }
+                },
+                Mobile: {
+                    validators: {
+                        notEmpty: {
+                            message: '手机号码不能为空'
+                        },
+                        regexp: {
+                            regexp: /^((13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8})*$/,
+                            message: '手机号码格式错误'
+                        },
+                    }
+                },
+                DeptOrder: {
+                    validators: {
+                        notEmpty: {
+                            message: '部门序号不能为空且只能为数字'
+                        }
+                    }
+                },
+                UserOrder: {
+                    validators: {
+                        notEmpty: {
+                            message: '人员序号不能为空且只能为数字'
+                        }
+                    }
+                },
+            }
+        });
+    });
+</script>

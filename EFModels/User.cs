@@ -29,5 +29,6 @@ namespace EFModels
         public Nullable<int> DeptOrder { get; set; }
         public Nullable<int> UserOrder { get; set; }
         public Nullable<bool> LockUser { get; set; }
+        public string UserIntroduce { get; set; }
     }
 }
