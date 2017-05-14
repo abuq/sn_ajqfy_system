@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace Sevices
 {
     /// <summary>
-    /// 调解室相关业务
+    /// 法庭管理相关业务
     /// </summary>
-    public class Tj_RoomManage
+    public class LawsManage
     {
         /// <summary>
-        /// 分页获取调解室相关数据
+        /// 分页获取法庭相关数据
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
@@ -23,19 +23,19 @@ namespace Sevices
             using (var db = new Entities())
             {
                 int total = 0;
-                var query = db.Tj_Room.OrderByDescending(m=>m.ID);
-                if (!string.IsNullOrEmpty(searchText))
-                    query = query.Where(m => m.RoomName.Contains(searchText)).OrderByDescending(m => m.ID);
+                var query = db.Laws.OrderByDescending(m=>m.ID);
+                if(!string.IsNullOrEmpty(searchText))
+                    query=query.Where(m=>m.sLawName.Contains(searchText)).OrderByDescending(m => m.ID);
                 if (query.Count() > 0)
-                { 
+                {
                     if (info.order == OrderType.ASC)
                     {
                         switch (info.sort)
                         {
-                            case "ID":query = query.OrderBy(m => m.ID);break;
-                            case "RoomName": query = query.OrderBy(m => m.RoomName); break;
-                            case "RoomState": query = query.OrderBy(m => m.RoomState); break;
-                            case "RoomOrder": query = query.OrderBy(m => m.RoomOrder); break;
+                            case "ID": query = query.OrderBy(m => m.ID); break;
+                            case "sLawName": query = query.OrderBy(m => m.sLawName); break;
+                            case "bLawState": query = query.OrderBy(m => m.bLawState); break;
+                            case "iLawOrder": query = query.OrderBy(m => m.iLawOrder); break;
                         }
                     }
                     else
@@ -43,9 +43,9 @@ namespace Sevices
                         switch (info.sort)
                         {
                             case "ID": query = query.OrderByDescending(m => m.ID); break;
-                            case "RoomName": query = query.OrderByDescending(m => m.RoomName); break;
-                            case "RoomState": query = query.OrderByDescending(m => m.RoomState); break;
-                            case "RoomOrder": query = query.OrderByDescending(m => m.RoomOrder); break;
+                            case "sLawName": query = query.OrderByDescending(m => m.sLawName); break;
+                            case "bLawState": query = query.OrderByDescending(m => m.bLawState); break;
+                            case "iLawOrder": query = query.OrderByDescending(m => m.iLawOrder); break;
                         }
                     }
                     total = query.Count();
@@ -71,76 +71,80 @@ namespace Sevices
         }
 
         /// <summary>
-        /// 检查同名的调解室
+        /// 检查同名的法庭
         /// </summary>
         /// <param name="RoomName"></param>
         /// <returns></returns>
-        public bool check(string RoomName)
-        {
-            using (var db=new Entities())
-            {
-                return db.Tj_Room.Any(m => m.RoomName == RoomName);
-            }
-        }
-
-        /// <summary>
-        /// 检查同名的调解室
-        /// </summary>
-        /// <param name="RoomName"></param>
-        /// <returns></returns>
-        public bool checkUpdate(string RoomName,int ID)
+        public bool check(string sLawName)
         {
             using (var db = new Entities())
             {
-                return db.Tj_Room.Any(m => m.RoomName == RoomName && m.ID != ID);
+                return db.Laws.Any(m => m.sLawName == sLawName);
             }
         }
 
         /// <summary>
-        /// 根据ID获取调解室
+        /// 检查同名的法庭
+        /// </summary>
+        /// <param name="RoomName"></param>
+        /// <returns></returns>
+        public bool checkUpdate(string sLawName,int ID)
+        {
+            using (var db = new Entities())
+            {
+                return db.Laws.Any(m => m.sLawName == sLawName && m.ID != ID);
+            }
+        }
+
+        /// <summary>
+        /// 根据ID获取法庭
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public Tj_Room Get(int ID)
+        public Laws Get(int ID)
         {
             using (var db = new Entities())
             {
-                var sxr = db.Tj_Room.Find(ID);
-                return sxr;
+                var law = db.Laws.Find(ID);
+                return law;
             }
         }
 
         /// <summary>
-        /// 添加调解室
+        /// 添加法庭
         /// </summary>
-        /// <param name="room"></param>
+        /// <param name="law"></param>
         /// <returns></returns>
-        public int Add(Tj_Room room)
+        public int Add(Laws law)
         {
             using (var db = new Entities())
             {
-                db.Tj_Room.Add(room);
+                if (law.sLawPicture == null)
+                    law.sLawPicture = string.Empty;
+                db.Laws.Add(law);
                 return db.SaveChanges();
             }
         }
 
         /// <summary>
-        /// 编辑调解室
+        /// 编辑法庭
         /// </summary>
-        /// <param name="room"></param>
+        /// <param name="law"></param>
         /// <returns></returns>
-        public int Edit(Tj_Room room)
+        public int Edit(Laws law)
         {
             using (var db = new Entities())
             {
-                db.Entry<Tj_Room>(room).State = System.Data.Entity.EntityState.Modified;
+                if (law.sLawPicture == null)
+                    law.sLawPicture = string.Empty;
+                db.Entry<Laws>(law).State = System.Data.Entity.EntityState.Modified;
                 return db.SaveChanges();
             }
         }
 
 
         /// <summary>
-        /// 删除调解室
+        /// 删除法庭
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -148,10 +152,10 @@ namespace Sevices
         {
             using (var db = new Entities())
             {
-                var roomList = db.Tj_Room.Where(m => Ids.Contains(m.ID));
-                foreach (var room in roomList)
+                var lawList = db.Laws.Where(m => Ids.Contains(m.ID));
+                foreach (var law in lawList)
                 {
-                    db.Entry<Tj_Room>(room).State = System.Data.Entity.EntityState.Deleted;
+                    db.Entry<Laws>(law).State = System.Data.Entity.EntityState.Deleted;
                 }
                 return db.SaveChanges();
             }

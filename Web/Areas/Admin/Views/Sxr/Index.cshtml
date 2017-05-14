@@ -9,12 +9,27 @@
     <form id="search">
         <button type="button" class="btn btn-success btn-sm Sxr_add">添加失信人</button> &nbsp;
         <button type="button" class="btn btn-danger  btn-sm Sxr_cancel">删除失信人</button>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span>模糊查询:</span><input type="text" class="form-control" placeholder="姓名/身份证号"
+                                 style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
+        <button type="button" class="btn btn-default  btn-sm searchText">查 询</button>
     </form>
 </div>
 <script type="text/javascript">
     $(function () {
 
         var modal = new myBootstarp();
+
+
+        //模糊查询
+        $('.searchText').on("click", function () {
+            var searchText = $('#search input').val();
+            $('#Sxr').datagrid({
+                queryParams: {
+                    searchText: searchText
+                }
+            });
+        });
 
         //添加操作
         $('.Sxr_add').on("click", function () {

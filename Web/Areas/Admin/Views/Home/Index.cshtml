@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string[] weekdays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
+    string week = weekdays[Convert.ToInt32(DateTime.Now.DayOfWeek)];
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,11 +26,10 @@
             height:100%;
         }
     </style>
-    
 </head>
 <body>
     <!--header-->
-    <div class="navbar navbar-default" id="navbar" style="height:5%">
+    <div class="navbar navbar-default" id="navbar">
         <div class="navbar-container" id="navbar-container">
             <div class="navbar-header pull-left">
                 <a href="#" class="navbar-brand">
@@ -37,21 +40,52 @@
                 </a>
             </div>
             <div class="navbar-header pull-right" role="navigation">
-                <ul class="nav ace-nav">
-                   
-                    <li class="purple">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="icon-bell-alt icon-animated-bell"></i>
-                            <span class="badge badge-important">8</span>
-                        </a>         
+                <ul class="nav ace-nav">   
+                    <li>
+                        <span style="color:white">@DateTime.Now.ToString("yyyy年MM月dd日") @week</span>      
                     </li>
-                    <li class="green">
+                    @*<li class="green">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-envelope icon-animated-vertical"></i>
                             <span class="badge badge-success">5</span>
                         </a>     
+                    </li>*@
+                    <li class="light-blue" style="border:none">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                            <img class="nav-user-photo" src="~/Areas/Admin/Content/assets/avatars/user.jpg" alt="Jason's Photo" />
+                            <span class="user-info">
+                                <small>欢迎光临</small>
+                                Jason
+                            </span>
+                            <i class="icon-caret-down"></i>
+                        </a>
+                        <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"
+                             style="top:100%">
+                            <li>
+                                <a href="#">
+                                    <i class="icon-cog"></i>
+                                    设置
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="icon-user"></i>
+                                    个人资料
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="#" class="quit">
+                                    <i class="icon-off"></i>
+                                    退出
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="light-blue">
+                    @*<li class="light-blue" style="border:none">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                             <img class="nav-user-photo" src="~/Areas/Admin/Content/assets/avatars/user.jpg" alt="Jason's Photo" />
                             <span class="user-info">
@@ -60,7 +94,7 @@
                             </span>
                             <i class="icon-caret-down"></i>
                         </a>    
-                    </li>
+                    </li>*@
                 </ul>
             </div>
         </div>
@@ -85,7 +119,7 @@
                     </li>
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="icon-desktop"></i>
+                            <i class="icon-text-width"></i>
                             <span class="menu-text">人员评价</span>
                             <b class="arrow icon-angle-down"></b>
                         </a>
@@ -101,7 +135,7 @@
 
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="icon-list"></i>
+                            <i class="icon-linkedin"></i>
                             <span class="menu-text">失信人管理</span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -117,7 +151,7 @@
                     </li>
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="icon-list"></i>
+                            <i class="icon-user-md"></i>
                             <span class="menu-text">开庭管理</span>
 
                             <b class="arrow icon-angle-down"></b>
@@ -126,14 +160,14 @@
                             <li>
                                 <a href="#">
                                     <i class="icon-double-angle-right"></i>
-                                    <span data-url="/Admin/Sxr/Index">开庭管理</span>
+                                    <span data-url="/Admin/Laws/Index">开庭管理</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="icon-list"></i>
+                            <i class="icon-file-text-alt"></i>
                             <span class="menu-text">调解管理</span>
                             <b class="arrow icon-angle-down"></b>
                         </a>
@@ -147,7 +181,7 @@
                             <li>
                                 <a href="#">
                                     <i class="icon-double-angle-right"></i>
-                                    <span data-url="/Admin/TjRoom/Index">调解案件管理</span>
+                                    <span data-url="/Admin/TjCase/Index">调解案件管理</span>
                                 </a>
                             </li>
                         </ul>
@@ -210,6 +244,25 @@
                     closable: true,
                 });
             }
+        });
+
+        $('.icon-caret-down').on("click", function () {
+            $(this).parent().next().toggle();
+        })
+
+        //退出
+        $('.quit').on("click", function () {
+            $.ajax({
+                url: "/Admin/User/Quit",
+                type: 'POST',
+                dataType: 'json',
+                success: function (r) {
+                    if (r.success)
+                        window.location.href = "/Admin/User/Login";
+                    else
+                        alert("退出失败");
+                }
+            });
         });
     });
 

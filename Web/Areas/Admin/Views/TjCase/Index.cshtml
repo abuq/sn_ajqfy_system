@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "调解案件管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
+}
+<script src="~/Scripts/mylib/myboot.js"></script>
+<script src="~/Scripts/plug-in/picture/upload.js"></script>
+<table id="TjCase"></table>
+<div id="TjCase_toolbar" style="padding:8px;">
+    <form id="search">
+        <button type="button" class="btn btn-success btn-sm TjCase_add">添加案件</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm TjCase_cancel">删除案件</button>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span>模糊查询:</span><input type="text" class="form-control" placeholder="调解室/案件名称/调解员"
+                                 style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
+        <button type="button" class="btn btn-default  btn-sm searchText">查 询</button>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        var modal = new myBootstarp();
+
+        //模糊查询
+        $('.searchText').on("click", function () {
+            var searchText = $('#search input').val();
+            $('#TjCase').datagrid({
+                queryParams: {
+                    searchText: searchText
+                }
+            });
+        });
+
+        //添加操作
+        $('.TjCase_add').on("click", function () {
+             modal.creatModal("/Admin/TjCase/Add");
+        });
+
+        //编辑操作
+        function TjCaseUpdate(ID) {
+            modal.creatModal("/Admin/TjCase/Edit?iTjCaseId=" + ID);
+        }
+
+        //删除操作
+        $('.TjCase_cancel').on("click", function () {
+            var selected = $('#TjCase').datagrid('getSelections');
+            if (selected.length>0) {
+                var array = [];
+                $(selected).each(function () {
+                    array.push(this.ID);
+                });
+                modal.Ajax("/Admin/TjCase/Cancel", { Ids: array.join() }, function (r) {
+                    $('#TjCase').datagrid("reload");
+                    alert("删除成功");
+                });
+            }
+            else {
+                alert("请选择一条数据进行操作!");
+            }
+        });
+
+        /*!
+        * method:案件数据列表(datagrid)的绑定
+        */
+        $('#TjCase').datagrid({
+            fit:true,
+            url: '/Admin/TjCase/List',
+            toolbar: $('#TjCase_toolbar'),
+            fitColumns:true,
+            rownumbers:true,
+            striped: true,
+            pagination: true,
+            pageSize:20,
+            loadMsg: "正在加载...",
+            columns: [[
+                { field: 'ID', title: 'ID', align: 'center', sortable: true, width: 80 },
+                { field: 'sCaseName', title: '案件名称', align: 'center', sortable: true, width: 120 },
+                { field: 'RealName', title: '调解员', align: 'center', sortable: true, width: 80 },
+                { field: 'RoomName', title: '调解室', align: 'center', sortable: true, width: 80 },
+                { field: 'dInsertTime', title: '添加时间', align: 'center', sortable: true, width: 120 },
+                {
+                    field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value,rows) {
+                        return ('<button type="button" class="btn btn-info btn-sm TjCase_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                    }
+                },
+            ]],
+            onLoadSuccess: function () {
+                $('.TjCase_edit').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    TjCaseUpdate(ID);
+                });
+            }
+        });
+    });
+
+</script>

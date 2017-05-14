@@ -11,10 +11,10 @@ using Common;
 
 namespace Web.Areas.Admin.Controllers
 {
-    public class SxrController : AdminBase<SxrManage>
+    public class LawsController : AdminBase<LawsManage>
     {
         //
-        // GET: /Admin/Sxr/
+        // GET: /Admin/Laws/
 
         public ActionResult Index()
         {
@@ -26,13 +26,13 @@ namespace Web.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Edit(int iSxrId)
+        public ActionResult Edit(int iLawId)
         {
-            return View(manage.Get(iSxrId));
+            return View(manage.Get(iLawId));
         }
 
         /// <summary>
-        /// 获取失信人的数据列表
+        /// 获取法庭的数据列表
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
@@ -42,28 +42,42 @@ namespace Web.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// 添加失信人
+        /// 添加法庭
         /// </summary>
-        /// <param name="sxr"></param>
-        public void Insert(Sxr sxr)
+        /// <param name="law"></param>
+        public void Insert(Laws law)
         {
-            if (manage.Add(sxr) > 0)
-                result.success = true;
+            if (!manage.check(law.sLawName))
+            {
+                if (manage.Add(law) > 0)
+                    result.success = true;
+            }
+            else
+            {
+                result.info = string.Format("{0}法庭已存在,请重新命名", law.sLawName);
+            }
         }
 
 
         /// <summary>
-        /// 编辑失信人
+        /// 编辑法庭
         /// </summary>
-        /// <param name="sxr"></param>
-        public void Update(Sxr sxr)
+        /// <param name="law"></param>
+        public void Update(Laws law)
         {
-            if (manage.Edit(sxr) > 0)
-                result.success = true;
+            if (!manage.checkUpdate(law.sLawName,law.ID))
+            {
+                if (manage.Edit(law) > 0)
+                    result.success = true;
+            }
+            else
+            {
+                result.info = string.Format("{0}法庭已存在,请重新命名", law.sLawName);
+            }
         }
 
         /// <summary>
-        /// 删除失信人
+        /// 删除法庭
         /// </summary>
         /// <param name="Ids"></param>
         public void Cancel(string Ids)

@@ -1,32 +1,30 @@
 ﻿
-@using EFModels;
-@model Tj_Room
+
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">编辑调解室</h4>
+            <h4 class="modal-title" id="myModalLabel">添加法庭</h4>
         </div>
         <!--主体内容-->
         <div class="modal-body">
-            <form class="form-horizontal" role="form" id="editFrom">
-                <input type="hidden" name="ID" value="@Model.ID" />
+            <form class="form-horizontal" role="form" id="addFrom">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="请输入调解室名称" name="RoomName" value="@Model.RoomName">
+                        <input type="text" class="form-control" placeholder="请输入法庭名称" name="sLawName">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">排序</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" placeholder="请输入调解室排序"  name="RoomOrder" value="@Model.RoomOrder">
+                        <input type="number" class="form-control" placeholder="请输入法庭排序" name="iLawOrder">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">状态选择</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="RoomState" name="RoomState">
+                        <select class="form-control" id="bLawState" name="bLawState">
                             <option value="False">空闲中</option>
                             <option value="True">使用中</option>
                         </select>
@@ -34,13 +32,13 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">上传图片</label>
-                    <div class="col-sm-10" id="RoomPic"> </div>
-                    <input type="hidden" name="RoomPic" value="@Model.RoomPic" />
+                    <div class="col-sm-10" id="sLawPicture"></div>
+                    <input type="hidden" name="sLawPicture" value="" />
                 </div>
             </form>
         </div>
         <!--主体内容-->
-        <div class="modal-footer" style="padding:10px;">
+        <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             <button id="ok" type="button" class="btn btn-primary">确认提交</button>
         </div>
@@ -49,27 +47,24 @@
 <script type="text/javascript">
     $(function () {
         var picture = new upload();
-        picture.create("RoomPic", { height: 120, width: 120 });
-
-        $('#RoomState').val("@Model.RoomState.ToString()");
+        picture.create("sLawPicture", { height: 120, width: 120 });
 
         var modal = new myBootstarp();
-        //编辑操作
+        //添加操作
         $('#ok').on("click", function () {
-            var bootstrapValidator = $("#editFrom").data('bootstrapValidator');
+            var bootstrapValidator = $("#addFrom").data('bootstrapValidator');
             bootstrapValidator.validate();
             var res = bootstrapValidator.isValid();
             if (res) {//验证通过
-                modal.Ajax("/Admin/TjRoom/Update", $("#editFrom").serialize(), function (r) {
-                    modal.alert("编辑成功");
-                    $('#TjRoom').datagrid('reload');
+                modal.Ajax("/Admin/Laws/Insert", $("#addFrom").serialize(), function (r) {
+                    modal.alert("添加成功");
+                    $('#Laws').datagrid('reload');
                     modal.hideModal();
                 });
             }
         });
-
         //表单验证
-        $('#editFrom').bootstrapValidator({
+        $('#addFrom').bootstrapValidator({
             live: 'disabled',
             message: 'This value is not valid',
             feedbackIcons: {
@@ -78,17 +73,17 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                RoomName: {
+                sLawName: {
                     validators: {
                         notEmpty: {
-                            message: '调解室名称不能为空'
+                            message: '法庭名称不能为空'
                         }
                     }
                 },
-                RoomOrder: {
+                iLawOrder: {
                     validators: {
                         notEmpty: {
-                            message: '请输入调解室排序'
+                            message: '请输入法庭排序'
                         }
                     }
                 },
@@ -96,3 +91,4 @@
         });
     });
 </script>
+

@@ -23,10 +23,37 @@ namespace Sevices
             using (var db = new Entities())
             {
                 int total = 0;
-
                 var query = db.Sxr.OrderByDescending(m => m.ID);
+                if (!string.IsNullOrEmpty(searchText))
+                    query = query.Where(m => m.RealName.Contains(searchText) || m.IDCard.Contains(searchText)).OrderByDescending(m => m.ID);       
                 if (query.Count() > 0)
                 {
+                    if (info.order == OrderType.ASC)
+                    {
+                        switch (info.sort)
+                        {//排序
+                            case "UserPic": query = query.OrderBy(m => m.UserPic); break;
+                            case "RealName": query = query.OrderBy(m => m.RealName); break;
+                            case "IDCard": query = query.OrderBy(m => m.IDCard); break;
+                            case "CaseNum": query = query.OrderBy(m => m.CaseNum); break;
+                            case "CaseBiaodi": query = query.OrderBy(m => m.CaseBiaodi); break;
+                            case "Adds": query = query.OrderBy(m => m.Adds); break;
+                            case "UserOrder": query = query.OrderBy(m => m.UserOrder); break;
+                        }
+                    }
+                    else
+                    {
+                        switch (info.sort)
+                        {//排序
+                            case "UserPic": query = query.OrderByDescending(m => m.UserPic); break;
+                            case "RealName": query = query.OrderByDescending(m => m.RealName); break;
+                            case "IDCard": query = query.OrderByDescending(m => m.IDCard); break;
+                            case "CaseNum": query = query.OrderByDescending(m => m.CaseNum); break;
+                            case "CaseBiaodi": query = query.OrderByDescending(m => m.CaseBiaodi); break;
+                            case "Adds": query = query.OrderByDescending(m => m.Adds); break;
+                            case "UserOrder": query = query.OrderByDescending(m => m.UserOrder); break;
+                        }
+                    }
                     total = query.Count();
                     var row = query.Skip(info.rows * (info.page - 1)).Take(info.rows);
                     return new

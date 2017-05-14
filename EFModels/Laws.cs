@@ -17,7 +17,7 @@ namespace EFModels
         public int ID { get; set; }
         public string sLawName { get; set; }
         public bool bLawState { get; set; }
-        public int iLawState { get; set; }
+        public int iLawOrder { get; set; }
         public string sLawPicture { get; set; }
     }
 }

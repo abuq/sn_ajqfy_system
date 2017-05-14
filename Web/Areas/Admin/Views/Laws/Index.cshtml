@@ -1,16 +1,16 @@
 ﻿@{
-    ViewBag.Title = "调解室管理";
+    ViewBag.Title = "法庭管理";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
 }
 <script src="~/Scripts/mylib/myboot.js"></script>
 <script src="~/Scripts/plug-in/picture/upload.js"></script>
-<table id="TjRoom"></table>
-<div id="TjRoom_toolbar" style="padding:8px;">
+<table id="Laws"></table>
+<div id="Laws_toolbar" style="padding:8px;">
     <form id="search">
-        <button type="button" class="btn btn-success btn-sm TjRoom_add">添加调解室</button> &nbsp;
-        <button type="button" class="btn btn-danger  btn-sm TjRoom_cancel">删除调解室</button>
+        <button type="button" class="btn btn-success btn-sm laws_add">添加法庭</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm laws_cancel">删除法庭</button>
         &nbsp; &nbsp; &nbsp; &nbsp;
-        <span>模糊查询:</span><input type="text" class="form-control" placeholder="调解室名称"
+        <span>模糊查询:</span><input type="text" class="form-control" placeholder="法庭名称"
                                  style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
         <button type="button" class="btn btn-default  btn-sm searchText">查 询</button>
     </form>
@@ -23,7 +23,7 @@
         //模糊查询
         $('.searchText').on("click", function () {
             var searchText = $('#search input').val();
-            $('#TjRoom').datagrid({
+            $('#Laws').datagrid({
                 queryParams: {
                     searchText: searchText
                 }
@@ -31,25 +31,25 @@
         });
 
         //添加操作
-        $('.TjRoom_add').on("click", function () {
-             modal.creatModal("/Admin/TjRoom/Add");
+        $('.laws_add').on("click", function () {
+             modal.creatModal("/Admin/Laws/Add");
         });
 
         //编辑操作
-        function tjroomUpdate(ID) {
-            modal.creatModal("/Admin/TjRoom/Edit?iRoomId=" + ID);
+        function lawsUpdate(ID) {
+            modal.creatModal("/Admin/Laws/Edit?iLawId=" + ID);
         }
 
         //删除操作
-        $('.TjRoom_cancel').on("click", function () {
-            var selected = $('#TjRoom').datagrid('getSelections');
+        $('.laws_cancel').on("click", function () {
+            var selected = $('#Laws').datagrid('getSelections');
             if (selected.length>0) {
                 var array = [];
                 $(selected).each(function () {
                     array.push(this.ID);
                 });
-                modal.Ajax("/Admin/TjRoom/Cancel", { Ids: array.join() }, function (r) {
-                    $('#TjRoom').datagrid("reload");
+                modal.Ajax("/Admin/Laws/Cancel", { Ids: array.join() }, function (r) {
+                    $('#Laws').datagrid("reload");
                     alert("删除成功");
                 });
             }
@@ -59,12 +59,12 @@
         });
 
         /*!
-        * method:调解室数据列表(datagrid)的绑定
+        * method:法庭数据列表(datagrid)的绑定
         */
-        $('#TjRoom').datagrid({
+        $('#Laws').datagrid({
             fit:true,
-            url: '/Admin/TjRoom/List',
-            toolbar: $('#TjRoom_toolbar'),
+            url: '/Admin/Laws/List',
+            toolbar: $('#Laws_toolbar'),
             fitColumns:true,
             rownumbers:true,
             striped: true,
@@ -72,26 +72,26 @@
             pageSize:20,
             loadMsg: "正在加载...",
             columns: [[
-                { field: 'ID', title: '调解室ID', align: 'center', sortable: true, width: 80 },
-                { field: 'RoomName', title: '调解室名称', align: 'center', sortable: true, width: 120 },
+                { field: 'ID', title: '法庭ID', align: 'center', sortable: true, width: 80 },
+                { field: 'sLawName', title: '法庭名称', align: 'center', sortable: true, width: 120 },
                 {
-                    field: 'RoomState', title: '状态', align: 'center', sortable: true, width: 80, formatter: function (value) {
+                    field: 'bLawState', title: '状态', align: 'center', sortable: true, width: 80, formatter: function (value) {
                         if (value) return "<span style='color:red'>使用中</span>";
                         else return "<span style='color:green'>空闲中</span>";
                     }
                 },
-                { field: 'RoomOrder', title: '调解室排序', align: 'center', sortable: true, width: 80 },
+                { field: 'iLawOrder', title: '法庭排序', align: 'center', sortable: true, width: 80 },
                 {
                     field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value,rows) {
-                        return ('<button type="button" class="btn btn-info btn-sm tjroom_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                        return ('<button type="button" class="btn btn-info btn-sm Laws_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
                     }
                 },
             ]],
             onLoadSuccess: function () {
-                $('.tjroom_edit').on("click", function (event) {
+                $('.Laws_edit').on("click", function (event) {
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
-                    tjroomUpdate(ID);
+                    lawsUpdate(ID);
                 });
             }
         });

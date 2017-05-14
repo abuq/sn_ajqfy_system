@@ -133,6 +133,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TjCaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LawsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TjRoomController.cs" />
     <Compile Include="Areas\Admin\Controllers\SxrController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -1114,6 +1116,12 @@
     <Content Include="Areas\Admin\Content\bootstrapValidator\vendor\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Areas\Admin\Content\bootstrapValidator\vendor\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Areas\Admin\Content\bootstrapValidator\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\Admin\Views\Laws\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Laws\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Laws\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TjCase\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TjCase\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\TjCase\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\怡佳之城.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Images\nopic.jpg" />

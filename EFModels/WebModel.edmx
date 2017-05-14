@@ -152,7 +152,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sLawName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="bLawState" Type="bit" Nullable="false" />
-          <Property Name="iLawState" Type="int" Nullable="false" />
+          <Property Name="iLawOrder" Type="int" Nullable="false" />
           <Property Name="sLawPicture" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
@@ -206,7 +206,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iTjRoomId" Type="int" Nullable="false" />
           <Property Name="iUserId" Type="int" Nullable="false" />
           <Property Name="sCaseName" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -409,7 +409,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="sLawName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="bLawState" Type="Boolean" Nullable="false" />
-          <Property Name="iLawState" Type="Int32" Nullable="false" />
+          <Property Name="iLawOrder" Type="Int32" Nullable="false" />
           <Property Name="sLawPicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Sxr">
@@ -450,7 +450,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iTjRoomId" Type="Int32" Nullable="false" />
           <Property Name="iUserId" Type="Int32" Nullable="false" />
           <Property Name="sCaseName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
@@ -667,7 +667,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="sLawName" ColumnName="sLawName" />
                 <ScalarProperty Name="bLawState" ColumnName="bLawState" />
-                <ScalarProperty Name="iLawState" ColumnName="iLawState" />
+                <ScalarProperty Name="iLawOrder" ColumnName="iLawOrder" />
                 <ScalarProperty Name="sLawPicture" ColumnName="sLawPicture" />
               </MappingFragment>
             </EntityTypeMapping>

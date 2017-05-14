@@ -41,7 +41,7 @@ function myBootstarp() {
     function hideModal() {
         setTimeout(function () {
             $('#modalDialog').modal('hide');
-        },1200);
+        },1000);
     }
     
         /*

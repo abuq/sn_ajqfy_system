@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EFModels.MyModels;
+using Common;
 
 namespace Sevices
 {
@@ -26,7 +27,8 @@ namespace Sevices
             {
                 int total = 0;
                 var query = db.User.OrderByDescending(m => m.ID);
-             
+                if (!string.IsNullOrEmpty(searchText))
+                    query = query.Where(m => m.RealName.Contains(searchText)).OrderByDescending(m=>m.ID);
                 if (query.Count() > 0)
                 {
                     if (info.order == OrderType.ASC)
@@ -173,5 +175,22 @@ namespace Sevices
                 return db.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// 后台会员登录验证
+        /// </summary>
+        /// <param name="sAccount"></param>
+        /// <param name="sPassword"></param>
+        /// <returns></returns>
+        public Admin checkLogin(string sAccount, string sPassword)
+        {
+            using (var db=new Entities())
+            {
+                sPassword = C_Security.MD5(sPassword);
+                var admin = db.Admin.Where(m => m.Password == sPassword && m.UserName == sAccount).FirstOrDefault();
+                return admin;
+            }
+        }
+
     }
 }

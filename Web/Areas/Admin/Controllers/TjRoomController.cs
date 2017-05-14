@@ -36,9 +36,9 @@ namespace Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        public ActionResult List(PageInfo info)
+        public ActionResult List(PageInfo info,string searchText)
         {
-            return Content(C_Json.toJson(manage.List(info)));
+            return Content(C_Json.toJson(manage.List(info, searchText)));
         }
 
         /// <summary>
@@ -47,8 +47,13 @@ namespace Web.Areas.Admin.Controllers
         /// <param name="room"></param>
         public void Insert(Tj_Room room)
         {
-            if (manage.Add(room) > 0)
-                result.success = true;
+            if (!manage.check(room.RoomName))
+            {
+                if (manage.Add(room) > 0)
+                    result.success = true;
+            }
+            else
+                result.info = string.Format("{0}调解室已存在,请重新命名", room.RoomName);
         }
 
 
@@ -58,8 +63,13 @@ namespace Web.Areas.Admin.Controllers
         /// <param name="room"></param>
         public void Update(Tj_Room room)
         {
-            if (manage.Edit(room) > 0)
-                result.success = true;
+            if (!manage.checkUpdate(room.RoomName, room.ID))
+            {
+                if (manage.Edit(room) > 0)
+                    result.success = true;
+            }
+            else
+                result.info = string.Format("{0}调解室已存在,请重新命名", room.RoomName);
         }
 
         /// <summary>

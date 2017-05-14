@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TjCaseManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LawsManage.cs" />
     <Compile Include="Tj_RoomManage.cs" />
     <Compile Include="SxrManage.cs" />
     <Compile Include="UserManage.cs" />

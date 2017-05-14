@@ -25,38 +25,14 @@ namespace Web.Areas.Admin.Controllers
 
         #endregion
 
-        public ActionResult My404()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 登录过期提示页面
-        /// </summary>
-        /// <returns></returns>
-        [NoLogin]
-        public ActionResult Tip()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 登录
-        /// </summary>
-        /// <returns></returns>
-        [NoLogin]
-        public ActionResult Login()
-        {
-            return View();
-        }
-
+ 
         /// <summary>
         /// 后台用户登录
         /// </summary>
         /// <param name="sUserName"></param>
         /// <param name="sPassWord"></param>
         /// <returns></returns>
-        [NoLogin]
+       // [NoLogin]
         //public void CheckLogin(string sUserName, string sPassWord,string sImgCode)
         //{
         //    if (sImgCode == Session[SESSION.ImgCode].ToString())
@@ -93,20 +69,6 @@ namespace Web.Areas.Admin.Controllers
         //        result.info = "验证码错误!";
         //    }
         //}
-
-
-        /// <summary>
-        /// 清楚session 安全退出
-        /// </summary>
-        /// <returns></returns>
-        public void Quit()
-        {
-            Session.Remove(SESSION.AdminUser);
-            Session.Remove(SESSION.Button);
-            Session.Remove(SESSION.Menu);
-           // result.success = true;
-        }
-
      
 
       

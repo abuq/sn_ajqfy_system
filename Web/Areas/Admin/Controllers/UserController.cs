@@ -8,6 +8,7 @@ using Web.App_Start.BaseController;
 using Sevices;
 using EFModels;
 using Common;
+using Web.App_Start;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -57,9 +58,9 @@ namespace Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        public ActionResult List(PageInfo info)
+        public ActionResult List(PageInfo info,string searchText)
         {
-            return Content(C_Json.toJson(manage.List(info)));
+            return Content(C_Json.toJson(manage.List(info, searchText)));
         }
 
         /// <summary>
@@ -95,6 +96,44 @@ namespace Web.Areas.Admin.Controllers
             {
                 result.success = true;
             }
+        }
+
+        /// <summary>
+        /// 后台会员登录页面
+        /// </summary>
+        /// <returns></returns>
+        [NoLogin]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 后台会员登录
+        /// </summary>
+        /// <param name="sAccount"></param>
+        /// <param name="sPassword"></param>
+        /// <returns></returns>
+        [NoLogin]
+        public void checkLogin(string sAccount, string sPassword)
+        {
+            var admin = manage.checkLogin(sAccount, sPassword);
+            if (admin == null)
+            {
+                result.success = false;
+                result.info = "登录账号或密码错误";
+            }
+            else
+                result.success = true;
+        }
+
+        /// <summary>
+        /// 安全退出
+        /// </summary>
+        public void Quit()
+        {
+            Session.Remove(SESSION.AdminUser);
+            result.success = true;
         }
 
     }
