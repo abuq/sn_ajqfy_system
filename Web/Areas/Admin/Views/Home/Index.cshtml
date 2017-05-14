@@ -8,6 +8,7 @@
     <meta charset="utf-8" />
     <title>安居区法院后台管理系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <link rel="shortcut icon" href="~/Images/favicon/favicon.png" type="image/x-icon">
     <!--bootstrap引用-->
     <link href="~/Areas/Admin/Content/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Areas/Admin/Content/assets/css/font-awesome.min.css" rel="stylesheet" />
@@ -222,6 +223,7 @@
                         </div>
                     </div>
                 </div>
+                @*<div style="text-align:center;height:30px;">©2008-2017 www.cdelink.net, Inc. All rights reserved. 成都宜联科技有限责任公司</div>*@
             </div>
             <!--内容区域-->
         </div>
@@ -246,9 +248,19 @@
             }
         });
 
+        //绑定头像下拉菜单
         $('.icon-caret-down').on("click", function () {
             $(this).parent().next().toggle();
-        })
+        });
+
+        //绑定导航栏的控制
+        $('#sidebar-collapse').on("click", function () {
+            event.stopPropagation();
+            if ($('#sidebar').hasClass('menu-min'))
+                $('#sidebar').removeClass('menu-min');
+            else
+                $('#sidebar').addClass('menu-min');
+        });
 
         //退出
         $('.quit').on("click", function () {

@@ -1074,6 +1074,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Areas\Admin\Views\Web.config" />
@@ -1122,9 +1123,18 @@
     <Content Include="Areas\Admin\Views\TjCase\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TjCase\Add.cshtml" />
     <Content Include="Areas\Admin\Views\TjCase\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Login.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\怡佳之城.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Images\bootstrap.min.css" />
+    <Content Include="Images\favicon\favicon.png" />
+    <Content Include="Images\login.css" />
     <Content Include="Images\nopic.jpg" />
+    <Content Include="Images\qc.png" />
     <Content Include="plupload\rypj\banner.png" />
     <Content Include="plupload\rypj\cw.jpg" />
     <Content Include="plupload\rypj\hgp.jpg" />

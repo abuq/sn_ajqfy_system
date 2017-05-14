@@ -115,9 +115,9 @@ namespace Web.Areas.Admin.Controllers
         /// <param name="sPassword"></param>
         /// <returns></returns>
         [NoLogin]
-        public void checkLogin(string sAccount, string sPassword)
+        public void checkLogin(string UserName, string Password)
         {
-            var admin = manage.checkLogin(sAccount, sPassword);
+            var admin = manage.checkLogin(UserName, Password);
             if (admin == null)
             {
                 result.success = false;

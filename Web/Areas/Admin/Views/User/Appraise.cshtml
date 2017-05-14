@@ -11,11 +11,13 @@
         <div class="modal-body" style="width:600px;height:400px;">
                 <table id="Appraise"></table>
                 <div id="Appraise_toolbar" style="padding:8px;">
-
+                    <span id="manyi" style="color:green"></span>&nbsp;&nbsp;&nbsp;
+                    <span id="yiban" style="color:blue"></span>&nbsp;&nbsp;&nbsp;
+                    <span id="bumanyi"style="color:red"></span>
                 </div>
         </div>  
         <!--主体内容-->
-        <div class="modal-footer">
+        <div class="modal-footer" style="padding:10px;">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
         </div>
     </div>
@@ -43,9 +45,9 @@
                 { field: '', checkbox: true, },
                 {
                     field: 'PJType', title: '满意程度', align: 'center', sortable: true, width: 80, formatter: function (value) {
-                        if (value == 1); return "<span style='color:green'>满意</span>";
-                        if (value == 2); return "<span style='color:blue'>一般</span>";
-                        if (value == 3); return "<span style='color:red'>不满意</span>";
+                        if (value == 1) return "<span style='color:green'>满意</span>";
+                        if (value == 2) return "<span style='color:blue'>一般</span>";
+                        if (value == 3) return "<span style='color:red'>不满意</span>";
                     }
                 },
                 { field: 'Mobile', title: '评论人号码', align: 'center', sortable: true, width: 100 },
@@ -57,7 +59,11 @@
                 },
                 { field: 'CommentDate', title: '评论时间', align: 'center', sortable: true, width: 120 },
             ]],
-            onLoadSuccess: function () {
+            onLoadSuccess: function (data) {
+                $('#Appraise').datagrid('resize');
+                $('#manyi').text('满意:' + data.manyi);
+                $('#yiban').text('一般:' + data.yiban);
+                $('#bumanyi').text('不满意:' + data.bumanyi);
             }
         });
 

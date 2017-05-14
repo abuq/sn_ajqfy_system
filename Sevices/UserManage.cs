@@ -89,13 +89,42 @@ namespace Sevices
             using (var db = new Entities())
             {
                 int total = 0;
+                int manyi=0,yiban=0,bumanyi=0;
                 var query = db.UserComment.Where(m => m.UserID == sUserId).OrderByDescending(m => m.CommentDate);
                 if (query.Count() > 0)
                 {
+                    if (info.order == OrderType.ASC)
+                    {
+                        switch (info.sort)
+                        {
+                            case "ID": query = query.OrderBy(m => m.ID); break;
+                            case "PJType": query = query.OrderBy(m => m.PJType); break;
+                            case "Mobile": query = query.OrderBy(m => m.Mobile); break;
+                            case "caseTypes": query = query.OrderBy(m => m.caseTypes); break;
+                            case "CommentDate": query = query.OrderBy(m => m.CommentDate); break;
+                        }
+                    }
+                    else
+                    {
+                        switch (info.sort)
+                        {
+                            case "ID": query = query.OrderByDescending(m => m.ID); break;
+                            case "PJType": query = query.OrderByDescending(m => m.PJType); break;
+                            case "Mobile": query = query.OrderByDescending(m => m.Mobile); break;
+                            case "caseTypes": query = query.OrderByDescending(m => m.caseTypes); break;
+                            case "CommentDate": query = query.OrderByDescending(m => m.CommentDate); break;
+                        }
+                    }
+                    manyi = query.Where(m => m.PJType == 1.ToString()).Count();
+                    yiban = query.Where(m => m.PJType == 2.ToString()).Count();
+                    bumanyi =query.Where(m => m.PJType == 3.ToString()).Count();
                     total = query.Count();
                     var row = query.Skip(info.rows * (info.page - 1)).Take(info.rows);
                     return new
                     {
+                        manyi= manyi,
+                        yiban = yiban,
+                        bumanyi = bumanyi,
                         total = total,
                         rows = row.ToList(),
                         page = info.page
@@ -105,6 +134,9 @@ namespace Sevices
                 {
                     return new
                     {
+                        manyi = manyi,
+                        yiban = yiban,
+                        bumanyi = bumanyi,
                         total = total,
                         rows = new List<object>(),
                         page = info.page
