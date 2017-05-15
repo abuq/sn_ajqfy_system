@@ -2,6 +2,8 @@
     string[] weekdays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
     string week = weekdays[Convert.ToInt32(DateTime.Now.DayOfWeek)];
 }
+@using EFModels.MyModels;
+@model UserInfo
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +31,7 @@
     </style>
 </head>
 <body>
+
     <!--header-->
     <div class="navbar navbar-default" id="navbar">
         <div class="navbar-container" id="navbar-container">
@@ -56,13 +59,13 @@
                             <img class="nav-user-photo" src="~/Areas/Admin/Content/assets/avatars/user.jpg" alt="Jason's Photo" />
                             <span class="user-info">
                                 <small>欢迎光临</small>
-                                Jason
+                                @Model.sUserName
                             </span>
                             <i class="icon-caret-down"></i>
                         </a>
                         <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"
                              style="top:100%">
-                            <li>
+                            @*<li>
                                 <a href="#">
                                     <i class="icon-cog"></i>
                                     设置
@@ -74,9 +77,9 @@
                                     <i class="icon-user"></i>
                                     个人资料
                                 </a>
-                            </li>
+                            </li>*@
 
-                            <li class="divider"></li>
+                            @*<li class="divider"></li>*@
 
                             <li>
                                 <a href="#" class="quit">
@@ -101,7 +104,7 @@
         </div>
     </div>
     <!--Content-->
-    <div class="main-container" id="main-container" style="height:95%">
+    <div class="main-container" id="main-container" style="height:92%">
         <div class="main-container-inner" style="height:100%">
             <a class="menu-toggler" id="menu-toggler" href="#">
                 <span class="menu-text"></span>
@@ -109,7 +112,7 @@
             <!--左侧菜单栏目-->
             <div class="sidebar" id="sidebar">
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-            
+
                 </div>
                 <ul class="nav nav-list">
                     <li class="active">
@@ -146,7 +149,7 @@
                                 <a href="#">
                                     <i class="icon-double-angle-right"></i>
                                     <span data-url="/Admin/Sxr/Index">管理失信人</span>
-                               </a>
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -204,21 +207,21 @@
             <div class="main-content" style="height:100%">
                 <!--栏目导航栏-->
                 @*<div class="breadcrumbs" id="breadcrumbs" style="height:5%">
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home home-icon"></i>
-                            <a href="javascript:history.go(0);">Home</a>
-                        </li>
-                    </ul>
-                    <div class="nav-search" id="nav-search">
-                        <form class="form-search">
-                            <span class="input-icon">
-                                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-                                <i class="icon-search nav-search-icon"></i>
-                            </span>
-                        </form>
-                    </div>
-                </div>*@
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="icon-home home-icon"></i>
+                                <a href="javascript:history.go(0);">Home</a>
+                            </li>
+                        </ul>
+                        <div class="nav-search" id="nav-search">
+                            <form class="form-search">
+                                <span class="input-icon">
+                                    <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                                    <i class="icon-search nav-search-icon"></i>
+                                </span>
+                            </form>
+                        </div>
+                    </div>*@
 
                 <!--栏目内容区域-->
                 <div class="page-content" style="height:100%">
@@ -234,10 +237,18 @@
             <!--内容区域-->
         </div>
     </div>
+
+    <div style="text-align:center;position: absolute; background: white; width: 100%;height:3%;padding-top:5px">
+        <div>&copy;2008-@DateTime.Now.Year <a href="http://www.cdelink.net" target="_blank" title="宜联科技">www.cdelink.net</a>, Inc. All rights reserved. 成都宜联科技有限责任公司</div>
+    </div>
 </body>
 </html>
 <script type="text/javascript">
     $(function () {
+
+        window.onresize = function () {
+            $('#tabs').tabs('resize');
+        }
 
         //绑定菜单点击事件
         $('.submenu a').on("click", function () {

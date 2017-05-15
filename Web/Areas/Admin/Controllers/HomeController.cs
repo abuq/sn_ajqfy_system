@@ -8,19 +8,19 @@ using Web.App_Start;
 using EFModels.MyModels;
 using System.IO;
 using Web.App_Start.BaseController;
+using Sevices;
 
 namespace Web.Areas.Admin.Controllers
 {
-    public class HomeController :Controller
+    public class HomeController : AdminBase<UserManage>
     {
         //
         // GET: /Admin/Home/
 
         #region 后台首页相关视图
-        [NoLogin]
         public ActionResult Index()
         {
-            return View();
+            return View(SessionAdminUser());
         }
 
         #endregion

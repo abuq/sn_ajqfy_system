@@ -3,6 +3,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
 }
 <script src="~/Scripts/mylib/myboot.js"></script>
+<link href="~/Areas/Admin/Content/Calendar/skin/WdatePicker.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/Calendar/WdatePicker.js"></script>
+
+<script src="~/Content/kindeditor/kindeditor.js"></script>
+<script src="~/Content/kindeditor/lang/zh_CN.js"></script>
+<script src="~/Scripts/plug-in/kindeditor.js"></script>
 <table id="LawsCase"></table>
 <div id="LawsCase_toolbar" style="padding:8px;">
     <form id="search">
@@ -74,9 +80,9 @@
             loadMsg: "正在加载...",
             columns: [[
                 { field: 'sCaseNum', title: '案号', align: 'center', sortable: true, width: 80 },
-                { field: 'sCaseName', title: '案由', align: 'center', sortable: true, width: 80 },
+              // { field: 'sCaseName', title: '案由', align: 'center', sortable: true, width: 80 },
                 { field: 'sLawName', title: '法庭名称', align: 'center', sortable: true, width: 60 },
-                { field: 'sCaseIntroduce', title: '当事人', align: 'center', sortable: true, width: 120 },
+             //   { field: 'sCaseIntroduce', title: '', align: 'center', sortable: true, width: 120 },
                 {
                     field: 'fsdf', title: '预计时间段', align: 'center', sortable: false, width: 150, formatter: function (value, row) {
                         if (row.dPreStaTime && row.dPreEndTime) {

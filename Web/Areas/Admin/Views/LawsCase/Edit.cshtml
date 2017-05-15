@@ -4,8 +4,6 @@
 }
 @using EFModels;
 @model LawsCase
-<link href="~/Areas/Admin/Content/Calendar/skin/WdatePicker.css" rel="stylesheet" />
-<script src="~/Areas/Admin/Content/Calendar/WdatePicker.js"></script>
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -25,18 +23,12 @@
                         <input type="text" class="form-control" placeholder="请输入案号" name="sCaseNum" value="@Model.sCaseNum">
                     </div>
                 </div>
-                <div class="form-group">
+                @*<div class="form-group">
                     <label class="col-sm-2 control-label">案由</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" placeholder="案由" name="sCaseName" value="@Model.sCaseName">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">当事人</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="2" name="sCaseIntroduce" placeholder="请输入当事人">@Model.sCaseIntroduce</textarea>
-                    </div>
-                </div>
+                </div>*@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">法庭选择</label>
                     <div class="col-sm-10">
@@ -54,9 +46,15 @@
                     <label class="col-sm-2 control-label">开庭时间</label>
                     <div class="col-sm-10">
                         <input type="text" id="dPreStaTime" name="dPreStaTime" class="form-control" readonly="readonly"
-                               style="width:38%;float:left" placeholder="点击选择开始时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})" value="@Model.dPreStaTime">
+                               style="width:38%;float:left;cursor: pointer" placeholder="点击选择开始时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})" value="@Model.dPreStaTime">
                         <input type="text" id="dPreEndTime" class="form-control" readonly="readonly" value="@Model.dPreEndTime"
-                               name="dPreEndTime" style="width:38%;float:left;margin-left:10px;" placeholder="点击选择结束时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+                               name="dPreEndTime" style="width:38%;float:left;margin-left:10px;cursor: pointer" placeholder="点击选择结束时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">开庭事项</label>
+                    <div class="col-sm-10">
+                        <textarea id="sCaseIntroduce" name="sCaseIntroduce" style="width:100%;">@Html.Raw(Model.sCaseIntroduce)</textarea>
                     </div>
                 </div>
             </form>
@@ -71,6 +69,8 @@
 <script type="text/javascript">
     $(function () {
         $('#iLawsId').val("@Model.iLawsId.ToString()");
+        var editor = new kindeditor();
+        editor.create("#sCaseIntroduce");
         var modal = new myBootstarp();
 
         //编辑操作
@@ -82,8 +82,13 @@
                 var StaTime = $('#dPreStaTime').val();//开始时间
                 var EndTime = $('#dPreEndTime').val();//结束时间
                 if (StaTime.length == 0 || EndTime.length == 0) return modal.alert("开庭开始和结束时间必填");
-                 if (new Date(EndTime).getTime() - new Date(StaTime).getTime() <= 0) return modal.alert("结束时间必须大于开始时间");
-                 modal.Ajax("/Admin/LawsCase/Update", $("#editFrom").serialize(), function (r) {
+                if (new Date(EndTime).getTime() - new Date(StaTime).getTime() <= 0) return modal.alert("结束时间必须大于开始时间");
+
+                var sCaseIntroduce = editor.gethtml();
+                if (sCaseIntroduce.length == 0) return modal.alert("开庭事项必填");
+                var params = $("#editFrom").serializeArray().toObject();
+                params.sCaseIntroduce = sCaseIntroduce;
+                modal.Ajax("/Admin/LawsCase/Update", params, function (r) {
                     modal.alert("编辑成功");
                     $('#LawsCase').datagrid('reload');
                     modal.hideModal();
@@ -107,27 +112,20 @@
                         }
                     }
                 },
-                sCaseName: {
-                    validators: {
-                        notEmpty: {
-                            message: '当事人不能为空'
-                        }
-                    }
-                },
-                sCaseIntroduce: {
-                    validators: {
-                        notEmpty: {
-                            message: '案由不能为空'
-                        }
-                    }
-                },
                 iLawsId: {
                     validators: {
                         notEmpty: {
                             message: '请选择法庭'
                         }
                     }
-                }
+                },
+                sCaseIntroduce: {
+                    validators: {
+                        notEmpty: {
+                            message: '开庭事项不能为空'
+                        }
+                    }
+                },
             }
         });
     });

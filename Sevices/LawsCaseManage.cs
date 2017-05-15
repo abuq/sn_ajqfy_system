@@ -130,6 +130,7 @@ namespace Sevices
         {
             using (var db = new Entities())
             {
+                lawsCase.sCaseName = string.Empty;
                 db.LawsCase.Add(lawsCase);
                 return db.SaveChanges();
             }
@@ -144,6 +145,7 @@ namespace Sevices
         {
             using (var db = new Entities())
             {
+                lawsCase.sCaseName = string.Empty;
                 db.Entry<LawsCase>(lawsCase).State = System.Data.Entity.EntityState.Modified;
                 return db.SaveChanges();
             }

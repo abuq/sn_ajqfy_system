@@ -13,46 +13,14 @@ namespace EFModels.MyModels
     [Serializable]
     public  class UserInfo
     {
-        public Guid ID
+        public int ID
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// 后台用户状态标识 0-冻结 1-正常
-        /// </summary>
-        public int iState
-        {
-            get;
-            set;
-        }
-
+     
         public string sUserName
-        {
-            get;
-            set;
-        }
-
-        public Guid sRoleId
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 角色名称
-        /// </summary>
-        public string sRoleName
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Ip地址
-        /// </summary>
-        public string Ip
         {
             get;
             set;

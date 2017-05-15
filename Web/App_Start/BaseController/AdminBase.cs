@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -53,30 +53,29 @@ namespace Web.App_Start.BaseController
         /// <param name="filterContext"></param>
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            base.OnActionExecuting(filterContext);
-            //if (!(filterContext.ActionDescriptor.GetCustomAttributes(typeof(NoLogin), true).Length == 1))
-            //{//有NoLogin属性;不判断登录
-            //    if (SESSION.AdminUser== null)
-            //    {
-            //        /*登录过时,session过期*/
-            //        if (filterContext.HttpContext.Request.HttpMethod.ToUpper() == "GET")
-            //        {
-            //            /*跳转到登录过期提示页面*/
-            //            filterContext.Result = new RedirectResult("/Admin/AdminUser/Login");
-            //        }
-            //        else
-            //        {
-            //            result.over = true;//登录过时
-            //            ContentResult res = new ContentResult();
-            //            res.Content = result.toJson();
-            //            filterContext.Result = res;
-            //        }
-            //    }
-            //    else
-            //    {//判断会员状态是否正常
-                    
-            //    }
-            //}
+            if (!(filterContext.ActionDescriptor.GetCustomAttributes(typeof(NoLogin), true).Length == 1))
+            {//有NoLogin属性;不判断登录
+                if (SessionAdminUser() == null)
+                {
+                    /*登录过时,session过期*/
+                    if (filterContext.HttpContext.Request.HttpMethod.ToUpper() == "GET")
+                    {
+                        /*跳转到登录过期提示页面*/
+                        filterContext.Result = new RedirectResult("/Admin/User/Login");
+                    }
+                    else
+                    {
+                        result.over = true;//登录过时
+                        ContentResult res = new ContentResult();
+                        res.Content = result.toJson();
+                        filterContext.Result = res;
+                    }
+                }
+                else
+                {//判断会员状态是否正常
+
+                }
+            }
         }
 
         /// <summary>

@@ -124,7 +124,14 @@ namespace Web.Areas.Admin.Controllers
                 result.info = "登录账号或密码错误";
             }
             else
+            {
+                Session[SESSION.AdminUser] = new UserInfo()
+                {
+                    ID = admin.ID,
+                    sUserName = admin.UserName
+                };
                 result.success = true;
+            }
         }
 
         /// <summary>

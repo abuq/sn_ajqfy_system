@@ -60,6 +60,7 @@ namespace Web.Areas.Admin.Controllers
         /// 添加调解案件
         /// </summary>
         /// <param name="lawsCase"></param>
+        [ValidateInput(false)]
         public void Insert(LawsCase lawsCase)
         {
             if (manage.Add(lawsCase) > 0)
@@ -71,6 +72,7 @@ namespace Web.Areas.Admin.Controllers
         /// 编辑调解案件
         /// </summary>
         /// <param name="law"></param>
+        [ValidateInput(false)]
         public void Update(LawsCase lawsCase)
         {
             if (manage.Edit(lawsCase) > 0)

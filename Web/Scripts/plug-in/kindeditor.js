@@ -15,6 +15,18 @@ function kindeditor() {
 
     /*配置编辑器的工具栏，其中”/”表示换行，”|”表示分隔符。*/
     var items = {
+
+         tint:
+        [
+        'source', '|', 'undo', 'redo', '|', 'preview',
+        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+        'superscript', 'clearhtml', 'quickformat', '/',
+        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|',
+          'hr', 'emoticons', 'pagebreak', '|', 'fullscreen'
+        ],
+
         /*小型工具栏*/
         small:
         [
@@ -58,7 +70,7 @@ function kindeditor() {
     function create(id, param) {
         //默认的对象
         var defaults = {
-            items: items.single,
+            items: items.tint,
             /*服务端图片上传路径*/
             uploadJson: "/HandleProgram/PictureUpload.ashx",
             afterCreate: null

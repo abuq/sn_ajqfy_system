@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">失信人身份证号</label>
+                    <label class="col-sm-2 control-label">身份证号</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" placeholder="请输入失信人身份证号" name="IDCard" value="@Model.IDCard">
                     </div>
@@ -120,7 +120,11 @@
                     validators: {
                         notEmpty: {
                             message: '执行标的不能为空'
-                        }
+                        },
+                        regexp: {
+                            regexp: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
+                            message: '金额数据格式错误'
+                        },
                     }
                 },
                 //Adds: {
