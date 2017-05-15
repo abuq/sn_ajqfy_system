@@ -77,8 +77,8 @@
                 { field: 'RoomName', title: '调解室名称', align: 'center', sortable: true, width: 120 },
                 {
                     field: 'RoomState', title: '状态', align: 'center', sortable: true, width: 80, formatter: function (value) {
-                        if (value) return "<span style='color:red'>使用中</span>";
-                        else return "<span style='color:green'>空闲中</span>";
+                        if (value) return "<span style='color:red'>开放</span>";
+                        else return "<span style='color:green'>关闭</span>";
                     }
                 },
                 { field: 'RoomOrder', title: '调解室排序', align: 'center', sortable: true, width: 80 },

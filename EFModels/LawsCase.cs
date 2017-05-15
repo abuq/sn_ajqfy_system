@@ -12,17 +12,17 @@ namespace EFModels
     using System;
     using System.Collections.Generic;
     
-    public partial class TjCase
+    public partial class LawsCase
     {
         public int ID { get; set; }
-        public int iTjRoomId { get; set; }
-        public int iUserId { get; set; }
-        public string sCaseName { get; set; }
-        public System.DateTime dInsertTime { get; set; }
+        public int iLawsId { get; set; }
+        public string sCaseNum { get; set; }
+        public string sCaseType { get; set; }
+        public string sCaseIntroduce { get; set; }
         public Nullable<System.DateTime> dPreStaTime { get; set; }
         public Nullable<System.DateTime> dPreEndTime { get; set; }
         public Nullable<System.DateTime> dAclStaTime { get; set; }
         public Nullable<System.DateTime> dAclEndTime { get; set; }
-        public string sCaseIntroduce { get; set; }
+        public string sCaseName { get; set; }
     }
 }

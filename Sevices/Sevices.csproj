@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LawsCaseManage.cs" />
     <Compile Include="TjCaseManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LawsManage.cs" />

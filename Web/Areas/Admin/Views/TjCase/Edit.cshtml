@@ -8,6 +8,8 @@
         background-color: #5bc0de;
     }
 </style>
+<link href="~/Areas/Admin/Content/Calendar/skin/WdatePicker.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/Calendar/WdatePicker.js"></script>
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -23,6 +25,12 @@
                     <label class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" placeholder="请输入案件名称" name="sCaseName" value="@Model.sCaseName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">案件介绍</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="2" name="sCaseIntroduce" placeholder="请输入案件介绍">@Model.sCaseIntroduce</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -61,6 +69,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">调解时间</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="dPreStaTime" name="dPreStaTime" class="form-control" readonly="readonly" value="@Model.dPreStaTime"
+                               style="width:38%;float:left" placeholder="点击选择开始时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+                        <input type="text" id="dPreEndTime" class="form-control" readonly="readonly" value="@Model.dPreEndTime"
+                               name="dPreEndTime" style="width:38%;float:left;margin-left:10px;" placeholder="点击选择结束时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+                    </div>
+                </div>
             </form>
         </div>
         <!--主体内容-->
@@ -72,6 +89,9 @@
 </div>
 <script type="text/javascript">
     $(function () {
+        $('#StaTime').datetimebox();
+        $('#EndTime').datetimebox();
+
         $('#iTjRoomId').val("@Model.iTjRoomId.ToString()");
         var modal = new myBootstarp();
 
@@ -113,6 +133,11 @@
             bootstrapValidator.validate();
             var res = bootstrapValidator.isValid();
             if (res) {//验证通过
+                var StaTime = $('#dPreStaTime').val();//开始时间
+                var EndTime = $('#dPreEndTime').val();//结束时间
+                if (StaTime.length == 0 || EndTime.length == 0) return modal.alert("开庭开始和结束时间必填");
+                if (new Date(EndTime).getTime() - new Date(StaTime).getTime() <= 0) return modal.alert("结束时间必须大于开始时间");
+
                 var iUserId = $('#iUserId').next().val();
                 var RealName = $('#iUserId').val();
                 if (iUserId.length == 0 || RealName.length == 0) return modal.alert("请选择调解员");
@@ -137,6 +162,13 @@
                     validators: {
                         notEmpty: {
                             message: '案件名称不能为空'
+                        }
+                    }
+                },
+                sCaseIntroduce: {
+                    validators: {
+                        notEmpty: {
+                            message: '案件介绍不能为空'
                         }
                     }
                 }

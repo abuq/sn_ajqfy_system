@@ -11,20 +11,19 @@ using Common;
 
 namespace Web.Areas.Admin.Controllers
 {
-    public class TjCaseController : AdminBase<TjCaseManage>
+    public class LawsCaseController : AdminBase<LawsCaseManage>
     {
         //
-        // GET: /Admin/TjCase/
+        // GET: /Admin/LawsCase/
 
         /// <summary>
-        /// 结束调解
+        /// 结束开庭
         /// </summary>
-        /// <param name="iTjCaseId"></param>
         /// <returns></returns>
-        public ActionResult Over(int iTjCaseId)
+        public ActionResult Over(int iLawsCaseId)
         {
-            var Tjcase = manage.Get(iTjCaseId);
-            return View(Tjcase);
+            var lawsCase = manage.Get(iLawsCaseId);
+            return View(lawsCase);
         }
 
 
@@ -39,23 +38,11 @@ namespace Web.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Edit(int iTjCaseId)
+        public ActionResult Edit(int iLawsCaseId)
         {
+            var lawsCase = manage.Get(iLawsCaseId);
             ViewBag.roomList = manage.GetAllRoom();
-            var Tjcase= manage.Get(iTjCaseId);
-            string sRealName = Resolve<UserManage>().Get(Tjcase.iUserId).RealName;
-            ViewBag.sRealName = sRealName;
-            return View(Tjcase);
-        }
-
-        /// <summary>
-        /// 获取法官数据
-        /// </summary>
-        /// <returns></returns>
-        public void UserList(string searchText)
-        {
-            result.data = manage.GetAllUser(searchText);
-            result.success = true;
+            return View(lawsCase);
         }
 
 
@@ -72,19 +59,11 @@ namespace Web.Areas.Admin.Controllers
         /// <summary>
         /// 添加调解案件
         /// </summary>
-        /// <param name="tjcase"></param>
-        public void Insert(TjCase tjcase,string RealName)
+        /// <param name="lawsCase"></param>
+        public void Insert(LawsCase lawsCase)
         {
-            var user = Resolve<UserManage>().Get(tjcase.iUserId);
-            if (user.RealName == RealName)
-            {
-                if (manage.Add(tjcase) > 0)
-                    result.success = true;
-            }
-            else
-            {
-                result.info =string.Format("{0}调解员不存在,请重新选择!", RealName);
-            }
+            if (manage.Add(lawsCase) > 0)
+                result.success = true;
         }
 
 
@@ -92,18 +71,10 @@ namespace Web.Areas.Admin.Controllers
         /// 编辑调解案件
         /// </summary>
         /// <param name="law"></param>
-        public void Update(TjCase tjcase, string RealName)
+        public void Update(LawsCase lawsCase)
         {
-            var user = Resolve<UserManage>().Get(tjcase.iUserId);
-            if (user.RealName == RealName)
-            {
-                if (manage.Edit(tjcase) > 0)
-                    result.success = true;
-            }
-            else
-            {
-                result.info = string.Format("{0}调解员不存在,请重新选择!", RealName);
-            }
+            if (manage.Edit(lawsCase) > 0)
+                result.success = true;
         }
 
         /// <summary>
@@ -121,15 +92,16 @@ namespace Web.Areas.Admin.Controllers
 
 
         /// <summary>
-        /// 结束调解案件
+        /// 结束开庭案件
         /// </summary>
         /// <param name="dAclStaTime"></param>
         /// <param name="dAclEndTime"></param>
         /// <param name="ID"></param>
-        public void UpdateOver(DateTime dAclStaTime, DateTime dAclEndTime, int ID)
+        public void UpdateOver(DateTime dAclStaTime, DateTime dAclEndTime,int ID)
         {
             if (manage.UpdateOver(dAclStaTime, dAclEndTime, ID) > 0)
                 result.success = true;
         }
+
     }
 }

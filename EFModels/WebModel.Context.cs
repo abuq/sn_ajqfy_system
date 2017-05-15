@@ -41,5 +41,6 @@ namespace EFModels
         public virtual DbSet<BigClass_New> BigClass_New { get; set; }
         public virtual DbSet<Cdelink_Config> Cdelink_Config { get; set; }
         public virtual DbSet<SmallClass_Article> SmallClass_Article { get; set; }
+        public virtual DbSet<LawsCase> LawsCase { get; set; }
     }
 }

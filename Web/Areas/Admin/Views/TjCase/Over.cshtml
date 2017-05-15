@@ -1,0 +1,61 @@
+﻿
+@using EFModels;
+@model TjCase
+<link href="~/Areas/Admin/Content/Calendar/skin/WdatePicker.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/Calendar/WdatePicker.js"></script>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">结束调解</h4>
+        </div>
+        <!--主体内容-->
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" id="overFrom">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">实际开始时间</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="dPreStaTime" name="dPreStaTime" class="form-control" readonly="readonly"
+                               placeholder="点击选择开始时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})" value="@Model.dPreStaTime">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">结束实际时间</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="dPreEndTime" class="form-control" readonly="readonly" value="@Model.dPreEndTime"
+                               name="dPreEndTime" placeholder="点击选择结束时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--主体内容-->
+        <div class="modal-footer" style="padding:10px;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="ok" type="button" class="btn btn-primary">确认提交</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var modal = new myBootstarp();
+
+        //编辑操作
+        $('#ok').on("click", function () {
+            var dAclStaTime = $('#dPreStaTime').val();//开始时间
+            var dAclEndTime = $('#dPreEndTime').val();//结束时间
+            if (dAclStaTime.length == 0 || dAclEndTime.length == 0) return modal.alert("开庭开始和结束时间必填");
+            if (new Date(dAclEndTime).getTime() - new Date(dAclStaTime).getTime() <= 0) return modal.alert("结束时间必须大于开始时间");
+            modal.Ajax("/Admin/TjCase/UpdateOver", {
+                dAclStaTime: dAclStaTime,
+                dAclEndTime: dAclEndTime,
+                ID: '@Model.ID'
+            }, function (r) {
+                modal.alert("操作成功!");
+                $('#TjCase').datagrid('reload');
+                modal.hideModal();
+            });
+        });
+    });
+</script>
+

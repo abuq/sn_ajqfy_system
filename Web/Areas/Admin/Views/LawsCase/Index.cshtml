@@ -1,16 +1,15 @@
 ﻿@{
-    ViewBag.Title = "调解案件管理";
+    ViewBag.Title = "法庭案件管理";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
 }
 <script src="~/Scripts/mylib/myboot.js"></script>
-<script src="~/Scripts/plug-in/picture/upload.js"></script>
-<table id="TjCase"></table>
-<div id="TjCase_toolbar" style="padding:8px;">
+<table id="LawsCase"></table>
+<div id="LawsCase_toolbar" style="padding:8px;">
     <form id="search">
-        <button type="button" class="btn btn-success btn-sm TjCase_add">添加案件</button> &nbsp;
-        <button type="button" class="btn btn-danger  btn-sm TjCase_cancel">删除案件</button>
+        <button type="button" class="btn btn-success btn-sm LawsCase_add">添加案件</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm LawsCase_cancel">删除案件</button>
         &nbsp; &nbsp; &nbsp; &nbsp;
-        <span>模糊查询:</span><input type="text" class="form-control" placeholder="调解室/案件名称/调解员"
+        <span>模糊查询:</span><input type="text" class="form-control" placeholder="案号/法庭名称"
                                  style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
         <button type="button" class="btn btn-default  btn-sm searchText">查 询</button>
     </form>
@@ -23,7 +22,7 @@
         //模糊查询
         $('.searchText').on("click", function () {
             var searchText = $('#search input').val();
-            $('#TjCase').datagrid({
+            $('#LawsCase').datagrid({
                 queryParams: {
                     searchText: searchText
                 }
@@ -31,26 +30,26 @@
         });
 
         //添加操作
-        $('.TjCase_add').on("click", function () {
-             modal.creatModal("/Admin/TjCase/Add");
+        $('.LawsCase_add').on("click", function () {
+             modal.creatModal("/Admin/LawsCase/Add");
         });
 
         //编辑操作
-        function TjCaseUpdate(ID) {
-            modal.creatModal("/Admin/TjCase/Edit?iTjCaseId=" + ID);
+        function LawsCaseUpdate(ID) {
+            modal.creatModal("/Admin/LawsCase/Edit?iLawsCaseId=" + ID);
         }
 
         //删除操作
-        $('.TjCase_cancel').on("click", function () {
-            var selected = $('#TjCase').datagrid('getSelections');
+        $('.LawsCase_cancel').on("click", function () {
+            var selected = $('#LawsCase').datagrid('getSelections');
             if (selected.length>0) {
                 var array = [];
                 $(selected).each(function () {
                     array.push(this.ID);
                 });
                 modal.Confirm("确定要删除所选择的数据", function () {
-                    modal.Ajax("/Admin/TjCase/Cancel", { Ids: array.join() }, function (r) {
-                        $('#TjCase').datagrid("reload");
+                    modal.Ajax("/Admin/LawsCase/Cancel", { Ids: array.join() }, function (r) {
+                        $('#LawsCase').datagrid("reload");
                         alert("删除成功");
                     });
                 });
@@ -63,10 +62,10 @@
         /*!
         * method:案件数据列表(datagrid)的绑定
         */
-        $('#TjCase').datagrid({
+        $('#LawsCase').datagrid({
             fit:true,
-            url: '/Admin/TjCase/List',
-            toolbar: $('#TjCase_toolbar'),
+            url: '/Admin/LawsCase/List',
+            toolbar: $('#LawsCase_toolbar'),
             fitColumns:true,
             rownumbers:true,
             striped: true,
@@ -74,10 +73,10 @@
             pageSize:20,
             loadMsg: "正在加载...",
             columns: [[
-               // { field: 'ID', title: 'ID', align: 'center', sortable: true, width: 80 },
-                { field: 'sCaseName', title: '案件名称', align: 'center', sortable: true, width: 120 },
-                { field: 'RealName', title: '调解员', align: 'center', sortable: true, width: 80 },
-                { field: 'RoomName', title: '调解室', align: 'center', sortable: true, width: 80 },
+                { field: 'sCaseNum', title: '案号', align: 'center', sortable: true, width: 80 },
+                { field: 'sCaseName', title: '案由', align: 'center', sortable: true, width: 80 },
+                { field: 'sLawName', title: '法庭名称', align: 'center', sortable: true, width: 60 },
+                { field: 'sCaseIntroduce', title: '当事人', align: 'center', sortable: true, width: 120 },
                 {
                     field: 'fsdf', title: '预计时间段', align: 'center', sortable: false, width: 150, formatter: function (value, row) {
                         if (row.dPreStaTime && row.dPreEndTime) {
@@ -91,10 +90,10 @@
                 {
                     field: 'ds', title: '操作', align: 'center', width:120, formatter: function (value, rows) {
                         var html = [];
-                        html.push('<button type="button" class="btn btn-info btn-sm TjCase_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
-                        html.push('<button type="button" class="btn btn-danger btn-sm TjCase_delete" data-id="' + rows.ID + '">删 除</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-info btn-sm LawsCase_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm LawsCase_delete" data-id="' + rows.ID + '">删 除</button>&nbsp&nbsp');
                         if (rows.dAclEndTime==null)
-                            html.push('<button type="button" class="btn btn-primary btn-sm TjCase_over" data-id="' + rows.ID + '">结束调解</button>');
+                            html.push('<button type="button" class="btn btn-primary btn-sm LawsCase_over" data-id="' + rows.ID + '">结束开庭</button>');
                         else
                             html.push('<button type="button" class="btn btn-primary btn-sm" disabled="disabled">已经结束</button>');
                         return html.join('');
@@ -102,29 +101,30 @@
                 },
             ]],
             onLoadSuccess: function () {
-                $('.TjCase_edit').on("click", function (event) {
+                $('.LawsCase_edit').on("click", function (event) {
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
-                    TjCaseUpdate(ID);
+                    LawsCaseUpdate(ID);
                 });
 
                 //删除事件绑定
-                $('.TjCase_delete').on("click", function (event) {
+                $('.LawsCase_delete').on("click", function (event) {
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     modal.Confirm("确认要删除这条数据?", function () {
-                        modal.Ajax("/Admin/TjCase/Cancel", { Ids: ID }, function (r) {
-                            $('#TjCase').datagrid("reload");
+                        modal.Ajax("/Admin/LawsCase/Cancel", { Ids: ID }, function (r) {
+                            $('#LawsCase').datagrid("reload");
                         });
                     });
                 });
 
                 //结束案件绑定
-                $('.TjCase_over').on("click", function (event) {
+                $('.LawsCase_over').on("click", function (event) {
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
-                    modal.creatModal("/Admin/TjCase/Over?iTjCaseId=" + ID);
+                    modal.creatModal("/Admin/LawsCase/Over?iLawsCaseId=" + ID);
                 });
+
             }
         });
     });

@@ -79,6 +79,9 @@
     <Compile Include="Laws.cs">
       <DependentUpon>WebModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LawsCase.cs">
+      <DependentUpon>WebModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MyModels\PageInfo.cs" />
     <Compile Include="MyModels\PagingRet.cs" />
     <Compile Include="MyModels\Result.cs" />

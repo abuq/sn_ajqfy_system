@@ -21,6 +21,7 @@
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.BigClass_New" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Cdelink_Config" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.SmallClass_Article" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.LawsCase" Width="1.5" PointX="7.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

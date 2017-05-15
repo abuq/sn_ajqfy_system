@@ -12,7 +12,6 @@
             <form class="form-horizontal" role="form" id="editFrom">
                 <input  type="hidden" name="ID" value="@Model.ID"/>
                 <input type="hidden" name="Fax" value="@Model.Fax" />
-                <input type="hidden" name="Phone" value="@Model.Phone" />
                 <input type="hidden" name="LockUser" value="@Model.LockUser" />
                 <input type="hidden" name="IsComment" value="@Model.IsComment" />
                 <input type="hidden" name="IsTLeader" value="@Model.IsTLeader" />
@@ -40,6 +39,12 @@
                     <label class="col-sm-2 control-label">手机</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="Mobile" placeholder="请输入手机" value="@Model.Mobile">
+                    </div>
+                </div>
+                   <div class="form-group">
+                    <label class="col-sm-2 control-label">电话</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入电话" name="Phone" value="@Model.Phone">
                     </div>
                 </div>
                 <div class="form-group">
@@ -129,12 +134,17 @@
                 },
                 Mobile: {
                     validators: {
-                        notEmpty: {
-                            message: '手机号码不能为空'
-                        },
                         regexp: {
                             regexp: /^((13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8})*$/,
                             message: '手机号码格式错误'
+                        },
+                    }
+                },
+                Phone: {
+                    validators: {
+                        regexp: {
+                            regexp: /^((\d{3,4}\-)|)\d{7,8}(|([-\u8f6c]{1}\d{1,5}))$/,
+                            message: '电话号码格式错误'
                         },
                     }
                 },

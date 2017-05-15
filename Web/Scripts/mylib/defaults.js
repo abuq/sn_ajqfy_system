@@ -28,7 +28,7 @@ void function () {
     });
 
    
-    //重写datebox的formatter **处理两次的formatter***
+    ////重写datebox的formatter **处理两次的formatter***
     $.extend($.fn.datebox.defaults, {
         formatter: function (date) {
             var y = date.getFullYear();
@@ -50,31 +50,31 @@ void function () {
         }
     });
 
-    //重写datebox的按钮
-    $.extend($.fn.datebox.defaults, {
-        editable:false,//禁止手动输入
-        buttons: [{
-            text: '今天',
-            handler: function (target,date) {
-                $(target).datebox('setValue', new Date().toString());
-                $(target).datebox('hidePanel');//隐藏组件
-               }
-            },
-            {
-            text: '清空',
-            handler: function (target) {
-                $(target).datebox('setValue', "");
-                $(target).datebox('hidePanel');//隐藏组件
-            }
-            },
-            {
-            text: '关闭',
-            handler: function (target) {
-                $(target).datebox('hidePanel');//隐藏组件
-            }
-            }
-        ]
-    });
+    ////重写datebox的按钮
+    //$.extend($.fn.datebox.defaults, {
+    //    editable:false,//禁止手动输入
+    //    buttons: [{
+    //        text: '今天',
+    //        handler: function (target,date) {
+    //            $(target).datebox('setValue', new Date().toString());
+    //            $(target).datebox('hidePanel');//隐藏组件
+    //           }
+    //        },
+    //        {
+    //        text: '清空',
+    //        handler: function (target) {
+    //            $(target).datebox('setValue', "");
+    //            $(target).datebox('hidePanel');//隐藏组件
+    //        }
+    //        },
+    //        {
+    //        text: '关闭',
+    //        handler: function (target) {
+    //            $(target).datebox('hidePanel');//隐藏组件
+    //        }
+    //        }
+    //    ]
+    //});
 
 
     /**
