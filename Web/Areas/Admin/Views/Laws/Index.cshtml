@@ -48,9 +48,10 @@
                 $(selected).each(function () {
                     array.push(this.ID);
                 });
-                modal.Ajax("/Admin/Laws/Cancel", { Ids: array.join() }, function (r) {
-                    $('#Laws').datagrid("reload");
-                    alert("删除成功");
+                modal.CancelConfirm("确认要删除所选择的数据", function () {
+                    modal.Ajax("/Admin/Laws/Cancel", { Ids: array.join() }, function (r) {
+                        $('#Laws').datagrid("reload");
+                    });
                 });
             }
             else {
@@ -72,7 +73,7 @@
             pageSize:20,
             loadMsg: "正在加载...",
             columns: [[
-                { field: 'ID', title: '法庭ID', align: 'center', sortable: true, width: 80 },
+                //{ field: 'ID', title: '法庭ID', align: 'center', sortable: true, width: 80 },
                 { field: 'sLawName', title: '法庭名称', align: 'center', sortable: true, width: 120 },
                 {
                     field: 'bLawState', title: '状态', align: 'center', sortable: true, width: 80, formatter: function (value) {
@@ -80,10 +81,13 @@
                         else return "<span style='color:green'>空闲中</span>";
                     }
                 },
-                { field: 'iLawOrder', title: '法庭排序', align: 'center', sortable: true, width: 80 },
+               // { field: 'iLawOrder', title: '法庭排序', align: 'center', sortable: true, width: 80 },
                 {
-                    field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value,rows) {
-                        return ('<button type="button" class="btn btn-info btn-sm Laws_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                    field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value, rows) {
+                        var html = []
+                        html.push('<button type="button" class="btn btn-info btn-sm Laws_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm Laws_delete" data-id="' + rows.ID + '">删 除</button>');
+                        return html.join('');
                     }
                 },
             ]],
@@ -93,6 +97,18 @@
                     var ID = $(this).attr("data-id");
                     lawsUpdate(ID);
                 });
+
+                //删除事件绑定
+                $('.Laws_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("/Admin/Laws/Cancel", { Ids: ID }, function (r) {
+                            $('#Laws').datagrid("reload");
+                        });
+                    });
+                });
+
             }
         });
     });

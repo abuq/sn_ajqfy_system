@@ -106,12 +106,55 @@ function myBootstarp() {
         }
     }
 
+    //确认弹出框
+    function Confirm(tip, callback) {
+        var html = [];
+        html.push('<div class="modal fade"  tabindex="0" role="dialog" aria-hidden="true" id="ConfirmDialog">');
+        html.push('<div class="modal-dialog">');
+        html.push('<div class="modal-content">');
+        html.push('<div class="modal-header">');
+        html.push('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
+        html.push('<h4 class="modal-title">提示</h4>');
+        html.push('</div>');
+        html.push('<div class="modal-body">' + tip + '');
+        html.push('</div>');
+        html.push('<div class="modal-footer" style="padding:10px;">');
+        html.push('<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>');
+        html.push('<button id="confirm" type="button" class="btn btn-primary">确认</button>');
+        html.push('</div>');
+        html.push('</div>');
+        html.push('</div>');
+        $('body').append(html.join(''));
+        $('#ConfirmDialog').modal();
+        $('#confirm').on("click", function () {
+            if (callback) {
+                $('#ConfirmDialog').modal('hide');
+                callback();
+            }
+        });
+
+        //绑定隐藏时移除元素
+        $('#ConfirmDialog').on("hidden.bs.modal", function () {
+            $('#ConfirmDialog').remove();
+        });
+
+        $('#confirm').prev().on("click", function () {
+            $('#ConfirmDialog').modal('hide');
+        });
+    }
+
+    //取消确认弹出框
+    function CancelConfirm() {
+        $('#ConfirmDialog').modal('hide');
+    }
+
 
     return {
         creatModal: creatModal,
         Ajax: Ajax,
         hideModal: hideModal,
-        alert: alert
-        
+        alert: alert,
+        Confirm: Confirm,
+        CancelConfirm:CancelConfirm
     }
 }

@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">上传图片</label>
+                    <label class="col-sm-2 control-label">上传图片(宽高3:4)</label>
                     <div class="col-sm-10" id="UserPic"> </div>
                     <input type="hidden" name="UserPic" value="" />
                 </div>
@@ -65,8 +65,8 @@
             bootstrapValidator.validate();
             var res = bootstrapValidator.isValid();
             if (res) {//验证通过
-                var UserPic = $('#UserPic').next().val();
-                if (UserPic.length == 0) return modal.alert("请上传失信人照片");
+                //var UserPic = $('#UserPic').next().val();
+                //if (UserPic.length == 0) return modal.alert("请上传失信人照片");
                 modal.Ajax("/Admin/Sxr/Insert", $("#addFrom").serialize(), function (r) {
                     modal.alert("添加成功");
                     $('#Sxr').datagrid('reload');
@@ -104,27 +104,31 @@
                         },
                     }
                 },
-                CaseNum: {
-                    validators: {
-                        notEmpty: {
-                            message: '执行案号不能为空'
-                        }
-                    }
-                },
+                //CaseNum: {
+                //    validators: {
+                //        notEmpty: {
+                //            message: '执行案号不能为空'
+                //        }
+                //    }
+                //},
                 CaseBiaodi: {
                     validators: {
                         notEmpty: {
                             message: '执行标的不能为空'
-                        }
+                        },
+                        regexp: {
+                            regexp:/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
+                            message: '金额数据格式错误'
+                        },
                     }
                 },
-                Adds: {
-                    validators: {
-                        notEmpty: {
-                            message: '住址不能为空'
-                        }
-                    }
-                },
+                //Adds: {
+                //    validators: {
+                //        notEmpty: {
+                //            message: '住址不能为空'
+                //        }
+                //    }
+                //},
             }
         });
     });

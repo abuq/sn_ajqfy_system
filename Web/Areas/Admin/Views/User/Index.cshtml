@@ -50,10 +50,11 @@
                 $(selected).each(function () {
                     array.push(this.ID);
                 });
-                modal.Ajax("/Admin/User/Cancel", { Ids: array.join() }, function (r) {
-                    $('#User').datagrid("reload");
-                    alert("删除成功");
-                });
+                modal.Confirm("确认要删除所选择的数据", function () {
+                    modal.Ajax("/Admin/User/Cancel", { Ids: array.join() }, function (r) {
+                        $('#User').datagrid("reload");
+                    });
+                })
             }
             else {
                 alert("请选择一条数据进行操作!");
@@ -94,6 +95,7 @@
                     field: 'ID', title: '操作', align: 'center', width: 100, formatter: function (value) {
                         var html = [];
                         html.push('<button type="button" class="btn btn-info btn-sm adminUser_edit" data-id="' + value + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm adminUser_delete" data-id="' + value + '">删 除</button>&nbsp&nbsp');
                         html.push('<button type="button" class="btn btn-primary btn-sm adminUser_appraise" data-id="' + value + '">查看评论</button>');
                         return html.join('');
                     }
@@ -110,6 +112,17 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     userAppraise(ID);
+                });
+
+                //删除事件绑定
+                $('.adminUser_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("/Admin/User/Cancel", { Ids: ID }, function (r) {
+                            $('#User').datagrid("reload");
+                        });
+                    })
                 });
             }
         });

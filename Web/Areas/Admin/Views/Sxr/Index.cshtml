@@ -49,10 +49,11 @@
                 $(selected).each(function () {
                     array.push(this.ID);
                 });
-                modal.Ajax("/Admin/Sxr/Cancel", { Ids: array.join() }, function (r) {
-                    $('#Sxr').datagrid("reload");
-                    alert("删除成功");
-                });
+                modal.Confirm("确认要删除选择的数据", function () {
+                    modal.Ajax("/Admin/Sxr/Cancel", { Ids: array.join() }, function (r) {
+                        $('#Sxr').datagrid("reload");
+                    });
+                })
             }
             else {
                 alert("请选择一条数据进行操作!");
@@ -73,7 +74,7 @@
             pageSize:10,
             loadMsg: "正在加载...",
             columns: [[
-                { field: '', checkbox: true, },
+                //{ field: '', checkbox: true, },
                 {
                     field: 'UserPic', title: '照片', align: 'center', width:80,sortable:true, formatter: function (value) {
                         return '<img src="' + value + '" style="height:100px;width:80px;" />';
@@ -87,7 +88,10 @@
                 { field: 'UserOrder', title: '排序号', align: 'center', sortable: true, width: 60 },
                 {
                     field: 'ID', title: '操作', align: 'center', width: 100, formatter: function (value) {
-                        return ('<button type="button" class="btn btn-info btn-sm sxr_edit" data-id="' + value + '">编 辑</button>&nbsp&nbsp');
+                        var html=[];
+                        html.push('<button type="button" class="btn btn-info btn-sm sxr_edit" data-id="' + value + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm sxr_delete" data-id="' + value + '">删 除</button>');
+                        return html.join('');
                     }
                 },
             ]],
@@ -96,6 +100,17 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     sxrUpdate(ID);
+                });
+
+                //删除事件绑定
+                $('.sxr_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("/Admin/Sxr/Cancel", { Ids: ID }, function (r) {
+                            $('#Sxr').datagrid("reload");
+                        });
+                    });
                 });
             }
         });

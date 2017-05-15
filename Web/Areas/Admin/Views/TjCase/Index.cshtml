@@ -72,11 +72,11 @@
             pageSize:20,
             loadMsg: "正在加载...",
             columns: [[
-                { field: 'ID', title: 'ID', align: 'center', sortable: true, width: 80 },
+               // { field: 'ID', title: 'ID', align: 'center', sortable: true, width: 80 },
                 { field: 'sCaseName', title: '案件名称', align: 'center', sortable: true, width: 120 },
                 { field: 'RealName', title: '调解员', align: 'center', sortable: true, width: 80 },
                 { field: 'RoomName', title: '调解室', align: 'center', sortable: true, width: 80 },
-                { field: 'dInsertTime', title: '添加时间', align: 'center', sortable: true, width: 120 },
+              //  { field: 'dInsertTime', title: '添加时间', align: 'center', sortable: true, width: 120 },
                 {
                     field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value,rows) {
                         return ('<button type="button" class="btn btn-info btn-sm TjCase_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');

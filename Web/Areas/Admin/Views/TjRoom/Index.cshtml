@@ -48,10 +48,11 @@
                 $(selected).each(function () {
                     array.push(this.ID);
                 });
-                modal.Ajax("/Admin/TjRoom/Cancel", { Ids: array.join() }, function (r) {
-                    $('#TjRoom').datagrid("reload");
-                    alert("删除成功");
-                });
+                modal.Confirm("确定要删除所选择的数据", function () {
+                    modal.Ajax("/Admin/TjRoom/Cancel", { Ids: array.join() }, function (r) {
+                        $('#TjRoom').datagrid("reload");
+                    });
+                }) 
             }
             else {
                 alert("请选择一条数据进行操作!");
@@ -72,7 +73,7 @@
             pageSize:20,
             loadMsg: "正在加载...",
             columns: [[
-                { field: 'ID', title: '调解室ID', align: 'center', sortable: true, width: 80 },
+                //{ field: 'ID', title: '调解室ID', align: 'center', sortable: true, width: 80 },
                 { field: 'RoomName', title: '调解室名称', align: 'center', sortable: true, width: 120 },
                 {
                     field: 'RoomState', title: '状态', align: 'center', sortable: true, width: 80, formatter: function (value) {
@@ -82,8 +83,11 @@
                 },
                 { field: 'RoomOrder', title: '调解室排序', align: 'center', sortable: true, width: 80 },
                 {
-                    field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value,rows) {
-                        return ('<button type="button" class="btn btn-info btn-sm tjroom_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                    field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value, rows) {
+                        var html = [];
+                        html.push('<button type="button" class="btn btn-info btn-sm tjroom_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm tjroom_delete" data-id="' + rows.ID + '">删 除</button>');
+                        return html.join('');
                     }
                 },
             ]],
@@ -92,6 +96,17 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     tjroomUpdate(ID);
+                });
+
+                //删除事件绑定
+                $('.tjroom_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("/Admin/TjRoom/Cancel", { Ids: ID }, function (r) {
+                            $('#TjRoom').datagrid("reload");
+                        });
+                    });
                 });
             }
         });

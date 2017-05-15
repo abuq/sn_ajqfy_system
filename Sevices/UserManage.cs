@@ -26,9 +26,9 @@ namespace Sevices
             using (var db=new Entities())
             {
                 int total = 0;
-                var query = db.User.OrderByDescending(m => m.ID);
+                var query = db.User.OrderBy(m =>m.DeptOrder).ThenBy(m=>m.UserOrder);
                 if (!string.IsNullOrEmpty(searchText))
-                    query = query.Where(m => m.RealName.Contains(searchText)).OrderByDescending(m=>m.ID);
+                    query = query.Where(m => m.RealName.Contains(searchText)).OrderBy(m => m.DeptOrder).ThenBy(m => m.UserOrder);
                 if (query.Count() > 0)
                 {
                     if (info.order == OrderType.ASC)
