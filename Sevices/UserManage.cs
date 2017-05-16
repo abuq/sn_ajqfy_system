@@ -209,6 +209,25 @@ namespace Sevices
         }
 
         /// <summary>
+        /// 删除评价
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public int CancelComment(List<int> Ids)
+        {
+            using (var db = new Entities())
+            {
+
+                var commentList = db.UserComment.Where(m => Ids.Contains(m.ID));
+                foreach (var comment in commentList)
+                {
+                    db.Entry<UserComment>(comment).State = System.Data.Entity.EntityState.Deleted;
+                }
+                return db.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// 后台会员登录验证
         /// </summary>
         /// <param name="sAccount"></param>

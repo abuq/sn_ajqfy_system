@@ -148,6 +148,40 @@ function myBootstarp() {
         $('#ConfirmDialog').modal('hide');
     }
 
+    //弹出提示框
+    function tipAlert(tip) {
+        var html = [];
+        html.push('<div class="modal fade"  tabindex="1" role="dialog" aria-hidden="true" id="tipAlertDialog">');
+        html.push('<div class="modal-dialog">');
+        html.push('<div class="modal-content">');
+        html.push('<div class="modal-header">');
+        html.push('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
+        html.push('<h4 class="modal-title">提示</h4>');
+        html.push('</div>');
+        html.push('<div class="modal-body">');
+        html.push('<div class="alert alert-warning mytip">');
+        html.push('<a href="#" class="close" >&times;</a>');
+        html.push('<strong>提示！</strong><span>' + tip + '</span></div>');
+        html.push('</div>');
+        html.push('<div class="modal-footer" style="padding:10px;">');
+        html.push('<button id="closetipAlert" type="button" class="btn btn-primary">确认</button>');
+        html.push('</div>');
+        html.push('</div>');
+        html.push('</div>');
+        $('body').append(html.join(''));
+        $('#tipAlertDialog').modal();
+
+        //绑定隐藏时移除元素
+        $('#tipAlertDialog').on("hidden.bs.modal", function () {
+            $('#tipAlertDialog').remove();
+        });
+
+        $('#closetipAlert').on("click", function () {
+            $('#tipAlertDialog').modal('hide');
+        });
+    }
+
+
 
     return {
         creatModal: creatModal,
@@ -155,6 +189,7 @@ function myBootstarp() {
         hideModal: hideModal,
         alert: alert,
         Confirm: Confirm,
-        CancelConfirm:CancelConfirm
+        CancelConfirm: CancelConfirm,
+        tipAlert: tipAlert
     }
 }

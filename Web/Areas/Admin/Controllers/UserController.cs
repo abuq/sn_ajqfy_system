@@ -98,6 +98,21 @@ namespace Web.Areas.Admin.Controllers
             }
         }
 
+
+        /// <summary>
+        /// 删除评价
+        /// </summary>
+        /// <param name="Ids"></param>
+        public void CancelComment(string Ids)
+        {
+            List<int> Ids_int = Ids.Split(',').ToList().Select(m => Convert.ToInt32(m)).ToList();
+            if (manage.CancelComment(Ids_int) > 0)
+            {
+                result.success = true;
+            }
+        }
+
+
         /// <summary>
         /// 后台会员登录页面
         /// </summary>

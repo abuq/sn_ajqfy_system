@@ -42,7 +42,7 @@
             },
             loadMsg: "正在加载...",
             columns: [[
-                { field: '', checkbox: true, },
+                //{ field: '', checkbox: true, },
                 {
                     field: 'PJType', title: '满意程度', align: 'center', sortable: true, width: 80, formatter: function (value) {
                         if (value == 1) return "<span style='color:green'>满意</span>";
@@ -58,12 +58,28 @@
                     }
                 },
                 { field: 'CommentDate', title: '评论时间', align: 'center', sortable: true, width: 120 },
+                {
+                    field: 'sds', title: '操作', align: 'center', sortable: true, width: 70, formatter: function (value,row) {
+                        return '<button type="button" class="btn btn-danger btn-sm  Appraise_delete" data-id="' + row.ID + '">删 除</button>&nbsp&nbsp'
+                    }},
             ]],
             onLoadSuccess: function (data) {
                 $('#Appraise').datagrid('resize');
                 $('#manyi').text('满意:' + data.manyi);
                 $('#yiban').text('一般:' + data.yiban);
                 $('#bumanyi').text('不满意:' + data.bumanyi);
+
+                var modal = new myBootstarp();
+                //删除事件绑定
+                $('.Appraise_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("/Admin/User/CancelComment", { Ids: ID }, function (r) {
+                            $('#Appraise').datagrid("reload");
+                        });
+                    });
+                });
             }
         });
 
