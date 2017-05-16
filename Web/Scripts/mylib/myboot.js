@@ -17,17 +17,12 @@ function myBootstarp() {
     function creatModal(url) {
        var element=$('<div/ class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true" id="modalDialog">').
                modal({ remote: url });
-       // //当模态框对用户可见时触发（将等待 CSS 过渡效果完成
-       // //绑定确认按钮事件
+
+     //  $(element).draggable(); scroll
+
+       $(element).css("overflow", "scroll");  //允许模态对话框的半透明背景滚动
        //$(element).on("shown.bs.modal", function () {
-       //    debugger
-       //    //给确认按钮绑定事件
-       //    $(element).find('#ok').on("click", function () {
-       //        if (callback) {
-       //            callback();
-       //            // if (res) $(element).modal('hide');
-       //        }
-       //    });
+       //    $(element).next().draggable()
        //});
 
        //绑定隐藏时移除元素
@@ -69,6 +64,7 @@ function myBootstarp() {
                         }
                         else {
                             alert(r.info);
+                            $('#ok').prop("disabled", false);
                             //f.alert("操作失败,请联系管理员!");
                         }
                     }
@@ -84,9 +80,9 @@ function myBootstarp() {
             // errorMsg 是错误信息字符串(响应状态的文本描述部分，例如'Not Found'或'Internal Server Error')
             error: function (jqXHR, textStatus, errorMsg) {
                 switch (jqXHR.status) {
-                    case 404: alert('链接地址错误!', null, 'error'); break;
-                    case 500: alert('服务器内部错误!', null, 'error'); break;
-                    default:  alert(jqXHR.status + ":" + jqXHR.statusText, null, 'error');
+                    case 404: tipAlert('链接地址错误!'); break;
+                    case 500: tipAlert('服务器内部错误!'); break;
+                    default: tipAlert(jqXHR.status + ":" + jqXHR.statusText);
                 }
             }
         });

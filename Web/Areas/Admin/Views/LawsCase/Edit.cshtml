@@ -88,6 +88,7 @@
                 if (sCaseIntroduce.length == 0) return modal.alert("开庭事项必填");
                 var params = $("#editFrom").serializeArray().toObject();
                 params.sCaseIntroduce = sCaseIntroduce;
+                $('#ok').prop("disabled", true);
                 modal.Ajax("/Admin/LawsCase/Update", params, function (r) {
                     modal.alert("编辑成功");
                     $('#LawsCase').datagrid('reload');

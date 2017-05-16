@@ -67,6 +67,7 @@
             if (res) {//验证通过
                 //var UserPic = $('#UserPic').next().val();
                 //if (UserPic.length == 0) return modal.alert("请上传失信人照片");
+                $('#ok').prop("disabled", true);
                 modal.Ajax("/Admin/Sxr/Insert", $("#addFrom").serialize(), function (r) {
                     modal.alert("添加成功");
                     $('#Sxr').datagrid('reload');

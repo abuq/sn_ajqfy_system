@@ -84,7 +84,7 @@
                 if (sCaseIntroduce.length == 0) return modal.alert("开庭事项必填");
                 var params = $("#addFrom").serializeArray().toObject();
                 params.sCaseIntroduce = sCaseIntroduce;
-
+                $('#ok').prop("disabled", true);
                 modal.Ajax("/Admin/LawsCase/Insert", params, function (r) {
                     modal.alert("添加成功");
                     $('#LawsCase').datagrid('reload');

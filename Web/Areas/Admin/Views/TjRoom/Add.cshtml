@@ -56,6 +56,7 @@
             bootstrapValidator.validate();
             var res = bootstrapValidator.isValid();
             if (res) {//验证通过
+                $('#ok').prop("disabled", true);
                 modal.Ajax("/Admin/TjRoom/Insert", $("#addFrom").serialize(), function (r) {
                     modal.alert("添加成功");
                     $('#TjRoom').datagrid('reload');

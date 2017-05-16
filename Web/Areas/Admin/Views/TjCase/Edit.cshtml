@@ -138,6 +138,7 @@
                 var params = $("#editFrom").serializeArray().toObject();
                 params.sCaseIntroduce = sCaseIntroduce;
                 params.RealName = RealName;
+                $('#ok').prop("disabled", true);
                 modal.Ajax("/Admin/TjCase/Update", params, function (r) {
                     modal.alert("编辑成功");
                     $('#TjCase').datagrid('reload');
