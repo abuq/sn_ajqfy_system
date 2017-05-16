@@ -119,6 +119,7 @@ namespace Web.App_Start.BaseController
         protected override void OnException(ExceptionContext filterContext)
         {
             base.OnException(filterContext);
+            Logs.LogHelper.ErrorLog(filterContext.Exception);
         }
     }
 }

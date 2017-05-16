@@ -19,6 +19,8 @@
             <form class="form-horizontal" role="form" id="editFrom">
                 <input  type="hidden" name="ID" value="@Model.ID"/>
                 <input type="hidden" name="dInsertTime" value="@Model.dInsertTime" />
+                <input type="hidden" name="dAclStaTime" value="@Model.dAclStaTime" />
+                <input type="hidden" name="dAclEndTime" value="@Model.dAclEndTime" />
                 <div class="form-group">
                     <label class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-10">
@@ -94,7 +96,7 @@
                 var html = [];
                 $(rows).each(function () {
                     html.push("<li data-id="+this.ID+">");
-                    html.push('<img style="width:70px;height:90px;margin-left:10px;margin-top:5px;margin-right:10px;" src="' + @(ViewData["Mulu"])+this.UserPic + '" /><span>'+this.RealName+'</span>');
+                    html.push('<img style="width:70px;height:90px;margin-left:10px;margin-top:5px;margin-right:10px;" src="' +"@(ViewData["Mulu"])"+this.UserPic + '" /><span>'+this.RealName+'</span>');
                     html.push("</li>");
                     html.push('<li class="divider"></li>');
                 });

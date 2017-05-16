@@ -52,6 +52,7 @@
                 modal.Confirm("确认要删除选择的数据", function () {
                     modal.Ajax("@(ViewData["Mulu"])/Admin/Sxr/Cancel", { Ids: array.join() }, function (r) {
                         $('#Sxr').datagrid("reload");
+                        modal.tipAlert("删除成功", 800);
                     });
                 })
             }
@@ -112,6 +113,7 @@
                     modal.Confirm("确认要删除这条数据?", function () {
                         modal.Ajax("@(ViewData["Mulu"])/Admin/Sxr/Cancel", { Ids: ID }, function (r) {
                             $('#Sxr').datagrid("reload");
+                            modal.tipAlert("删除成功", 800);
                         });
                     });
                 });

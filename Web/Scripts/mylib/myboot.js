@@ -15,6 +15,10 @@ function myBootstarp() {
 
     //创建Modal
     function creatModal(url) {
+        var res = url.indexOf("?");
+        if (res > -1)
+            url = url + "&time=" + new Date().getTime();
+        else url = url + "?time=" + new Date().getTime();
        var element=$('<div/ class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true" id="modalDialog">').
                modal({ remote: url });
 
@@ -145,7 +149,7 @@ function myBootstarp() {
     }
 
     //弹出提示框
-    function tipAlert(tip) {
+    function tipAlert(tip,time) {
         var html = [];
         html.push('<div class="modal fade"  tabindex="1" role="dialog" aria-hidden="true" id="tipAlertDialog">');
         html.push('<div class="modal-dialog">');
@@ -175,6 +179,13 @@ function myBootstarp() {
         $('#closetipAlert').on("click", function () {
             $('#tipAlertDialog').modal('hide');
         });
+
+        if (time) {
+            setTimeout(function () {
+                $('#tipAlertDialog').modal('hide');
+            }, time);
+        }
+
     }
 
 

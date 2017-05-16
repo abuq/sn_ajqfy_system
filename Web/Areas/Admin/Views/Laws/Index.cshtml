@@ -51,6 +51,7 @@
                 modal.CancelConfirm("确认要删除所选择的数据", function () {
                     modal.Ajax("@(ViewData["Mulu"])/Admin/Laws/Cancel", { Ids: array.join() }, function (r) {
                         $('#Laws').datagrid("reload");
+                        modal.tipAlert("删除成功", 800);
                     });
                 });
             }
@@ -105,6 +106,7 @@
                     modal.Confirm("确认要删除这条数据?", function () {
                         modal.Ajax("@(ViewData["Mulu"])/Admin/Laws/Cancel", { Ids: ID }, function (r) {
                             $('#Laws').datagrid("reload");
+                            modal.tipAlert("删除成功", 800);
                         });
                     });
                 });

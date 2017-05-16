@@ -56,7 +56,7 @@
                 modal.Confirm("确定要删除所选择的数据", function () {
                     modal.Ajax("@(ViewData["Mulu"])/Admin/LawsCase/Cancel", { Ids: array.join() }, function (r) {
                         $('#LawsCase').datagrid("reload");
-                        alert("删除成功");
+                        modal.tipAlert("删除成功", 800);
                     });
                 });
             }
@@ -120,6 +120,7 @@
                     modal.Confirm("确认要删除这条数据?", function () {
                         modal.Ajax("@(ViewData["Mulu"])/Admin/LawsCase/Cancel", { Ids: ID }, function (r) {
                             $('#LawsCase').datagrid("reload");
+                            modal.tipAlert("删除成功", 800);
                         });
                     });
                 });
