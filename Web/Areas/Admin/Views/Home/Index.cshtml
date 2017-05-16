@@ -134,7 +134,7 @@
                             <li>
                                 <a >
                                     <i class="icon-double-angle-right"></i>
-                                    <span data-url="/Admin/User/Index">管理法官</span>
+                                    <span data-url="@(ViewData["Mulu"])/Admin/User/Index">管理法官</span>
                                 </a>
                             </li>
                         </ul>
@@ -151,7 +151,7 @@
                             <li>
                                 <a >
                                     <i class="icon-double-angle-right"></i>
-                                    <span data-url="/Admin/Sxr/Index">管理失信人</span>
+                                    <span data-url="@(ViewData["Mulu"])/Admin/Sxr/Index">管理失信人</span>
                                 </a>
                             </li>
                         </ul>
@@ -167,13 +167,13 @@
                             <li>
                                 <a >
                                     <i class="icon-double-angle-right"></i>
-                                    <span data-url="/Admin/Laws/Index">庭室管理</span>
+                                    <span data-url="@(ViewData["Mulu"])/Admin/Laws/Index">庭室管理</span>
                                 </a>
                             </li>
                             <li>
                                 <a>
                                     <i class="icon-double-angle-right"></i>
-                                    <span data-url="/Admin/LawsCase/Index">开庭管理</span>
+                                    <span data-url="@(ViewData["Mulu"])/Admin/LawsCase/Index">开庭管理</span>
                                 </a>
                             </li>
                         </ul>
@@ -188,13 +188,13 @@
                             <li>
                                 <a>
                                     <i class="icon-double-angle-right"></i>
-                                    <span data-url="/Admin/TjRoom/Index">调解室管理</span>
+                                    <span data-url="@(ViewData["Mulu"])/Admin/TjRoom/Index">调解室管理</span>
                                 </a>
                             </li>
                             <li>
                                 <a>
                                     <i class="icon-double-angle-right"></i>
-                                    <span data-url="/Admin/TjCase/Index">调解案件管理</span>
+                                    <span data-url="@(ViewData["Mulu"])/Admin/TjCase/Index">调解案件管理</span>
                                 </a>
                             </li>
                         </ul>
@@ -284,12 +284,12 @@
         //退出
         $('.quit').on("click", function () {
             $.ajax({
-                url: "/Admin/User/Quit",
+                url: "@(ViewData["Mulu"])/Admin/User/Quit",
                 type: 'POST',
                 dataType: 'json',
                 success: function (r) {
                     if (r.success)
-                        window.location.href = "/Admin/User/Login";
+                        window.location.href = "@(ViewData["Mulu"])/Admin/User/Login";
                     else
                         alert("退出失败");
                 }

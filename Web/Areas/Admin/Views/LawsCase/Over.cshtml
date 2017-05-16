@@ -46,7 +46,7 @@
             var dAclEndTime = $('#dPreEndTime').val();//结束时间
             if (dAclStaTime.length == 0 || dAclEndTime.length == 0) return modal.alert("开庭开始和结束时间必填");
             if (new Date(dAclEndTime).getTime() - new Date(dAclStaTime).getTime() <= 0) return modal.alert("结束时间必须大于开始时间");
-            modal.Ajax("/Admin/LawsCase/UpdateOver", {
+            modal.Ajax("@(ViewData["Mulu"])/Admin/LawsCase/UpdateOver", {
                 dAclStaTime: dAclStaTime,
                 dAclEndTime: dAclEndTime,
                 ID: '@Model.ID'

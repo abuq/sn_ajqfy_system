@@ -66,12 +66,12 @@
                 UserName: UserName,
                 Password: Password
             },
-            url: "/Admin/User/checkLogin",
+            url: "@(ViewData["Mulu"])/Admin/User/checkLogin",
             type: 'POST',
             dataType: 'json',
             success: function (r) {
                 if (r.success)
-                    window.location.href = "/Admin/Home/Index";
+                    window.location.href = "@(ViewData["Mulu"])/Admin/Home/Index";
                 else
                     alert(r.info);
             }

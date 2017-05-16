@@ -52,7 +52,7 @@
             var res = bootstrapValidator.isValid();
             if (res) {//验证通过
                 $('#ok').prop("disabled", true);
-                modal.Ajax("/Admin/Laws/Insert", $("#addFrom").serialize(), function (r) {
+                modal.Ajax("@(ViewData["Mulu"])/Admin/Laws/Insert", $("#addFrom").serialize(), function (r) {
                     modal.alert("添加成功");
                     $('#Laws').datagrid('reload');
                     modal.hideModal();

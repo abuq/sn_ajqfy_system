@@ -37,12 +37,12 @@
 
         //添加操作
         $('.LawsCase_add').on("click", function () {
-             modal.creatModal("/Admin/LawsCase/Add");
+            modal.creatModal("@(ViewData["Mulu"])/Admin/LawsCase/Add");
         });
 
         //编辑操作
         function LawsCaseUpdate(ID) {
-            modal.creatModal("/Admin/LawsCase/Edit?iLawsCaseId=" + ID);
+            modal.creatModal("@(ViewData["Mulu"])/Admin/LawsCase/Edit?iLawsCaseId=" + ID);
         }
 
         //删除操作
@@ -54,7 +54,7 @@
                     array.push(this.ID);
                 });
                 modal.Confirm("确定要删除所选择的数据", function () {
-                    modal.Ajax("/Admin/LawsCase/Cancel", { Ids: array.join() }, function (r) {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/LawsCase/Cancel", { Ids: array.join() }, function (r) {
                         $('#LawsCase').datagrid("reload");
                         alert("删除成功");
                     });
@@ -70,7 +70,7 @@
         */
         $('#LawsCase').datagrid({
             fit:true,
-            url: '/Admin/LawsCase/List',
+            url: '@(ViewData["Mulu"])/Admin/LawsCase/List',
             toolbar: $('#LawsCase_toolbar'),
             fitColumns:true,
             rownumbers:true,
@@ -118,7 +118,7 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     modal.Confirm("确认要删除这条数据?", function () {
-                        modal.Ajax("/Admin/LawsCase/Cancel", { Ids: ID }, function (r) {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/LawsCase/Cancel", { Ids: ID }, function (r) {
                             $('#LawsCase').datagrid("reload");
                         });
                     });
@@ -128,7 +128,7 @@
                 $('.LawsCase_over').on("click", function (event) {
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
-                    modal.creatModal("/Admin/LawsCase/Over?iLawsCaseId=" + ID);
+                    modal.creatModal("@(ViewData["Mulu"])/Admin/LawsCase/Over?iLawsCaseId=" + ID);
                 });
 
             }

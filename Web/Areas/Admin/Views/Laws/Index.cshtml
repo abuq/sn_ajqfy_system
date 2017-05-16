@@ -32,12 +32,12 @@
 
         //添加操作
         $('.laws_add').on("click", function () {
-             modal.creatModal("/Admin/Laws/Add");
+            modal.creatModal("@(ViewData["Mulu"])/Admin/Laws/Add");
         });
 
         //编辑操作
         function lawsUpdate(ID) {
-            modal.creatModal("/Admin/Laws/Edit?iLawId=" + ID);
+            modal.creatModal("@(ViewData["Mulu"])/Admin/Laws/Edit?iLawId=" + ID);
         }
 
         //删除操作
@@ -49,7 +49,7 @@
                     array.push(this.ID);
                 });
                 modal.CancelConfirm("确认要删除所选择的数据", function () {
-                    modal.Ajax("/Admin/Laws/Cancel", { Ids: array.join() }, function (r) {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/Laws/Cancel", { Ids: array.join() }, function (r) {
                         $('#Laws').datagrid("reload");
                     });
                 });
@@ -64,7 +64,7 @@
         */
         $('#Laws').datagrid({
             fit:true,
-            url: '/Admin/Laws/List',
+            url: '@(ViewData["Mulu"])/Admin/Laws/List',
             toolbar: $('#Laws_toolbar'),
             fitColumns:true,
             rownumbers:true,
@@ -103,7 +103,7 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     modal.Confirm("确认要删除这条数据?", function () {
-                        modal.Ajax("/Admin/Laws/Cancel", { Ids: ID }, function (r) {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/Laws/Cancel", { Ids: ID }, function (r) {
                             $('#Laws').datagrid("reload");
                         });
                     });

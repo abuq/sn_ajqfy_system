@@ -38,12 +38,12 @@
 
         //添加操作
         $('.TjCase_add').on("click", function () {
-             modal.creatModal("/Admin/TjCase/Add");
+            modal.creatModal("@(ViewData["Mulu"])/Admin/TjCase/Add");
         });
 
         //编辑操作
         function TjCaseUpdate(ID) {
-            modal.creatModal("/Admin/TjCase/Edit?iTjCaseId=" + ID);
+            modal.creatModal("@(ViewData["Mulu"])/Admin/TjCase/Edit?iTjCaseId=" + ID);
         }
 
         //删除操作
@@ -55,7 +55,7 @@
                     array.push(this.ID);
                 });
                 modal.Confirm("确定要删除所选择的数据", function () {
-                    modal.Ajax("/Admin/TjCase/Cancel", { Ids: array.join() }, function (r) {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/TjCase/Cancel", { Ids: array.join() }, function (r) {
                         $('#TjCase').datagrid("reload");
                         alert("删除成功");
                     });
@@ -71,7 +71,7 @@
         */
         $('#TjCase').datagrid({
             fit:true,
-            url: '/Admin/TjCase/List',
+            url: '@(ViewData["Mulu"])/Admin/TjCase/List',
             toolbar: $('#TjCase_toolbar'),
             fitColumns:true,
             rownumbers:true,
@@ -119,7 +119,7 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     modal.Confirm("确认要删除这条数据?", function () {
-                        modal.Ajax("/Admin/TjCase/Cancel", { Ids: ID }, function (r) {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/TjCase/Cancel", { Ids: ID }, function (r) {
                             $('#TjCase').datagrid("reload");
                         });
                     });
@@ -129,7 +129,7 @@
                 $('.TjCase_over').on("click", function (event) {
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
-                    modal.creatModal("/Admin/TjCase/Over?iTjCaseId=" + ID);
+                    modal.creatModal("@(ViewData["Mulu"])/Admin/TjCase/Over?iTjCaseId=" + ID);
                 });
             }
         });

@@ -33,12 +33,12 @@
 
         //添加操作
         $('.Sxr_add').on("click", function () {
-            modal.creatModal("/Admin/Sxr/Add");
+            modal.creatModal("@(ViewData["Mulu"])/Admin/Sxr/Add");
         });
 
         //编辑操作
         function sxrUpdate(ID) {
-            modal.creatModal("/Admin/Sxr/Edit?iSxrId=" + ID);
+            modal.creatModal("@(ViewData["Mulu"])/Admin/Sxr/Edit?iSxrId=" + ID);
         }
 
         //删除操作
@@ -50,7 +50,7 @@
                     array.push(this.ID);
                 });
                 modal.Confirm("确认要删除选择的数据", function () {
-                    modal.Ajax("/Admin/Sxr/Cancel", { Ids: array.join() }, function (r) {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/Sxr/Cancel", { Ids: array.join() }, function (r) {
                         $('#Sxr').datagrid("reload");
                     });
                 })
@@ -65,7 +65,7 @@
         */
         $('#Sxr').datagrid({
             fit:true,
-            url: '/Admin/Sxr/List',
+            url: '@(ViewData["Mulu"])/Admin/Sxr/List',
             toolbar: $('#Sxr_toolbar'),
             fitColumns:true,
             rownumbers:true,
@@ -80,7 +80,7 @@
                         if (value) {
                             return '<img src="' + value + '" style="height:100px;width:80px;" />';
                         }
-                        else return '<img src="/Images/nopic.jpg" style="height:100px;width:80px;" />';
+                        else return '<img src="@(ViewData["Mulu"])/Images/nopic.jpg" style="height:100px;width:80px;" />';
                     }
                 },
                 { field: 'RealName', title: '姓名/名称', align: 'center', sortable: true, width: 80 },
@@ -110,7 +110,7 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     modal.Confirm("确认要删除这条数据?", function () {
-                        modal.Ajax("/Admin/Sxr/Cancel", { Ids: ID }, function (r) {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/Sxr/Cancel", { Ids: ID }, function (r) {
                             $('#Sxr').datagrid("reload");
                         });
                     });

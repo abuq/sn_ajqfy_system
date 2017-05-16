@@ -108,6 +108,7 @@ namespace Web.App_Start.BaseController
             {//POST的返回结果处理
                 filterContext.Result = Content(result.toJson()); /**统一处理ajax的返回结果**/
             }
+            filterContext.Controller.ViewData["Mulu"] = C_Config.ReadAppSetting("XUNIMULU");
         }
 
         /// <summary>

@@ -32,12 +32,12 @@
 
         //添加操作
         $('.adminUser_add').on("click", function () {
-            modal.creatModal("/Admin/User/Add");
+            modal.creatModal("@(ViewData["Mulu"])/Admin/User/Add");
         });
 
         //编辑操作
         function userUpdate(ID) {
-            modal.creatModal("/Admin/User/Edit?ID=" + ID, function () {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/User/Edit?ID=" + ID, function () {
 
             });
         }
@@ -51,7 +51,7 @@
                     array.push(this.ID);
                 });
                 modal.Confirm("确认要删除所选择的数据", function () {
-                    modal.Ajax("/Admin/User/Cancel", { Ids: array.join() }, function (r) {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/User/Cancel", { Ids: array.join() }, function (r) {
                         $('#User').datagrid("reload");
                     });
                 })
@@ -63,7 +63,7 @@
 
         //查看评价
         function userAppraise(ID) {
-            modal.creatModal("/Admin/User/Appraise?iUserId=" + ID);
+            modal.creatModal("@(ViewData["Mulu"])/Admin/User/Appraise?iUserId=" + ID);
         }
 
         /*!
@@ -71,7 +71,7 @@
         */
         $('#User').datagrid({
             fit: true,
-            url: '/Admin/User/List',
+            url: '@(ViewData["Mulu"])/Admin/User/List',
             toolbar: $('#User_toolbar'),
             fitColumns: true,
             rownumbers: true,
@@ -119,7 +119,7 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     modal.Confirm("确认要删除这条数据?", function () {
-                        modal.Ajax("/Admin/User/Cancel", { Ids: ID }, function (r) {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/User/Cancel", { Ids: ID }, function (r) {
                             $('#User').datagrid("reload");
                         });
                     })

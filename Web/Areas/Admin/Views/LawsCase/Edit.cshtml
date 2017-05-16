@@ -89,7 +89,7 @@
                 var params = $("#editFrom").serializeArray().toObject();
                 params.sCaseIntroduce = sCaseIntroduce;
                 $('#ok').prop("disabled", true);
-                modal.Ajax("/Admin/LawsCase/Update", params, function (r) {
+                modal.Ajax("@(ViewData["Mulu"])/Admin/LawsCase/Update", params, function (r) {
                     modal.alert("编辑成功");
                     $('#LawsCase').datagrid('reload');
                     modal.hideModal();

@@ -31,6 +31,7 @@ namespace EFModels
         public virtual DbSet<Cdelinknews> Cdelinknews { get; set; }
         public virtual DbSet<dtproperties> dtproperties { get; set; }
         public virtual DbSet<Laws> Laws { get; set; }
+        public virtual DbSet<LawsCase> LawsCase { get; set; }
         public virtual DbSet<Sxr> Sxr { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tj_Room> Tj_Room { get; set; }
@@ -41,6 +42,5 @@ namespace EFModels
         public virtual DbSet<BigClass_New> BigClass_New { get; set; }
         public virtual DbSet<Cdelink_Config> Cdelink_Config { get; set; }
         public virtual DbSet<SmallClass_Article> SmallClass_Article { get; set; }
-        public virtual DbSet<LawsCase> LawsCase { get; set; }
     }
 }

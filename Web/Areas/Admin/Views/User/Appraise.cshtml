@@ -30,7 +30,7 @@
          */
         $('#Appraise').datagrid({
             fit:true,
-            url: '/Admin/User/AppraiseList',
+            url: '@(ViewData["Mulu"])/Admin/User/AppraiseList',
             toolbar: $('#Appraise_toolbar'),
             //rownumbers: true,
             fitColumns: true,
@@ -75,7 +75,7 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     modal.Confirm("确认要删除这条数据?", function () {
-                        modal.Ajax("/Admin/User/CancelComment", { Ids: ID }, function (r) {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/User/CancelComment", { Ids: ID }, function (r) {
                             $('#Appraise').datagrid("reload");
                         });
                     });

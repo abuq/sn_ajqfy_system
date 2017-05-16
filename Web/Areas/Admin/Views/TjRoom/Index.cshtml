@@ -32,12 +32,12 @@
 
         //添加操作
         $('.TjRoom_add').on("click", function () {
-             modal.creatModal("/Admin/TjRoom/Add");
+            modal.creatModal("@(ViewData["Mulu"])/Admin/TjRoom/Add");
         });
 
         //编辑操作
         function tjroomUpdate(ID) {
-            modal.creatModal("/Admin/TjRoom/Edit?iRoomId=" + ID);
+            modal.creatModal("@(ViewData["Mulu"])/Admin/TjRoom/Edit?iRoomId=" + ID);
         }
 
         //删除操作
@@ -49,10 +49,10 @@
                     array.push(this.ID);
                 });
                 modal.Confirm("确定要删除所选择的数据", function () {
-                    modal.Ajax("/Admin/TjRoom/Cancel", { Ids: array.join() }, function (r) {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/TjRoom/Cancel", { Ids: array.join() }, function (r) {
                         $('#TjRoom').datagrid("reload");
                     });
-                }) 
+                })
             }
             else {
                 modal.tipAlert("请选择一条数据进行操作!");
@@ -64,7 +64,7 @@
         */
         $('#TjRoom').datagrid({
             fit:true,
-            url: '/Admin/TjRoom/List',
+            url: '@(ViewData["Mulu"])/Admin/TjRoom/List',
             toolbar: $('#TjRoom_toolbar'),
             fitColumns:true,
             rownumbers:true,
@@ -77,8 +77,8 @@
                 { field: 'RoomName', title: '调解室名称', align: 'center', sortable: true, width: 120 },
                 {
                     field: 'RoomState', title: '状态', align: 'center', sortable: true, width: 80, formatter: function (value) {
-                        if (value) return "<span style='color:red'>开放</span>";
-                        else return "<span style='color:green'>关闭</span>";
+                        if (value) return "<span style='color:red'>关闭</span>";
+                        else return "<span style='color:green'>开放</span>";
                     }
                 },
                 { field: 'RoomOrder', title: '调解室排序', align: 'center', sortable: true, width: 80 },
@@ -103,7 +103,7 @@
                     event.stopPropagation();
                     var ID = $(this).attr("data-id");
                     modal.Confirm("确认要删除这条数据?", function () {
-                        modal.Ajax("/Admin/TjRoom/Cancel", { Ids: ID }, function (r) {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/TjRoom/Cancel", { Ids: ID }, function (r) {
                             $('#TjRoom').datagrid("reload");
                         });
                     });

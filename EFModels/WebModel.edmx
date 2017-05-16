@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ssfw_sn_ajqfyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ssfw_sn_ajqfyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aboutuszxb">
           <Key>
             <PropertyRef Name="ID" />
@@ -336,7 +336,8 @@
     FROM [dbo].[SmallClass_Article] AS [SmallClass_Article]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ssfw_sn_ajqfyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -431,6 +432,21 @@
           <Property Name="bLawState" Type="Boolean" Nullable="false" />
           <Property Name="iLawOrder" Type="Int32" Nullable="false" />
           <Property Name="sLawPicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LawsCase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iLawsId" Type="Int32" Nullable="false" />
+          <Property Name="sCaseNum" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sCaseType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sCaseIntroduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dPreStaTime" Type="DateTime" Precision="3" />
+          <Property Name="dPreEndTime" Type="DateTime" Precision="3" />
+          <Property Name="dAclStaTime" Type="DateTime" Precision="3" />
+          <Property Name="dAclEndTime" Type="DateTime" Precision="3" />
+          <Property Name="sCaseName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Sxr">
           <Key>
@@ -583,6 +599,7 @@
           <EntitySet Name="Cdelinknews" EntityType="Self.Cdelinknews" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" />
           <EntitySet Name="Laws" EntityType="Self.Laws" />
+          <EntitySet Name="LawsCase" EntityType="Self.LawsCase" />
           <EntitySet Name="Sxr" EntityType="Self.Sxr" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Tj_Room" EntityType="Self.Tj_Room" />
@@ -593,23 +610,7 @@
           <EntitySet Name="BigClass_New" EntityType="Self.BigClass_New" />
           <EntitySet Name="Cdelink_Config" EntityType="Self.Cdelink_Config" />
           <EntitySet Name="SmallClass_Article" EntityType="Self.SmallClass_Article" />
-          <EntitySet Name="LawsCase" EntityType="ssfw_sn_ajqfyModel.LawsCase" />
         </EntityContainer>
-        <EntityType Name="LawsCase">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="iLawsId" Type="Int32" Nullable="false" />
-          <Property Name="sCaseNum" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="sCaseType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="sCaseIntroduce" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="dPreStaTime" Type="DateTime" Precision="3" />
-          <Property Name="dPreEndTime" Type="DateTime" Precision="3" />
-          <Property Name="dAclStaTime" Type="DateTime" Precision="3" />
-          <Property Name="dAclEndTime" Type="DateTime" Precision="3" />
-          <Property Name="sCaseName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -713,6 +714,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LawsCase">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.LawsCase">
+              <MappingFragment StoreEntitySet="LawsCase">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="iLawsId" ColumnName="iLawsId" />
+                <ScalarProperty Name="sCaseNum" ColumnName="sCaseNum" />
+                <ScalarProperty Name="sCaseType" ColumnName="sCaseType" />
+                <ScalarProperty Name="sCaseIntroduce" ColumnName="sCaseIntroduce" />
+                <ScalarProperty Name="dPreStaTime" ColumnName="dPreStaTime" />
+                <ScalarProperty Name="dPreEndTime" ColumnName="dPreEndTime" />
+                <ScalarProperty Name="dAclStaTime" ColumnName="dAclStaTime" />
+                <ScalarProperty Name="dAclEndTime" ColumnName="dAclEndTime" />
+                <ScalarProperty Name="sCaseName" ColumnName="sCaseName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sxr">
             <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Sxr">
               <MappingFragment StoreEntitySet="Sxr">
@@ -753,16 +770,16 @@
           <EntitySetMapping Name="TjCase">
             <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.TjCase">
               <MappingFragment StoreEntitySet="TjCase">
-                <ScalarProperty Name="sCaseIntroduce" ColumnName="sCaseIntroduce" />
-                <ScalarProperty Name="dAclEndTime" ColumnName="dAclEndTime" />
-                <ScalarProperty Name="dAclStaTime" ColumnName="dAclStaTime" />
-                <ScalarProperty Name="dPreEndTime" ColumnName="dPreEndTime" />
-                <ScalarProperty Name="dPreStaTime" ColumnName="dPreStaTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="iTjRoomId" ColumnName="iTjRoomId" />
                 <ScalarProperty Name="iUserId" ColumnName="iUserId" />
                 <ScalarProperty Name="sCaseName" ColumnName="sCaseName" />
                 <ScalarProperty Name="dInsertTime" ColumnName="dInsertTime" />
+                <ScalarProperty Name="dPreStaTime" ColumnName="dPreStaTime" />
+                <ScalarProperty Name="dPreEndTime" ColumnName="dPreEndTime" />
+                <ScalarProperty Name="dAclStaTime" ColumnName="dAclStaTime" />
+                <ScalarProperty Name="dAclEndTime" ColumnName="dAclEndTime" />
+                <ScalarProperty Name="sCaseIntroduce" ColumnName="sCaseIntroduce" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -862,22 +879,6 @@
                 <ScalarProperty Name="BigClassName" ColumnName="BigClassName" />
                 <ScalarProperty Name="BigClassNumber" ColumnName="BigClassNumber" />
                 <ScalarProperty Name="BigClassID" ColumnName="BigClassID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LawsCase">
-            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.LawsCase">
-              <MappingFragment StoreEntitySet="LawsCase">
-                <ScalarProperty Name="sCaseName" ColumnName="sCaseName" />
-                <ScalarProperty Name="dAclEndTime" ColumnName="dAclEndTime" />
-                <ScalarProperty Name="dAclStaTime" ColumnName="dAclStaTime" />
-                <ScalarProperty Name="dPreEndTime" ColumnName="dPreEndTime" />
-                <ScalarProperty Name="dPreStaTime" ColumnName="dPreStaTime" />
-                <ScalarProperty Name="sCaseIntroduce" ColumnName="sCaseIntroduce" />
-                <ScalarProperty Name="sCaseType" ColumnName="sCaseType" />
-                <ScalarProperty Name="sCaseNum" ColumnName="sCaseNum" />
-                <ScalarProperty Name="iLawsId" ColumnName="iLawsId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

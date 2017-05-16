@@ -33,7 +33,6 @@
                             {
                                 <option value="@m.ID">
                                     @m.RoomName
-                             }
                             </option>
                             }
                         </select>
@@ -90,12 +89,12 @@
 
         function LoadUser(searchText) {
             //加载调解员数据
-            modal.Ajax("/Admin/TjCase/UserList", { searchText: searchText }, function (r) {
+            modal.Ajax("@(ViewData["Mulu"])/Admin/TjCase/UserList", { searchText: searchText }, function (r) {
                 var rows = r.data;
                 var html = [];
                 $(rows).each(function () {
                     html.push("<li data-id="+this.ID+">");
-                    html.push('<img style="width:70px;height:90px;margin-left:10px;margin-top:5px;margin-right:10px;" src="' + this.UserPic + '" /><span>'+this.RealName+'</span>');
+                    html.push('<img style="width:70px;height:90px;margin-left:10px;margin-top:5px;margin-right:10px;" src="' + @(ViewData["Mulu"])+this.UserPic + '" /><span>'+this.RealName+'</span>');
                     html.push("</li>");
                     html.push('<li class="divider"></li>');
                 });
@@ -139,7 +138,7 @@
                 params.sCaseIntroduce = sCaseIntroduce;
                 params.RealName = RealName;
                 $('#ok').prop("disabled", true);
-                modal.Ajax("/Admin/TjCase/Update", params, function (r) {
+                modal.Ajax("@(ViewData["Mulu"])/Admin/TjCase/Update", params, function (r) {
                     modal.alert("编辑成功");
                     $('#TjCase').datagrid('reload');
                     modal.hideModal();

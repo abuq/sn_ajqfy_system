@@ -87,7 +87,7 @@
                 var UserPic = $('#UserPic').next().val();
                 if (UserPic.length == 0) return modal.alert("请上传本人图片");
                 $('#ok').prop("disabled", true);
-                modal.Ajax("/Admin/User/Insert", $("#addFrom").serialize(), function (r) {
+                modal.Ajax("@(ViewData["Mulu"])/Admin/User/Insert", $("#addFrom").serialize(), function (r) {
                     modal.alert("添加成功");
                     $('#User').datagrid('reload');
                     modal.hideModal();

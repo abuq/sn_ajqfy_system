@@ -45,7 +45,7 @@ function upload() {
                 $(element).append(data);//追加html
                 //初始化图片路径
                 if ($(element).next().val() != "") {
-                    $(element).find("img").attr("src", $(element).next().val())
+                    $(element).find("img").attr("src",$(element).next().val())
                 }
                 //设置图片的大小
                 $(element).find("img").height(defaults.height);
