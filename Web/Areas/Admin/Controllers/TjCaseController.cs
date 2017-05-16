@@ -73,6 +73,7 @@ namespace Web.Areas.Admin.Controllers
         /// 添加调解案件
         /// </summary>
         /// <param name="tjcase"></param>
+        [ValidateInput(false)]
         public void Insert(TjCase tjcase,string RealName)
         {
             var user = Resolve<UserManage>().Get(tjcase.iUserId);
@@ -92,6 +93,7 @@ namespace Web.Areas.Admin.Controllers
         /// 编辑调解案件
         /// </summary>
         /// <param name="law"></param>
+        [ValidateInput(false)]
         public void Update(TjCase tjcase, string RealName)
         {
             var user = Resolve<UserManage>().Get(tjcase.iUserId);

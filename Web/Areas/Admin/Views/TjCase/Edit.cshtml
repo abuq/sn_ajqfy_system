@@ -88,7 +88,6 @@
         var modal = new myBootstarp();
 
         LoadUser();
-
         function LoadUser(searchText) {
             //加载调解员数据
             modal.Ajax("@(ViewData["Mulu"])/Admin/TjCase/UserList", { searchText: searchText }, function (r) {
@@ -101,6 +100,7 @@
                     html.push('<li class="divider"></li>');
                 });
                 $('#tjPerson').append(html.join(''));
+                $('.btn-group').remove("open");
                 //绑定选择事件
                 $('#tjPerson li').on("click", function () {
                     var name = $(this).find('span').text();
