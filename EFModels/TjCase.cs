@@ -24,5 +24,6 @@ namespace EFModels
         public Nullable<System.DateTime> dAclStaTime { get; set; }
         public Nullable<System.DateTime> dAclEndTime { get; set; }
         public string sCaseIntroduce { get; set; }
+        public int RoomOrder { get; set; }
     }
 }

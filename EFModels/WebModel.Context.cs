@@ -26,7 +26,6 @@ namespace EFModels
         }
     
         public virtual DbSet<Aboutuszxb> Aboutuszxb { get; set; }
-        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<AdminMessage> AdminMessage { get; set; }
         public virtual DbSet<Cdelinknews> Cdelinknews { get; set; }
         public virtual DbSet<dtproperties> dtproperties { get; set; }
@@ -38,6 +37,7 @@ namespace EFModels
         public virtual DbSet<TjCase> TjCase { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserComment> UserComment { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<BigClass_Dept> BigClass_Dept { get; set; }
         public virtual DbSet<BigClass_New> BigClass_New { get; set; }
         public virtual DbSet<Cdelink_Config> Cdelink_Config { get; set; }

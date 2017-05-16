@@ -79,8 +79,12 @@ namespace Web.Areas.Admin.Controllers
             var user = Resolve<UserManage>().Get(tjcase.iUserId);
             if (user.RealName == RealName)
             {
-                if (manage.Add(tjcase) > 0)
-                    result.success = true;
+                if (!manage.DateCommon(tjcase, true))
+                {
+                    if (manage.Add(tjcase) > 0)
+                        result.success = true;
+                }
+                else result.info = "该调解室在选择的时间上存在冲突,请重新选择时间或者法庭";
             }
             else
             {
@@ -99,8 +103,14 @@ namespace Web.Areas.Admin.Controllers
             var user = Resolve<UserManage>().Get(tjcase.iUserId);
             if (user.RealName == RealName)
             {
-                if (manage.Edit(tjcase) > 0)
-                    result.success = true;
+                if (!manage.DateCommon(tjcase, false))
+                {
+                    if (manage.Edit(tjcase) > 0)
+                        result.success = true;
+                }
+                else
+                    result.info = "该调解室在选择的时间上存在冲突,请重新选择时间或者法庭";
+
             }
             else
             {

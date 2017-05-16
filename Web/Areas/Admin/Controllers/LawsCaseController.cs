@@ -42,6 +42,8 @@ namespace Web.Areas.Admin.Controllers
         {
             var lawsCase = manage.Get(iLawsCaseId);
             ViewBag.roomList = manage.GetAllRoom();
+            string sRealName = Resolve<UserManage>().Get(lawsCase.iUserId.Value).RealName;
+            ViewBag.sRealName = sRealName;
             return View(lawsCase);
         }
 
@@ -61,10 +63,23 @@ namespace Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="lawsCase"></param>
         [ValidateInput(false)]
-        public void Insert(LawsCase lawsCase)
+        public void Insert(LawsCase lawsCase,string RealName)
         {
-            if (manage.Add(lawsCase) > 0)
-                result.success = true;
+            var user = Resolve<UserManage>().Get(lawsCase.iUserId.Value);
+            if (user.RealName == RealName)
+            {
+                if (!manage.DateCommon(lawsCase,true))
+                {
+                    if (manage.Add(lawsCase) > 0)
+                        result.success = true;
+                }
+                else
+                    result.info = "该法庭在选择的时间上存在冲突,请重新选择时间或者法庭";
+            }
+            else
+            {
+                result.info = string.Format("{0}法官不存在,请重新选择!", RealName);
+            }
         }
 
 
@@ -73,10 +88,23 @@ namespace Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="law"></param>
         [ValidateInput(false)]
-        public void Update(LawsCase lawsCase)
+        public void Update(LawsCase lawsCase,string RealName)
         {
-            if (manage.Edit(lawsCase) > 0)
-                result.success = true;
+            var user = Resolve<UserManage>().Get(lawsCase.iUserId.Value);
+            if (user.RealName == RealName)
+            {
+                if (!manage.DateCommon(lawsCase,false))
+                {
+                    if (manage.Edit(lawsCase) > 0)
+                        result.success = true;
+                }
+                else
+                    result.info = "该法庭在选择的时间上存在冲突,请重新选择时间或者法庭";
+            }
+            else
+            {
+                result.info = string.Format("{0}法官不存在,请重新选择!", RealName);
+            }
         }
 
         /// <summary>

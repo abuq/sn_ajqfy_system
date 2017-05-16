@@ -89,21 +89,6 @@ namespace Web.App_Start.BaseController
             var actionMethod = filterContext.Controller
               .GetType()
               .GetMethod(filterContext.ActionDescriptor.ActionName);//获取访问方法   
-            if (Session[SESSION.AdminUser] != null)
-            {
-                if (request.HttpMethod.ToUpper() == "GET")
-                {//请求的方式为Get
-                    var user = SessionAdminUser();
-                    //请求的路径
-                    var sPath = filterContext.RequestContext.HttpContext.Request.Url.AbsolutePath.ToLower();
-                    if (sPath.Contains("index") && !sPath.Contains("home"))
-                    {
-                        //var menu = (Session[SESSION.Menu] as List<CDELINK_Menu>).Where(m => m.sMenuUrl.ToLower() == sPath).FirstOrDefault();
-                        //var buttonList = (Session[SESSION.Button] as List<CDELINK_Button>).Where(m => m.sMenuId == menu.ID.ToString()).OrderBy(m => m.iOrder);
-                        //filterContext.Controller.ViewData["Button"] = buttonList.Count() > 0 ? buttonList.ToList() : new List<CDELINK_Button>();
-                    }
-                }
-            }
             if (actionMethod.ReturnType.Name.ToString() == "Void" && request.IsAjaxRequest() && request.HttpMethod.ToUpper() == "POST")
             {//POST的返回结果处理
                 filterContext.Result = Content(result.toJson()); /**统一处理ajax的返回结果**/

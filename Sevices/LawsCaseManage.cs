@@ -27,6 +27,7 @@ namespace Sevices
                 var query = from a in db.LawsCase
                             join b in db.Laws
                             on a.iLawsId equals b.ID
+                            join c in db.User on a.iUserId equals c.ID
                             orderby a.ID descending
                             select new
                             {
@@ -39,7 +40,8 @@ namespace Sevices
                                 a.dPreEndTime,
                                 a.dAclStaTime,
                                 a.dAclEndTime,
-                                b.sLawName    
+                                b.sLawName,
+                                c.RealName
                             };
                 if (!string.IsNullOrEmpty(searchText))
                     query = query.
@@ -52,11 +54,12 @@ namespace Sevices
                         {
                             case "ID": query = query.OrderBy(m => m.ID); break;
                             case "sCaseNum": query = query.OrderBy(m => m.sCaseNum); break;
-                            case "RealName": query = query.OrderBy(m => m.sLawName); break;
+                            case "sLawName": query = query.OrderBy(m => m.sLawName); break;
                             case "sCaseName": query = query.OrderBy(m => m.sCaseName); break;
                             case "dAclEndTime": query = query.OrderBy(m => m.dAclEndTime); break;
                             case "dAclStaTime": query = query.OrderBy(m => m.dAclStaTime); break;
                             case "sCaseIntroduce": query = query.OrderBy(m => m.sCaseIntroduce); break;
+                            case "RealName": query = query.OrderBy(m => m.RealName); break;
                         }
                     }
                     else
@@ -65,11 +68,12 @@ namespace Sevices
                         {
                             case "ID": query = query.OrderByDescending(m => m.ID); break;
                             case "sCaseNum": query = query.OrderByDescending(m => m.sCaseNum); break;
-                            case "RealName": query = query.OrderByDescending(m => m.sLawName); break;
+                            case "sLawName": query = query.OrderByDescending(m => m.sLawName); break;
                             case "sCaseName": query = query.OrderByDescending(m => m.sCaseName); break;
                             case "dAclEndTime": query = query.OrderByDescending(m => m.dAclEndTime); break;
                             case "dAclStaTime": query = query.OrderByDescending(m => m.dAclStaTime); break;
                             case "sCaseIntroduce": query = query.OrderByDescending(m => m.sCaseIntroduce); break;
+                            case "RealName": query = query.OrderByDescending(m => m.RealName); break;
                         }
                     }
                     total = query.Count();
@@ -130,7 +134,9 @@ namespace Sevices
         {
             using (var db = new Entities())
             {
+                var laws = db.Laws.Find(lawsCase.iLawsId);
                 lawsCase.sCaseName = string.Empty;
+                lawsCase.iLawOrder = laws.iLawOrder;
                 db.LawsCase.Add(lawsCase);
                 return db.SaveChanges();
             }
@@ -186,5 +192,37 @@ namespace Sevices
                 return db.SaveChanges();
             }
         }
+
+
+        /// <summary>
+        /// 判断法庭案件选择的调解室是否时间存在冲突.
+        /// </summary>
+        /// <param name="iLawsId">法庭ID</param>
+        /// <param name="type">添加 true,编辑 false</param>
+        /// <returns></returns>
+        public bool DateCommon(LawsCase lawsCase,bool type)
+        {
+            using (var db=new Entities())
+            {
+                var res = false;
+                if (type)
+                 res = db.LawsCase.
+                    Any(m => m.iLawsId == lawsCase.iLawsId && m.dAclEndTime==null &&(
+                    (lawsCase.dPreStaTime <= m.dPreStaTime && lawsCase.dPreEndTime >= m.dPreStaTime)||    //第一种情况
+                    (lawsCase.dPreStaTime>=m.dPreStaTime&&lawsCase.dPreEndTime<=m.dPreEndTime) ||         //第二种情况
+                    (lawsCase.dPreStaTime>=m.dPreStaTime&&lawsCase.dPreEndTime>=m.dPreEndTime&&lawsCase.dPreStaTime<m.dPreEndTime) ||         //第三种情况
+                    (lawsCase.dPreStaTime<=m.dPreStaTime&&lawsCase.dPreEndTime>=m.dPreEndTime)));         //第四种情况
+                else
+                    res = db.LawsCase.
+                    Any(m => m.iLawsId == lawsCase.iLawsId && m.dAclEndTime ==null &&m.ID!=lawsCase.ID && (
+                   (lawsCase.dPreStaTime <= m.dPreStaTime && lawsCase.dPreEndTime >= m.dPreStaTime) ||    //第一种情况
+                   (lawsCase.dPreStaTime >= m.dPreStaTime && lawsCase.dPreEndTime <= m.dPreEndTime) ||         //第二种情况
+                   (lawsCase.dPreStaTime >= m.dPreStaTime && lawsCase.dPreEndTime >= m.dPreEndTime&& lawsCase.dPreStaTime < m.dPreEndTime) ||         //第三种情况
+                   (lawsCase.dPreStaTime <= m.dPreStaTime && lawsCase.dPreEndTime >= m.dPreEndTime)));         //第四种情况
+                return res;
+            }
+        }
+
+
     }
 }

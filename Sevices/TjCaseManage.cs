@@ -161,6 +161,8 @@ namespace Sevices
         {
             using (var db = new Entities())
             {
+                var tjroom = db.Tj_Room.Find(tjcase.iTjRoomId);
+                tjcase.RoomOrder = tjroom.RoomOrder.Value;
                 tjcase.dInsertTime = DateTime.Now;
                 db.TjCase.Add(tjcase);
                 return db.SaveChanges();
@@ -215,6 +217,37 @@ namespace Sevices
                 tjcase.dAclStaTime = dAclStaTime;
                 tjcase.dAclEndTime = dAclEndTime;
                 return db.SaveChanges();
+            }
+        }
+
+
+
+        /// <summary>
+        /// 判断调节案件选择的调解室是否时间存在冲突.
+        /// </summary>
+        /// <param name="iLawsId">法庭ID</param>
+        /// <param name="type">添加 true,编辑 false</param>
+        /// <returns></returns>
+        public bool DateCommon(TjCase tjcase, bool type)
+        {
+            using (var db = new Entities())
+            {
+                var res = false;
+                if (type)
+                    res = db.TjCase.
+                       Any(m => m.iTjRoomId == tjcase.iTjRoomId && m.dAclEndTime == null && (
+                       (tjcase.dPreStaTime <= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreStaTime) ||    //第一种情况
+                       (tjcase.dPreStaTime >= m.dPreStaTime && tjcase.dPreEndTime <= m.dPreEndTime) ||         //第二种情况
+                       (tjcase.dPreStaTime >= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreEndTime && tjcase.dPreStaTime<m.dPreEndTime) ||         //第三种情况
+                       (tjcase.dPreStaTime <= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreEndTime)));         //第四种情况
+                else
+                    res = db.TjCase.
+                    Any(m => m.iTjRoomId == tjcase.iTjRoomId && m.dAclEndTime== null && m.ID != tjcase.ID && (
+                   (tjcase.dPreStaTime <= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreStaTime) ||    //第一种情况
+                   (tjcase.dPreStaTime >= m.dPreStaTime && tjcase.dPreEndTime <= m.dPreEndTime) ||         //第二种情况
+                   (tjcase.dPreStaTime >= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreEndTime&& tjcase.dPreStaTime < m.dPreEndTime) ||         //第三种情况
+                   (tjcase.dPreStaTime <= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreEndTime)));         //第四种情况
+                return res;
             }
         }
     }
