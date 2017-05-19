@@ -7,8 +7,8 @@
 <table id="Laws"></table>
 <div id="Laws_toolbar" style="padding:8px;">
     <form id="search">
-        <button type="button" class="btn btn-success btn-sm laws_add">添加法庭</button> &nbsp;
-        <button type="button" class="btn btn-danger  btn-sm laws_cancel">删除法庭</button>
+        @*<button type="button" class="btn btn-success btn-sm laws_add">添加法庭</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm laws_cancel">删除法庭</button>*@
         &nbsp; &nbsp; &nbsp; &nbsp;
         <span>模糊查询:</span><input type="text" class="form-control" placeholder="法庭名称"
                                  style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
@@ -87,7 +87,7 @@
                     field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value, rows) {
                         var html = []
                         html.push('<button type="button" class="btn btn-info btn-sm Laws_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
-                        html.push('<button type="button" class="btn btn-danger btn-sm Laws_delete" data-id="' + rows.ID + '">删 除</button>');
+                      //  html.push('<button type="button" class="btn btn-danger btn-sm Laws_delete" data-id="' + rows.ID + '">删 除</button>');
                         return html.join('');
                     }
                 },
