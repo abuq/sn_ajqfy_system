@@ -90,7 +90,7 @@
                 <div class="title" style="background-color:#F0F0F0;height:40px;padding:3px;">
                     <span style="display:block;float:left;color:black;margin-top: 3px">模糊查询：</span>
                     <input type="text" class="form-control" placeholder="姓名/案号" id="searchText" style="width:200px; float:left">
-                    <button type="button" class="btn btn-default" style="display:block;float:left;margin-left:5px;" id="searchBtn">查询</button>
+                    <button type="button" class="btn btn-default" style="display:block;float:left;margin-left:5px;margin-top: 3px" id="searchBtn">查询</button>
                     <span style="display:block;float:right;color:black;margin-top: 3px">共<span id="total">18</span>页</span>
                     <div class="btn-group" style="float:right" id="btn">
                         <!--<button type="button" class="btn btn-default">第一页</button>
@@ -286,7 +286,7 @@
 
             //按钮点击
             $('.mybtn').on("click", function () {
-           
+                $('.nextPage').removeClass('disabled');
                 var select = $(this).text();
                 $('.nextPage').prev().removeClass('btn-primary').addClass('btn-default');
                 $('.nextPage').prev().text("...");
