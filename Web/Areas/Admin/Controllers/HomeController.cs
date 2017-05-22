@@ -25,14 +25,20 @@ namespace Web.Areas.Admin.Controllers
 
         #endregion
 
- 
+
+
+        public ActionResult Test()
+        {
+            return View();
+        }
+
         /// <summary>
         /// 后台用户登录
         /// </summary>
         /// <param name="sUserName"></param>
         /// <param name="sPassWord"></param>
         /// <returns></returns>
-       // [NoLogin]
+        // [NoLogin]
         //public void CheckLogin(string sUserName, string sPassWord,string sImgCode)
         //{
         //    if (sImgCode == Session[SESSION.ImgCode].ToString())
@@ -69,8 +75,8 @@ namespace Web.Areas.Admin.Controllers
         //        result.info = "验证码错误!";
         //    }
         //}
-     
 
-      
+
+
     }
 }

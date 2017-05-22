@@ -15,8 +15,6 @@
           <Property Name="Aboutusorder" Type="smallint" />
           <Property Name="Language" Type="nvarchar" MaxLength="2" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.Admin”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="ID" />
@@ -200,6 +198,10 @@
           <Property Name="Adds" Type="nvarchar" MaxLength="255" />
           <Property Name="UserPic" Type="nvarchar" MaxLength="255" />
           <Property Name="UserState" Type="bit" />
+          <Property Name="iAges" Type="int" Nullable="false" />
+          <Property Name="bSex" Type="bit" Nullable="false" />
+          <Property Name="iExecuteState" Type="int" Nullable="false" />
+          <Property Name="sCase" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -271,6 +273,7 @@
         </EntityType>
         <EntityContainer Name="ssfw_sn_ajqfyModelStoreContainer">
           <EntitySet Name="Aboutuszxb" EntityType="Self.Aboutuszxb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdminMessage" EntityType="Self.AdminMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cdelinknews" EntityType="Self.Cdelinknews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
@@ -282,24 +285,6 @@
           <EntitySet Name="TjCase" EntityType="Self.TjCase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserComment" EntityType="Self.UserComment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Admin].[ID] AS [ID], 
-    [Admin].[UserName] AS [UserName], 
-    [Admin].[Password] AS [Password], 
-    [Admin].[Purview] AS [Purview], 
-    [Admin].[LastLoginIP] AS [LastLoginIP], 
-    [Admin].[LastLoginTime] AS [LastLoginTime], 
-    [Admin].[LastLogoutTime] AS [LastLogoutTime], 
-    [Admin].[LoginTimes] AS [LoginTimes], 
-    [Admin].[AdminPurview_Article] AS [AdminPurview_Article], 
-    [Admin].[AdminPurview_Soft] AS [AdminPurview_Soft], 
-    [Admin].[AdminPurview_Photo] AS [AdminPurview_Photo], 
-    [Admin].[AdminPurview_Guest] AS [AdminPurview_Guest], 
-    [Admin].[AdminPurview_Others] AS [AdminPurview_Others], 
-    [Admin].[RndPassword] AS [RndPassword]
-    FROM [dbo].[Admin] AS [Admin]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="BigClass_Dept" EntityType="Self.BigClass_Dept" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [BigClass_Dept].[BigClassID] AS [BigClassID], 
@@ -372,6 +357,25 @@
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Aboutusorder" Type="Int16" />
           <Property Name="Language" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Purview" Type="Int32" />
+          <Property Name="LastLoginIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="0" />
+          <Property Name="LastLogoutTime" Type="DateTime" Precision="0" />
+          <Property Name="LoginTimes" Type="Int32" />
+          <Property Name="AdminPurview_Article" Type="Int32" />
+          <Property Name="AdminPurview_Soft" Type="Int32" />
+          <Property Name="AdminPurview_Photo" Type="Int32" />
+          <Property Name="AdminPurview_Guest" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdminPurview_Others" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RndPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AdminMessage">
           <Key>
@@ -466,6 +470,10 @@
           <Property Name="Adds" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="UserPic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="UserState" Type="Boolean" />
+          <Property Name="iAges" Type="Int32" Nullable="false" />
+          <Property Name="bSex" Type="Boolean" Nullable="false" />
+          <Property Name="iExecuteState" Type="Int32" Nullable="false" />
+          <Property Name="sCase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -535,25 +543,6 @@
           <Property Name="caseTypes" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Admin">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Purview" Type="Int32" />
-          <Property Name="LastLoginIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="LastLoginTime" Type="DateTime" Precision="0" />
-          <Property Name="LastLogoutTime" Type="DateTime" Precision="0" />
-          <Property Name="LoginTimes" Type="Int32" />
-          <Property Name="AdminPurview_Article" Type="Int32" />
-          <Property Name="AdminPurview_Soft" Type="Int32" />
-          <Property Name="AdminPurview_Photo" Type="Int32" />
-          <Property Name="AdminPurview_Guest" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdminPurview_Others" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="RndPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="BigClass_Dept">
           <Key>
             <PropertyRef Name="BigClassID" />
@@ -619,6 +608,7 @@
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Aboutuszxb" EntityType="Self.Aboutuszxb" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" />
           <EntitySet Name="AdminMessage" EntityType="Self.AdminMessage" />
           <EntitySet Name="Cdelinknews" EntityType="Self.Cdelinknews" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" />
@@ -630,7 +620,6 @@
           <EntitySet Name="TjCase" EntityType="Self.TjCase" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="UserComment" EntityType="Self.UserComment" />
-          <EntitySet Name="Admin" EntityType="Self.Admin" />
           <EntitySet Name="BigClass_Dept" EntityType="Self.BigClass_Dept" />
           <EntitySet Name="BigClass_New" EntityType="Self.BigClass_New" />
           <EntitySet Name="Cdelink_Config" EntityType="Self.Cdelink_Config" />
@@ -650,6 +639,26 @@
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Aboutusorder" ColumnName="Aboutusorder" />
                 <ScalarProperty Name="Language" ColumnName="Language" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Purview" ColumnName="Purview" />
+                <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="LastLogoutTime" ColumnName="LastLogoutTime" />
+                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+                <ScalarProperty Name="AdminPurview_Article" ColumnName="AdminPurview_Article" />
+                <ScalarProperty Name="AdminPurview_Soft" ColumnName="AdminPurview_Soft" />
+                <ScalarProperty Name="AdminPurview_Photo" ColumnName="AdminPurview_Photo" />
+                <ScalarProperty Name="AdminPurview_Guest" ColumnName="AdminPurview_Guest" />
+                <ScalarProperty Name="AdminPurview_Others" ColumnName="AdminPurview_Others" />
+                <ScalarProperty Name="RndPassword" ColumnName="RndPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -749,6 +758,10 @@
                 <ScalarProperty Name="Adds" ColumnName="Adds" />
                 <ScalarProperty Name="UserPic" ColumnName="UserPic" />
                 <ScalarProperty Name="UserState" ColumnName="UserState" />
+                <ScalarProperty Name="iAges" ColumnName="iAges" />
+                <ScalarProperty Name="bSex" ColumnName="bSex" />
+                <ScalarProperty Name="iExecuteState" ColumnName="iExecuteState" />
+                <ScalarProperty Name="sCase" ColumnName="sCase" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -822,26 +835,6 @@
                 <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
                 <ScalarProperty Name="caseTypes" ColumnName="caseTypes" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Admin">
-            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Admin">
-              <MappingFragment StoreEntitySet="Admin">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Purview" ColumnName="Purview" />
-                <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
-                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
-                <ScalarProperty Name="LastLogoutTime" ColumnName="LastLogoutTime" />
-                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
-                <ScalarProperty Name="AdminPurview_Article" ColumnName="AdminPurview_Article" />
-                <ScalarProperty Name="AdminPurview_Soft" ColumnName="AdminPurview_Soft" />
-                <ScalarProperty Name="AdminPurview_Photo" ColumnName="AdminPurview_Photo" />
-                <ScalarProperty Name="AdminPurview_Guest" ColumnName="AdminPurview_Guest" />
-                <ScalarProperty Name="AdminPurview_Others" ColumnName="AdminPurview_Others" />
-                <ScalarProperty Name="RndPassword" ColumnName="RndPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

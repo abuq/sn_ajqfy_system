@@ -1294,6 +1294,7 @@
     <Content Include="Areas\Admin\Views\LawsCase\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\LawsCase\Over.cshtml" />
     <Content Include="Areas\Admin\Views\TjCase\Over.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Test.cshtml" />
     <None Include="Properties\PublishProfiles\安居区法院.pubxml" />
     <None Include="Properties\PublishProfiles\怡佳之城.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
@@ -1387,6 +1388,23 @@
     <Content Include="Scripts\plug-in\starsScore\starComment.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\icheck.js" />
+    <Content Include="shixin\css\bootstrap.min.css" />
+    <Content Include="shixin\css\normalize.css" />
+    <Content Include="shixin\css\shixin.css" />
+    <Content Include="shixin\foot.asp" />
+    <Content Include="shixin\head.asp" />
+    <Content Include="shixin\images\bg.png" />
+    <Content Include="shixin\images\bp.png" />
+    <Content Include="shixin\images\company.png" />
+    <Content Include="shixin\images\fahui.png" />
+    <Content Include="shixin\images\headbg.png" />
+    <Content Include="shixin\images\tabbg.png" />
+    <Content Include="shixin\index.asp" />
+    <Content Include="shixin\index.html" />
+    <Content Include="shixin\js\custom%28old%29.js" />
+    <Content Include="shixin\js\custom.js" />
+    <Content Include="shixin\css\main.css" />
+    <Content Include="shixin\table_dynamic.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

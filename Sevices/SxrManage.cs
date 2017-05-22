@@ -39,6 +39,9 @@ namespace Sevices
                             case "CaseBiaodi": query = query.OrderBy(m => m.CaseBiaodi); break;
                             case "Adds": query = query.OrderBy(m => m.Adds); break;
                             case "UserOrder": query = query.OrderBy(m => m.UserOrder); break;
+                            case "iExecuteState": query = query.OrderBy(m => m.iExecuteState); break;
+                            case "iAges": query = query.OrderBy(m => m.iAges); break;
+                            case "bSex": query = query.OrderBy(m => m.bSex); break;
                         }
                     }
                     else
@@ -52,6 +55,9 @@ namespace Sevices
                             case "CaseBiaodi": query = query.OrderByDescending(m => m.CaseBiaodi); break;
                             case "Adds": query = query.OrderByDescending(m => m.Adds); break;
                             case "UserOrder": query = query.OrderByDescending(m => m.UserOrder); break;
+                            case "iExecuteState": query = query.OrderByDescending(m => m.iExecuteState); break;
+                            case "iAges": query = query.OrderByDescending(m => m.iAges); break;
+                            case "bSex": query = query.OrderByDescending(m => m.bSex); break;
                         }
                     }
                     total = query.Count();
@@ -99,6 +105,7 @@ namespace Sevices
         {
             using (var db = new Entities())
             {
+                sxr.UserOrder = 0;
                 sxr.UserState = true;
                 db.Sxr.Add(sxr);
                 return db.SaveChanges();

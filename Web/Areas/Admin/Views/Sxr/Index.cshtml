@@ -86,9 +86,21 @@
                 },
                 { field: 'RealName', title: '姓名/名称', align: 'center', sortable: true, width: 80 },
                 { field: 'IDCard', title: '失信人身份证号', align: 'center', sortable: true, width: 120 },
+                { field: 'iAges', title: '年龄', align: 'center', sortable: true, width: 60 },
+                {
+                    field: 'bSex', title: '性别', align: 'center', sortable: true, width: 60, formatter: function (value) {
+                        if (value) return '<span style="color:blue">男</span>';
+                        else return '<span style="color:red">女</span>';
+                    }},
                 { field: 'CaseNum', title: '执行案号', align: 'center', sortable: true, width: 120 },
-                { field: 'CaseBiaodi', title: '执行标的', align: 'center', sortable: true, width: 120 },
-                { field: 'Adds', title: '住址', align: 'center', sortable: true, width: 150 },
+                { field: 'CaseBiaodi', title: '义务', align: 'center', sortable: true, width: 80 },
+                {
+                    field: 'iExecuteState', title: '履行情况', align: 'center', sortable: true, width: 120, formatter: function (value) {
+                        if (value == 0) return "";
+                        if (value == 1) return "部分履行";
+                        if (value == 2) return "全部未履行";
+                    }
+                },
                // { field: 'UserOrder', title: '排序号', align: 'center', sortable: true, width: 60 },
                 {
                     field: 'ID', title: '操作', align: 'center', width: 100, formatter: function (value) {

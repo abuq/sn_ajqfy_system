@@ -8,6 +8,7 @@ using Web.App_Start.BaseController;
 using Sevices;
 using EFModels;
 using Common;
+using Web.App_Start;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -15,6 +16,12 @@ namespace Web.Areas.Admin.Controllers
     {
         //
         // GET: /Admin/Sxr/
+
+        [NoLogin]
+        public ActionResult ListBySxr(PageInfo info, string searchText)
+        {
+            return Content(C_Json.toJson(manage.List(info, searchText)));
+        }
 
         public ActionResult Index()
         {

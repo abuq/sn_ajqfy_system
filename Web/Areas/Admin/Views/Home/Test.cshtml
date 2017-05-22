@@ -1,0 +1,48 @@
+﻿
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+   
+    <link href="~/Areas/Admin/Content/icheck/skins/square/blue.css" rel="stylesheet" />
+    <script src="~/Areas/Admin/Content/icheck/js/jquery.js"></script>
+    <script src="~/Areas/Admin/Content/icheck/icheck.min.js"></script>
+    <title>iCheck</title>
+    <style>
+        body div{
+            display:block
+        }
+    </style>
+</head>
+<body style="margin:2px;">
+    <input class="input-1" name="1" type="radio">
+
+    <input class="input-1" name="1" type="radio">
+
+    @*<input type="checkbox" checked>
+
+    <input type="radio" name="iCheck">
+
+    <input type="radio" name="iCheck" checked>*@
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+
+
+        $('.input-1').iCheck({
+            labelHover: false,
+            cursor: true,
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
+      //  $('.input-1').iCheck('check');
+        //$('input').iCheck('check');
+    });
+</script>

@@ -23,5 +23,9 @@ namespace EFModels
         public string Adds { get; set; }
         public string UserPic { get; set; }
         public Nullable<bool> UserState { get; set; }
+        public int iAges { get; set; }
+        public bool bSex { get; set; }
+        public int iExecuteState { get; set; }
+        public string sCase { get; set; }
     }
 }

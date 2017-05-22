@@ -12,11 +12,11 @@
             <form class="form-horizontal" role="form" id="editFrom">
                 <input  type="hidden" name="ID" value="@Model.ID"/>
                 <input type="hidden" name="Fax" value="@Model.Fax" />
-                <input type="hidden" name="LockUser" value="@Model.LockUser" />
-                <input type="hidden" name="IsComment" value="@Model.IsComment" />
                 <input type="hidden" name="IsTLeader" value="@Model.IsTLeader" />
                 <input type="hidden" name="IsYLeader" value="@Model.IsYLeader" />
                 <input type="hidden" name="UserType" value="@Model.UserType" />
+                <input type="hidden" name="IsComment" value="True" />
+                <input type="hidden" name="LockUser" value="False" />
                 <div class="form-group">
                     <label class="col-sm-2 control-label">姓名</label>
                     <div class="col-sm-10">
@@ -104,7 +104,7 @@
 
         //表单验证
         $('#editFrom').bootstrapValidator({
-            live: 'disabled',
+          //  live: 'disabled',
             message: 'This value is not valid',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',

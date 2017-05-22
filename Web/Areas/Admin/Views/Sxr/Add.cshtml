@@ -1,5 +1,7 @@
 ﻿
+<link href="~/Areas/Admin/Content/icheck/skins/square/blue.css" rel="stylesheet" />
 
+<script src="~/Areas/Admin/Content/icheck/icheck.min.js"></script>
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -16,6 +18,19 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-2 control-label">年龄</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" placeholder="请输入年龄" name="iAges">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="padding-top:0">性别</label>
+                    <div class="col-sm-10">
+                        <label>男<input class="iSex" name="bSex" type="radio" value="True"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>女<input class="iSex" name="bSex" type="radio" value="False"></label>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label">身份证号</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" placeholder="请输入失信人身份证号" name="IDCard">
@@ -28,15 +43,24 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">执行标的</label>
+                    <label class="col-sm-2 control-label">义务</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="请输入执行标的" name="CaseBiaodi">
+                        <input type="text" class="form-control" placeholder="请输入义务" name="CaseBiaodi">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">住址</label>
+                    <label class="col-sm-2 control-label">履行情况</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="请输入住址" name="Adds">
+                        <select class="form-control" id="iExecuteState" name="iExecuteState">
+                            <option value="1">部分履行</option>
+                            <option value="2">全部未履行</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">具体情况</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="3" name="sCase" placeholder="请输入具体情况"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -44,7 +68,8 @@
                     <div class="col-sm-10" id="UserPic"> </div>
                     <input type="hidden" name="UserPic" value="" />
                 </div>
-            </form>
+            
+           </form>
         </div>
         <!--主体内容-->
         <div class="modal-footer" style="padding:10px;">
@@ -58,6 +83,14 @@
         var picture = new upload();
         picture.create("UserPic", { height: 120, width: 100 });
 
+        $('.iSex').iCheck({
+            labelHover: false,
+            cursor: true,
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
+
         var modal = new myBootstarp();
         //添加操作
         $('#ok').on("click", function () {
@@ -67,6 +100,8 @@
             if (res) {//验证通过
                 //var UserPic = $('#UserPic').next().val();
                 //if (UserPic.length == 0) return modal.alert("请上传失信人照片");
+                if ($('input[name=bSex]:checked').length == 0)
+                    return modal.alert("请选择性别");
                 $('#ok').prop("disabled", true);
                 modal.Ajax("@(ViewData["Mulu"])/Admin/Sxr/Insert", $("#addFrom").serialize(), function (r) {
                     modal.alert("添加成功");
@@ -76,10 +111,9 @@
             }
         });
 
-
         //表单验证
         $('#addFrom').bootstrapValidator({
-            live: 'disabled',
+           // live: 'disabled',
             message: 'This value is not valid',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
@@ -94,6 +128,17 @@
                         }
                     }
                 },
+                iAges: {
+                    validators: {
+                        notEmpty: {
+                            message: '年龄不能为空'
+                        },
+                        regexp: {
+                            regexp: /^\d{1,2}$/,
+                            message: '年龄数据错误'
+                        },
+                    }
+                },
                 IDCard: {
                     validators: {
                         notEmpty: {
@@ -105,31 +150,22 @@
                         },
                     }
                 },
-                //CaseNum: {
-                //    validators: {
-                //        notEmpty: {
-                //            message: '执行案号不能为空'
-                //        }
-                //    }
-                //},
-                CaseBiaodi: {
+                CaseNum: {
                     validators: {
-                        //notEmpty: {
-                        //    message: '执行标的不能为空'
-                        //},
-                        regexp: {
-                            regexp:/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-                            message: '金额数据格式错误'
-                        },
+                        notEmpty: {
+                            message: '执行案号不能为空'
+                        },           
                     }
                 },
-                //Adds: {
-                //    validators: {
-                //        notEmpty: {
-                //            message: '住址不能为空'
-                //        }
-                //    }
-                //},
+                CaseBiaodi: {
+                    validators: {
+                        stringLength: {
+                            min: 0,
+                            max: 10,
+                            message: '义务长度必须在10位之间'
+                        },
+                    }
+                }
             }
         });
     });
