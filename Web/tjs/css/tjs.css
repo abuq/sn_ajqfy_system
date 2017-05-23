@@ -1,0 +1,209 @@
+body {
+	font-family:"Microsoft YaHei",'Open Sans',"宋体",Verdana, Arial, Helvetica, sans-serif;
+    color: #ffffff;
+	line-height:2;
+	margin:0 auto;
+	padding: 0px;
+	text-align:center;
+	background:url(../images/ditu.png) no-repeat center top;
+	/*拉升背景*/
+	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	-moz-background-size: cover;
+	-ms-background-size: cover;
+	}
+a{color: #6db5ee;text-decoration: none;outline:none;blr:expression(this.onFocus=this.blur()); /* IE Opera */ outline:none; /* FF Opera */ }
+a:focus{ -moz-outline-style: none; /* FF */ }/*去掉虚线框*/
+a:focus{outline:none;}/*去掉虚线框-ie11*/
+a:active {outline:none;}
+a:link{color:#6db5ee;text-decoration: none;}
+a:visited{color:#6db5ee;text-decoration: none;outline:none;}
+a:hover { color: #2fcae9; text-decoration: none;outline:none;}
+
+/*背景透明*/
+.divbgtransparent{
+	background:rgba(255, 255, 255, 0.3) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+	filter:Alpha(opacity=30); background:#fff;/*实现IE背景透明*/
+	}
+.divbgtransparent p{
+	position:relative;
+	}/*实现IE文字不透明*/
+.divbgtransparent_blue{
+	background:rgba(2, 25, 61, 0.7) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+	filter:Alpha(opacity=70); background:#010f25;/*实现IE背景透明*/
+	}
+.divbgtransparent_white7{
+	background:rgba(255, 2555, 255, 0.7) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+	filter:Alpha(opacity=70); background:#ffffff;/*实现IE背景透明*/
+	}
+.divbgtransparent_white8{
+	background:rgba(255, 2555, 255, 0.8) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+	filter:Alpha(opacity=80); background:#ffffff;/*实现IE背景透明*/
+	}
+.divbgtransparent_white9{
+	background:rgba(255, 2555, 255, 0.9) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+	filter:Alpha(opacity=90); background:#ffffff;/*实现IE背景透明*/
+	}
+.textshadow{text-shadow:2px  2px 2px #404141;}
+/*盒子阴影*/
+.boxshadow1{
+	-moz-box-shadow: 2px  4px  5px  #d7d7d7;
+	-webkit-box-shadow: 2px  4px  5px  #d7d7d7;
+	box-shadow: 2px  4px  5px  #d7d7d7;
+	}
+/********** header **********/
+.headbox{
+	width: 100%;
+	height: 384px;
+	overflow:hidden;
+	background:url(../images/headerbg.png) no-repeat center top;
+	}
+.header{
+	margin:0 auto;
+	width:1080px;
+	height:200px;
+	}
+.fyname{
+	margin: 0 auto 0 40px;
+	position: relative;
+	top: 50%;/*垂直居中*/
+	/*left: 50%;*//*水平居中*/
+	/*transform: translate(-50%, -50%);*//*垂直水平居中*/
+	transform:translateY(-50%);
+	width: auto;
+	padding-left:120px;
+	background: url(../images/fahui.png) no-repeat left center;
+	text-shadow:0px 2px 2px #084c8c;/*文字阴影*/
+	}
+.fyname h1{
+	margin-top:50px;
+	font-family:'时尚中黑简体','微软雅黑';
+	font-size:50px;
+	}
+/********** main **********/
+.pagebg{
+	background:url(../images/bg.png) no-repeat center bottom;
+    width:100%;
+	min-height:1536px;
+	}
+.page{
+	margin:0 auto;
+	width:1080px;
+	height:1536px;
+	padding:40px 55px 40px 55px;
+	}
+.fan{
+	width:1080px;
+	height:580px;
+	margin:0px auto;
+	background:url(../images/fan.png) no-repeat center top;
+	}
+.tjinter{
+	width:1080px;
+	min-height:460px;
+	margin:0 auto;
+	}
+.btn{
+	border-top:0;
+	}
+.tjbtn{
+	margin:50px 25px 50px 25px;
+	width:494px;
+	height:135px;
+	line-height:135px;
+	background:url(../images/tjbtn.png) no-repeat 0 0;
+	font-size:50px;
+	padding-left:80px;
+	}
+a.tjbtn{color:#575c62;}
+.tjbtn:hover{background: url(../images/tjbtn.png) no-repeat 0 -135px; color:#2fcae9;}
+
+/**********showpage.asp************/
+.panel-heading h2{
+	color:#096;
+	}
+.page-header h2{
+	color:#333;
+	}
+.tjfree1,.tjing1,.tjfree2,.tjing2,.tjfree3,.tjing3,.tjfree4,.tjing4{
+	min-height:1000px;
+	}
+.tjsbox{
+	min-height:1300px;
+	background:none;
+	}
+.tjfree1{
+	background:url(../images/tjfm1_free.png) no-repeat center bottom;
+	}
+.tjing1{
+	background:url(../images/tjfm1_ing.png) no-repeat center center;
+	}
+.tjfree2{
+	background:url(../images/tjfm2_free.png) no-repeat center bottom;
+	}
+.tjing2{
+	background:url(../images/tjfm2_ing.png) no-repeat center center;
+	}
+.tjfree3{
+	background:url(../images/tjfm3_free.png) no-repeat center bottom;
+	}
+.tjing3{
+	background:url(../images/tjfm3_ing.png) no-repeat center center;
+	}
+.tjfree4{
+	background:url(../images/tjfm4_free.png) no-repeat center bottom;
+	}
+.tjing4{
+	background:url(../images/tjfm4_ing.png) no-repeat center center;
+	}
+.pagebg h1.panel-title{
+	margin:.67em 0;
+	font-size:2em;
+	}
+.thumbnail{
+	background:none;
+	border:1px solid #FFF;
+	}
+	
+
+
+
+
+
+
+
+.infotitle{
+	height:50px;
+	line-height:50px;
+	color:#1c76bf;
+	font-size:20px;
+	background-color:#fafafa;
+	text-shadow:0px 1px 1px #ccc;
+	}
+
+
+/********** footer **********/
+.footer{
+	width:100%;
+	height:50px;
+	margin:0 auto;
+	position:fixed;
+	bottom:0;
+	}
+.copyrights{
+	margin: 0 auto;
+	width: 1080px;
+	height: 50px;
+	line-height: 50px;
+	background:url(../images/company.png) no-repeat center center;
+}
+
+
+
+
+
+
+
+
+

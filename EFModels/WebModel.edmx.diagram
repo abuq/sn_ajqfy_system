@@ -4,29 +4,29 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c5bcb78f9544b9fb3c91d80670e3320" Name="Diagram1">
+      <Diagram DiagramId="97eea35930bd439ea4485e496ea29d58" Name="Diagram1">
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Aboutuszxb" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Admin" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.AdminMessage" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Cdelinknews" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.dtproperties" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.AdminMessage" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Cdelinknews" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.dtproperties" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.JudgeStudio" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.JudgeStudioCase" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Laws" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.LawsCase" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Sxr" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Tj_Room" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.TjCase" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.User" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.UserComment" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.BigClass_Dept" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.BigClass_New" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Cdelink_Config" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Lawyer" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.LawyerCase" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.LawyerRoom" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Sxr" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Tj_Room" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.TjCase" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.User" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.UserComment" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Admin" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.BigClass_Dept" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.BigClass_New" Width="1.5" PointX="4.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Cdelink_Config" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.SmallClass_Article" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Lawyer" Width="1.5" PointX="5.375" PointY="12.75" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.JudgeStudio" Width="1.5" PointX="7.375" PointY="12.75" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.JudgeStudioCase" Width="1.5" PointX="13.375" PointY="3.75" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.LawyerCase" Width="1.5" PointX="13.375" PointY="7.75" />
-        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.LawyerRoom" Width="1.5" PointX="9.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -14,8 +14,8 @@
 
     <!--Library Styles-->
     <!--<link href="../css/normalize.css" rel="stylesheet" type="text/css" />
-    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
-    <!--<link href="../css/main.css" rel="stylesheet">-->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/shixin.css" rel="stylesheet" />-->
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/normalize.css" rel="stylesheet" />
@@ -243,6 +243,8 @@
                 if (!$(this).hasClass("disabled")) {
                     $('.btn-primary').removeClass('btn-primary').addClass('btn-default');
                     if (num >= 1) {
+                        $('.prePage').addClass("disabled");
+                        $('.nextPage').removeClass("disabled");
                         $('.prePage').next().addClass("btn-primary");
                         params.page = 1;
                         loadData(false);
@@ -257,15 +259,21 @@
                     $('.nextPage').removeClass('disabled');
                     var selected = parseInt($('.btn-primary').text());
                     var thisBtn = $('.btn-primary');
-                    if (selected <= 6) {
-                        if (selected == 6) $(thisBtn).text("....");
+                    if (selected <7) {
                         $('.btn-primary').removeClass("btn-primary").addClass("btn-default");
                         $(thisBtn).prev().removeClass("btn-default").addClass("btn-primary");
                         if (selected == 2)
                             $('.prePage').addClass('disabled');
                     }
                     else {
-                        $(thisBtn).text(selected - 1);
+                        if (selected == 7) {
+                            $('.btn-primary').removeClass("btn-primary").addClass("btn-default");
+                            $(thisBtn).prev().removeClass("btn-default").addClass("btn-primary");
+                            $(thisBtn).text("....");
+                        }
+                        else
+                            $(thisBtn).text(selected - 1);
+                        
                     }
 
                     //加载数据

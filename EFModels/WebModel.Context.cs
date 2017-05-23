@@ -26,26 +26,26 @@ namespace EFModels
         }
     
         public virtual DbSet<Aboutuszxb> Aboutuszxb { get; set; }
-        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<AdminMessage> AdminMessage { get; set; }
         public virtual DbSet<Cdelinknews> Cdelinknews { get; set; }
         public virtual DbSet<dtproperties> dtproperties { get; set; }
+        public virtual DbSet<JudgeStudio> JudgeStudio { get; set; }
+        public virtual DbSet<JudgeStudioCase> JudgeStudioCase { get; set; }
         public virtual DbSet<Laws> Laws { get; set; }
         public virtual DbSet<LawsCase> LawsCase { get; set; }
+        public virtual DbSet<Lawyer> Lawyer { get; set; }
+        public virtual DbSet<LawyerCase> LawyerCase { get; set; }
+        public virtual DbSet<LawyerRoom> LawyerRoom { get; set; }
         public virtual DbSet<Sxr> Sxr { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tj_Room> Tj_Room { get; set; }
         public virtual DbSet<TjCase> TjCase { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserComment> UserComment { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<BigClass_Dept> BigClass_Dept { get; set; }
         public virtual DbSet<BigClass_New> BigClass_New { get; set; }
         public virtual DbSet<Cdelink_Config> Cdelink_Config { get; set; }
         public virtual DbSet<SmallClass_Article> SmallClass_Article { get; set; }
-        public virtual DbSet<Lawyer> Lawyer { get; set; }
-        public virtual DbSet<JudgeStudio> JudgeStudio { get; set; }
-        public virtual DbSet<JudgeStudioCase> JudgeStudioCase { get; set; }
-        public virtual DbSet<LawyerCase> LawyerCase { get; set; }
-        public virtual DbSet<LawyerRoom> LawyerRoom { get; set; }
     }
 }

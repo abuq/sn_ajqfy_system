@@ -20,8 +20,8 @@ namespace EFModels
         public Nullable<System.DateTime> dPreStaTime { get; set; }
         public Nullable<System.DateTime> dPreEndTime { get; set; }
         public Nullable<System.DateTime> dAclStaTime { get; set; }
+        public Nullable<System.DateTime> dAclEndTime { get; set; }
         public string sCaseName { get; set; }
         public int iRoomOrder { get; set; }
-        public Nullable<System.DateTime> dAclEndTime { get; set; }
     }
 }
