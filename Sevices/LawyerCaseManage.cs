@@ -10,9 +10,9 @@ using Common;
 namespace Sevices
 {
     /// <summary>
-    /// 调解案件管理相关业务
+    ///律师案件管理相关业务
     /// </summary>
-    public class TjCaseManage
+    public class LawyerCaseManage
     {
         /// <summary>
         /// 分页获取调解案件相关数据
@@ -24,28 +24,27 @@ namespace Sevices
             using (var db = new Entities())
             {
                 int total = 0;
-                var query = from a in db.TjCase
-                            join b in db.Tj_Room
-                            on a.iTjRoomId equals b.ID
-                            join c in db.User on
-                            a.iUserId equals c.ID
-                            orderby a.dInsertTime descending
+                var query = from a in db.LawyerCase
+                            join b in db.LawyerRoom
+                            on a.iLawyerRoomId equals b.ID
+                            join c in db.Lawyer on
+                            a.iLawyerId equals c.ID
+                            orderby a.ID descending
                             select new
                             {
                                 a.ID,
                                 a.sCaseName,
-                                a.dInsertTime,
+                                a.sCaseIntroduce,
                                 a.dPreStaTime,
                                 a.dPreEndTime,
                                 a.dAclStaTime,
                                 a.dAclEndTime,
-                                b.RoomName,
-                                c.RealName,
-                                c.UserIntroduce
+                                b.sRoomName,
+                                c.sLawyerName,
                             };
                 if (!string.IsNullOrEmpty(searchText))
                     query = query.
-                        Where(m => m.sCaseName.Contains(searchText) || m.RoomName.Contains(searchText) || m.RealName.Contains(searchText));
+                        Where(m => m.sRoomName.Contains(searchText) || m.sLawyerName.Contains(searchText));
                 if (query.Count() > 0)
                 {
                     if (info.order == OrderType.ASC)
@@ -53,11 +52,13 @@ namespace Sevices
                         switch (info.sort)
                         {
                             case "ID": query = query.OrderBy(m => m.ID); break;
-                            case "RoomName": query = query.OrderBy(m => m.RoomName); break;
-                            case "RealName": query = query.OrderBy(m => m.RealName); break;
+                            case "sRoomName": query = query.OrderBy(m => m.sRoomName); break;
+                            case "sLawyerName": query = query.OrderBy(m => m.sLawyerName); break;
                             case "sCaseName": query = query.OrderBy(m => m.sCaseName); break;
                             case "dAclStaTime": query = query.OrderBy(m => m.dAclStaTime); break;
                             case "dAclEndTime": query = query.OrderBy(m => m.dAclEndTime); break;
+                            case "dPreStaTime": query = query.OrderBy(m => m.dPreStaTime); break;
+                            case "dPreEndTime": query = query.OrderBy(m => m.dPreEndTime); break;
                         }
                     }
                     else
@@ -65,11 +66,13 @@ namespace Sevices
                         switch (info.sort)
                         {
                             case "ID": query = query.OrderByDescending(m => m.ID); break;
-                            case "RoomName": query = query.OrderByDescending(m => m.RoomName); break;
-                            case "RealName": query = query.OrderByDescending(m => m.RealName); break;
+                            case "sRoomName": query = query.OrderByDescending(m => m.sRoomName); break;
+                            case "sLawyerName": query = query.OrderByDescending(m => m.sLawyerName); break;
                             case "sCaseName": query = query.OrderByDescending(m => m.sCaseName); break;
                             case "dAclStaTime": query = query.OrderByDescending(m => m.dAclStaTime); break;
                             case "dAclEndTime": query = query.OrderByDescending(m => m.dAclEndTime); break;
+                            case "dPreStaTime": query = query.OrderByDescending(m => m.dPreStaTime); break;
+                            case "dPreEndTime": query = query.OrderByDescending(m => m.dPreEndTime); break;
                         }
                     }
                     total = query.Count();
@@ -96,7 +99,7 @@ namespace Sevices
 
 
         /// <summary>
-        /// 获取所有的法官数据
+        /// 获取所有的律师数据
         /// </summary>
         /// <returns></returns>
         public object GetAllUser(string searchText)
@@ -104,16 +107,16 @@ namespace Sevices
             using (var db=new Entities())
             {
              
-                  var  query = from a in db.User
+                  var  query = from a in db.Lawyer
                                 orderby a.ID
                                 select new
                                 {
                                     a.ID,
-                                    a.RealName,
-                                    a.UserPic
+                                    a.sLawyerName,
+                                    a.sPicture
                                 };
                 if (!string.IsNullOrEmpty(searchText))
-                    query = query.Where(m => m.RealName.Contains(searchText));
+                    query = query.Where(m => m.sLawyerName.Contains(searchText));
                 if (query.Count() > 0)
                 {
                     return query.ToList();
@@ -126,68 +129,67 @@ namespace Sevices
         }
 
         /// <summary>
-        /// 获取所有的调解室
+        /// 获取所有的接待室
         /// </summary>
         /// <returns></returns>
-        public List<Tj_Room> GetAllRoom()
+        public List<LawyerRoom> GetAllRoom()
         {
             using (var db=new Entities())
             {
-                var query = db.Tj_Room.Where(m=>m.RoomState==false).OrderByDescending(m => m.ID).ToList();
+                var query = db.LawyerRoom.Where(m=>m.iState==true).OrderByDescending(m => m.ID).ToList();
                 return query;
             }
         }
 
         /// <summary>
-        /// 根据ID获取调解案件
+        /// 根据ID获取律师案件
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public TjCase Get(int ID)
+        public LawyerCase Get(int ID)
         {
             using (var db = new Entities())
             {
-                var tjcase = db.TjCase.Find(ID);
-                return tjcase;
+                var lawyercase = db.LawyerCase.Find(ID);
+                return lawyercase;
             }
         }
 
         /// <summary>
-        /// 添加调解案件
+        /// 添加律师案件
         /// </summary>
-        /// <param name="tjcase"></param>
+        /// <param name="lawyercase"></param>
         /// <returns></returns>
-        public int Add(TjCase tjcase)
+        public int Add(LawyerCase lawyercase)
         {
             using (var db = new Entities())
             {
-                var tjroom = db.Tj_Room.Find(tjcase.iTjRoomId);
-                tjcase.RoomOrder = tjroom.RoomOrder.Value;
-                tjcase.dInsertTime = DateTime.Now;
-                db.TjCase.Add(tjcase);
+                var lawyerroom = db.LawyerRoom.Find(lawyercase.iLawyerRoomId);
+                lawyercase.iRoomOrder = lawyerroom.iRoomOrder;
+                db.LawyerCase.Add(lawyercase);
                 return db.SaveChanges();
             }
         }
 
         /// <summary>
-        /// 编辑调解案件
+        /// 编辑律师案件
         /// </summary>
-        /// <param name="tjcase"></param>
+        /// <param name="lawyercase"></param>
         /// <returns></returns>
-        public int Edit(TjCase tjcase)
+        public int Edit(LawyerCase lawyercase)
         {
             using (var db = new Entities())
             {
-                var tjroom = db.Tj_Room.Find(tjcase.iTjRoomId);
-                tjcase.RoomOrder = tjroom.RoomOrder.Value;
-                db.Entry<TjCase>(tjcase).State = System.Data.Entity.EntityState.Modified;
+                var lawyerroom = db.LawyerRoom.Find(lawyercase.iLawyerRoomId);
+                lawyercase.iRoomOrder = lawyerroom.iRoomOrder;
+                db.Entry<LawyerCase>(lawyercase).State = System.Data.Entity.EntityState.Modified;
                 return db.SaveChanges();
             }
         }
 
 
         /// <summary>
-        /// 删除调解案件
+        /// 删除律师案件
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -195,10 +197,10 @@ namespace Sevices
         {
             using (var db = new Entities())
             {
-                var tjcaseList = db.TjCase.Where(m => Ids.Contains(m.ID));
-                foreach (var tjcase in tjcaseList)
+                var lawyercaseList = db.LawyerCase.Where(m => Ids.Contains(m.ID));
+                foreach (var lawyercase in lawyercaseList)
                 {
-                    db.Entry<TjCase>(tjcase).State = System.Data.Entity.EntityState.Deleted;
+                    db.Entry<LawyerCase>(lawyercase).State = System.Data.Entity.EntityState.Deleted;
                 }
                 return db.SaveChanges();
             }
@@ -206,7 +208,7 @@ namespace Sevices
 
 
         /// <summary>
-        /// 结束调解案件
+        /// 结束律师案件
         /// </summary>
         /// <param name="dAclStaTime"></param>
         /// <param name="dAclEndTime"></param>
@@ -215,9 +217,9 @@ namespace Sevices
         {
             using (var db = new Entities())
             {
-                var tjcase = db.TjCase.Find(ID);
-                tjcase.dAclStaTime = dAclStaTime;
-                tjcase.dAclEndTime = dAclEndTime;
+                var lawyercase = db.LawyerCase.Find(ID);
+                lawyercase.dAclStaTime = dAclStaTime;
+                lawyercase.dAclEndTime = dAclEndTime;
                 return db.SaveChanges();
             }
         }
@@ -225,30 +227,30 @@ namespace Sevices
 
 
         /// <summary>
-        /// 判断调节案件选择的调解室是否时间存在冲突.
+        /// 判断调节案件选择的接待室是否时间存在冲突.
         /// </summary>
         /// <param name="iLawsId">法庭ID</param>
         /// <param name="type">添加 true,编辑 false</param>
         /// <returns></returns>
-        public bool DateCommon(TjCase tjcase, bool type)
+        public bool DateCommon(LawyerCase lawyercase, bool type)
         {
             using (var db = new Entities())
             {
                 var res = false;
                 if (type)
-                    res = db.TjCase.
-                       Any(m => m.iTjRoomId == tjcase.iTjRoomId && m.dAclEndTime == null && (
-                       (tjcase.dPreStaTime <= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreStaTime) ||    //第一种情况
-                       (tjcase.dPreStaTime >= m.dPreStaTime && tjcase.dPreEndTime <= m.dPreEndTime) ||         //第二种情况
-                       (tjcase.dPreStaTime >= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreEndTime && tjcase.dPreStaTime<m.dPreEndTime) ||         //第三种情况
-                       (tjcase.dPreStaTime <= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreEndTime)));         //第四种情况
+                    res = db.LawyerCase.
+                       Any(m => m.iLawyerRoomId == lawyercase.iLawyerRoomId && m.dAclEndTime == null && (
+                       (lawyercase.dPreStaTime <= m.dPreStaTime && lawyercase.dPreEndTime >= m.dPreStaTime) ||    //第一种情况
+                       (lawyercase.dPreStaTime >= m.dPreStaTime && lawyercase.dPreEndTime <= m.dPreEndTime) ||         //第二种情况
+                       (lawyercase.dPreStaTime >= m.dPreStaTime && lawyercase.dPreEndTime >= m.dPreEndTime && lawyercase.dPreStaTime<m.dPreEndTime) ||         //第三种情况
+                       (lawyercase.dPreStaTime <= m.dPreStaTime && lawyercase.dPreEndTime >= m.dPreEndTime)));         //第四种情况
                 else
-                    res = db.TjCase.
-                    Any(m => m.iTjRoomId == tjcase.iTjRoomId && m.dAclEndTime== null && m.ID != tjcase.ID && (
-                   (tjcase.dPreStaTime <= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreStaTime) ||    //第一种情况
-                   (tjcase.dPreStaTime >= m.dPreStaTime && tjcase.dPreEndTime <= m.dPreEndTime) ||         //第二种情况
-                   (tjcase.dPreStaTime >= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreEndTime&& tjcase.dPreStaTime < m.dPreEndTime) ||         //第三种情况
-                   (tjcase.dPreStaTime <= m.dPreStaTime && tjcase.dPreEndTime >= m.dPreEndTime)));         //第四种情况
+                    res = db.LawyerCase.
+                    Any(m => m.iLawyerRoomId == lawyercase.iLawyerRoomId && m.dAclEndTime== null && m.ID != lawyercase.ID && (
+                   (lawyercase.dPreStaTime <= m.dPreStaTime && lawyercase.dPreEndTime >= m.dPreStaTime) ||    //第一种情况
+                   (lawyercase.dPreStaTime >= m.dPreStaTime && lawyercase.dPreEndTime <= m.dPreEndTime) ||         //第二种情况
+                   (lawyercase.dPreStaTime >= m.dPreStaTime && lawyercase.dPreEndTime >= m.dPreEndTime&& lawyercase.dPreStaTime < m.dPreEndTime) ||         //第三种情况
+                   (lawyercase.dPreStaTime <= m.dPreStaTime && lawyercase.dPreEndTime >= m.dPreEndTime)));         //第四种情况
                 return res;
             }
         }

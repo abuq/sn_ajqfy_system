@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "律师管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
+}
+<script src="~/Scripts/mylib/myboot.js"></script>
+<script src="~/Scripts/plug-in/picture/upload.js"></script>
+<table id="Lawyer"></table>
+<div id="Lawyer_toolbar" style="padding:8px;">
+    <form id="search">
+        <button type="button" class="btn btn-success btn-sm Lawyer_add">添加律师</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm Lawyer_cancel">删除律师</button>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span>模糊查询:</span><input type="text" class="form-control" placeholder="姓名/联系电话"
+                                 style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
+        <button type="button" class="btn btn-default  btn-sm searchText">查 询</button>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        var modal = new myBootstarp();
+
+
+        //模糊查询
+        $('.searchText').on("click", function () {
+            var searchText = $('#search input').val();
+            $('#Lawyer').datagrid({
+                queryParams: {
+                    searchText: searchText
+                }
+            });
+        });
+
+        //添加操作
+        $('.Lawyer_add').on("click", function () {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/Lawyer/Add");
+        });
+
+        //编辑操作
+        function LawyerUpdate(ID) {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/Lawyer/Edit?iLawyerId=" + ID);
+        }
+
+        //删除操作
+        $('.Lawyer_cancel').on("click", function () {
+            var selected = $('#Lawyer').datagrid('getSelections');
+            if (selected.length > 0) {
+                var array = [];
+                $(selected).each(function () {
+                    array.push(this.ID);
+                });
+                modal.Confirm("确认要删除选择的数据", function () {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/Lawyer/Cancel", { Ids: array.join() }, function (r) {
+                        $('#Lawyer').datagrid("reload");
+                        modal.tipAlert("删除成功", 800);
+                    });
+                })
+            }
+            else {
+                modal.tipAlert("请选择一条数据进行操作!");
+            }
+        });
+
+        /*!
+        * method:律师数据列表(datagrid)的绑定
+        */
+        $('#Lawyer').datagrid({
+            fit:true,
+            url: '@(ViewData["Mulu"])/Admin/Lawyer/List',
+            toolbar: $('#Lawyer_toolbar'),
+            fitColumns:true,
+            rownumbers:true,
+            striped: true,
+            pagination: true,
+            pageSize:10,
+            loadMsg: "正在加载...",
+            columns: [[
+                //{ field: '', checkbox: true, },
+                {
+                    field: 'sPicture', title: '照片', align: 'center', width: 80, sortable: true, formatter: function (value) {
+                        if (value) {
+                            return '<img src="' +"@(ViewData["Mulu"])"+value + '" style="height:100px;width:80px;" />';
+                        }
+                        else return '<img src="@(ViewData["Mulu"])/Images/nopic.jpg" style="height:100px;width:80px;" />';
+                    }
+                },
+                { field: 'sLawyerName', title: '姓名', align: 'center', sortable: true, width: 60 },
+                { field: 'sPhone', title: '联系电话', align: 'center', sortable: true, width: 100 },
+                { field: 'iAges', title: '年龄', align: 'center', sortable: true, width: 60 },
+                {
+                    field: 'bSex', title: '性别', align: 'center', sortable: true, width: 60, formatter: function (value) {
+                        if (value) return '<span style="color:blue">男</span>';
+                        else return '<span style="color:red">女</span>';
+                    }},
+                { field: 'sExecutionNum', title: '执行证号', align: 'center', sortable: true, width: 120 },
+                { field: 'sJobAddress', title: '工作单位', align: 'center', sortable: true, width: 80 },
+                {
+                    field: 'ID', title: '操作', align: 'center', width: 100, formatter: function (value) {
+                        var html=[];
+                        html.push('<button type="button" class="btn btn-info btn-sm Lawyer_edit" data-id="' + value + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm Lawyer_delete" data-id="' + value + '">删 除</button>');
+                        return html.join('');
+                    }
+                },
+            ]],
+            onLoadSuccess: function () {
+                $('.Lawyer_edit').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    LawyerUpdate(ID);
+                });
+
+                //删除事件绑定
+                $('.Lawyer_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/Lawyer/Cancel", { Ids: ID }, function (r) {
+                            $('#Lawyer').datagrid("reload");
+                            modal.tipAlert("删除成功", 800);
+                        });
+                    });
+                });
+            }
+        });
+    });
+
+</script>

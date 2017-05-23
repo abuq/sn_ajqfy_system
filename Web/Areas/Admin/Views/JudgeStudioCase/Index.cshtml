@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "法官案件管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
+}
+<script src="~/Scripts/mylib/myboot.js"></script>
+<link href="~/Areas/Admin/Content/Calendar/skin/WdatePicker.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/Calendar/WdatePicker.js"></script>
+
+<script src="~/Content/kindeditor/kindeditor.js"></script>
+<script src="~/Content/kindeditor/lang/zh_CN.js"></script>
+<script src="~/Scripts/plug-in/kindeditor.js"></script>
+<table id="JudgeStudioCase"></table>
+<div id="JudgeStudioCase_toolbar" style="padding:8px;">
+    <form id="search">
+        <button type="button" class="btn btn-success btn-sm JudgeStudioCase_add">添加案件</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm JudgeStudioCase_cancel">删除案件</button>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span>模糊查询:</span><input type="text" class="form-control" placeholder="案号/法庭名称"
+                                 style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
+        <button type="button" class="btn btn-default  btn-sm searchText">查 询</button>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        var modal = new myBootstarp();
+
+        //模糊查询
+        $('.searchText').on("click", function () {
+            var searchText = $('#search input').val();
+            $('#JudgeStudioCase').datagrid({
+                queryParams: {
+                    searchText: searchText
+                }
+            });
+        });
+
+        //添加操作
+        $('.JudgeStudioCase_add').on("click", function () {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/JudgeStudioCase/Add");
+        });
+
+        //编辑操作
+        function JudgeStudioCaseUpdate(ID) {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/JudgeStudioCase/Edit?iJudgeStudioCaseId=" + ID);
+        }
+
+        //删除操作
+        $('.JudgeStudioCase_cancel').on("click", function () {
+            var selected = $('#JudgeStudioCase').datagrid('getSelections');
+            if (selected.length>0) {
+                var array = [];
+                $(selected).each(function () {
+                    array.push(this.ID);
+                });
+                modal.Confirm("确定要删除所选择的数据", function () {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/JudgeStudioCase/Cancel", { Ids: array.join() }, function (r) {
+                        $('#JudgeStudioCase').datagrid("reload");
+                        modal.tipAlert("删除成功", 800);
+                    });
+                });
+            }
+            else {
+                modal.tipAlert("请选择一条数据进行操作!");
+            }
+        });
+
+        /*!
+        * method:案件数据列表(datagrid)的绑定
+        */
+        $('#JudgeStudioCase').datagrid({
+            fit:true,
+            url: '@(ViewData["Mulu"])/Admin/JudgeStudioCase/List',
+            toolbar: $('#JudgeStudioCase_toolbar'),
+            fitColumns:true,
+            rownumbers:true,
+            striped: true,
+            pagination: true,
+            pageSize:20,
+            loadMsg: "正在加载...",
+            columns: [[
+                //{ field: 'sCaseNum', title: '案号', align: 'center', sortable: true, width: 80 },
+                { field: 'sJobName', title: '法官工作室名称', align: 'center', sortable: true, width: 80 },
+                { field: 'RealName', title: '法官', align: 'center', sortable: true, width: 80 },
+                {
+                    field: 'fsdf', title: '预计时间段', align: 'center', sortable: false, width: 150, formatter: function (value, row) {
+                        if (row.dPreStaTime && row.dPreEndTime) {
+                            return row.dPreStaTime + "---" + row.dPreEndTime;
+                        }
+                        else return "--";
+                    }
+                },
+                { field: 'dAclStaTime', title: '实际开始时间', align: 'center', sortable: true, width: 120 },
+                { field: 'dAclEndTime', title: '实际结束时间', align: 'center', sortable: true, width: 120 },
+                {
+                    field: 'ds', title: '操作', align: 'center', width:120, formatter: function (value, rows) {
+                        var html = [];
+                        html.push('<button type="button" class="btn btn-info btn-sm JudgeStudioCase_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm JudgeStudioCase_delete" data-id="' + rows.ID + '">删 除</button>&nbsp&nbsp');
+                        if (rows.dAclEndTime==null)
+                            html.push('<button type="button" class="btn btn-primary btn-sm JudgeStudioCase_over" data-id="' + rows.ID + '">结束调解</button>');
+                        else
+                            html.push('<button type="button" class="btn btn-primary btn-sm" disabled="disabled">已经结束</button>');
+                        return html.join('');
+                    }
+                },
+            ]],
+            onLoadSuccess: function () {
+                $('.JudgeStudioCase_edit').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    JudgeStudioCaseUpdate(ID);
+                });
+
+                //删除事件绑定
+                $('.JudgeStudioCase_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/JudgeStudioCase/Cancel", { Ids: ID }, function (r) {
+                            $('#JudgeStudioCase').datagrid("reload");
+                            modal.tipAlert("删除成功", 800);
+                        });
+                    });
+                });
+
+                //结束案件绑定
+                $('.JudgeStudioCase_over').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.creatModal("@(ViewData["Mulu"])/Admin/JudgeStudioCase/Over?iJudgeStudioCaseId=" + ID);
+                });
+
+            }
+        });
+    });
+
+</script>

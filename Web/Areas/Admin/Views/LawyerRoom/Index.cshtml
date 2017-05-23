@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
+}
+<script src="~/Scripts/mylib/myboot.js"></script>
+<script src="~/Scripts/plug-in/picture/upload.js"></script>
+<table id="LawyerRoom"></table>
+<div id="LawyerRoom_toolbar" style="padding:8px;">
+    <form id="search">
+        <button type="button" class="btn btn-success btn-sm LawyerRoom_add">添加接待室</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm LawyerRoom_cancel">删除接待室</button>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span>模糊查询:</span><input type="text" class="form-control" placeholder="接待室名称"
+                                 style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
+        <button type="button" class="btn btn-default  btn-sm searchText">查 询</button>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        var modal = new myBootstarp();
+
+        //模糊查询
+        $('.searchText').on("click", function () {
+            var searchText = $('#search input').val();
+            $('#LawyerRoom').datagrid({
+                queryParams: {
+                    searchText: searchText
+                }
+            });
+        });
+
+        //添加操作
+        $('.LawyerRoom_add').on("click", function () {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/LawyerRoom/Add");
+        });
+
+        //编辑操作
+        function LawyerRoomUpdate(ID) {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/LawyerRoom/Edit?iLawyerRoomId=" + ID);
+        }
+
+        //删除操作
+        $('.LawyerRoom_cancel').on("click", function () {
+            var selected = $('#LawyerRoom').datagrid('getSelections');
+            if (selected.length>0) {
+                var array = [];
+                $(selected).each(function () {
+                    array.push(this.ID);
+                });
+                modal.Confirm("确认要删除所选择的数据", function () {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/LawyerRoom/Cancel", { Ids: array.join() }, function (r) {
+                        $('#LawyerRoom').datagrid("reload");
+                        modal.tipAlert("删除成功", 800);
+                    });
+                });
+            }
+            else {
+                modal.tipAlert("请选择一条数据进行操作!");
+            }
+        });
+
+        /*!
+        * method:律师接待室数据列表(datagrid)的绑定
+        */
+        $('#LawyerRoom').datagrid({
+            fit:true,
+            url: '@(ViewData["Mulu"])/Admin/LawyerRoom/List',
+            toolbar: $('#LawyerRoom_toolbar'),
+            fitColumns:true,
+            rownumbers:true,
+            striped: true,
+            pagination: true,
+            pageSize:20,
+            loadMsg: "正在加载...",
+            columns: [[
+                { field: 'sRoomName', title: '律师接待室名称', align: 'center', sortable: true, width: 120 },
+                {
+                    field: 'iState', title: '状态', align: 'center', sortable: true, width: 80, formatter: function (value) {
+                        if (!value) return "<span style='color:red'>关闭</span>";
+                        else return "<span style='color:green'>开放</span>";
+                    }
+                },
+                { field: 'iRoomOrder', title: '排序', align: 'center', sortable: true, width: 80 },
+                {
+                    field: 'ds', title: '操作', align: 'center', width: 100, formatter: function (value, rows) {
+                        var html = []
+                        html.push('<button type="button" class="btn btn-info btn-sm LawyerRoom_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm LawyerRoom_delete" data-id="' + rows.ID + '">删 除</button>');
+                        return html.join('');
+                    }
+                },
+            ]],
+            onLoadSuccess: function () {
+                $('.LawyerRoom_edit').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    LawyerRoomUpdate(ID);
+                });
+
+                //删除事件绑定
+                $('.LawyerRoom_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/LawyerRoom/Cancel", { Ids: ID }, function (r) {
+                            $('#LawyerRoom').datagrid("reload");
+                            modal.tipAlert("删除成功", 800);
+                        });
+                    });
+                });
+
+            }
+        });
+    });
+
+</script>

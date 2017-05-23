@@ -1,7 +1,7 @@
-﻿@using EFModels;
-@{
-    var list = ViewBag.roomList as List<Laws>;
-}
+﻿
+<!--添加法官工作室视图-->
+<link href="~/Areas/Admin/Content/icheck/skins/square/blue.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/icheck/icheck.min.js"></script>
 <style>
     #tjPerson li:hover {
         background-color: #5bc0de;
@@ -11,34 +11,28 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">添加法庭案件</h4>
+            <h4 class="modal-title" id="myModalLabel">添加法官工作室</h4>
         </div>
         <!--主体内容-->
         <div class="modal-body">
             <form class="form-horizontal" role="form" id="addFrom">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">案号</label>
+                    <label class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="请输入案号" name="sCaseNum">
+                        <input type="text" class="form-control" placeholder="请输入法官工作室名称" name="sJobName">
                     </div>
                 </div>
-                @*<div class="form-group">
-                    <label class="col-sm-2 control-label">案由</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="案由" name="sCaseName">
-                    </div>
-                </div>*@
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">法庭选择</label>
+                        <label class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" placeholder="请输入法官工作室排序" name="iRoomOrder">
+                        </div>
+                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="padding-top:0">状态选择</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="iLawsId" name="iLawsId">
-                            @foreach (var m in list)
-                            {
-                                <option value="@m.ID">
-                                    @m.sLawName
-                                </option>
-                            }
-                        </select>
+                        <label>开放<input class="iState" name="iState" type="radio" value="True"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>关闭<input class="iState" name="iState" type="radio" value="False"></label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -56,21 +50,6 @@
                         </div>
                     </div>
                 </div> ​
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">开庭时间</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="dPreStaTime" name="dPreStaTime"  class="form-control" readonly="readonly" value="@DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")"
-                               style="width:38%;float:left;cursor: pointer" placeholder="点击选择开始时间"  onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
-                        <input type="text" id="dPreEndTime" class="form-control" readonly="readonly"
-                               name="dPreEndTime" style="width:38%;float:left;margin-left:10px;cursor: pointer" placeholder="点击选择结束时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">开庭事项</label>
-                    <div class="col-sm-10">
-                        <textarea id="sCaseIntroduce" name="sCaseIntroduce" style="width:100%;"></textarea>
-                    </div>
-                </div>
             </form>
         </div>
         <!--主体内容-->
@@ -80,14 +59,17 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     $(function () {
-
-        var editor = new kindeditor();
-        editor.create("#sCaseIntroduce");
-
+        $('.iState').iCheck({
+            labelHover: false,
+            cursor: true,
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
         var modal = new myBootstarp();
+
         LoadUser();
         function LoadUser(searchText) {
             //加载调解员数据
@@ -120,31 +102,26 @@
             $('.btn-group').addClass("open");
         });
 
+
         //添加操作
         $('#ok').on("click", function () {
             var bootstrapValidator = $("#addFrom").data('bootstrapValidator');
             bootstrapValidator.validate();
             var res = bootstrapValidator.isValid();
             if (res) {//验证通过
-                var StaTime = $('#dPreStaTime').val();//开始时间
-                var EndTime = $('#dPreEndTime').val();//结束时间
-                if (StaTime.length == 0 || EndTime.length == 0) return modal.alert("开庭开始和结束时间必填");
-                if (new Date(EndTime).getTime() - new Date(StaTime).getTime() <= 0) return modal.alert("结束时间必须大于开始时间");
-
+                if ($('input[name=iState]:checked').length == 0)
+                    return modal.alert("请选择工作室状态");
                 var iUserId = $('#iUserId').next().val();
                 var RealName = $('#iUserId').val();
                 if (iUserId.length == 0 || RealName.length == 0) return modal.alert("请选择法官");
-
-                var sCaseIntroduce = editor.gethtml();
-                if (sCaseIntroduce.length == 0) return modal.alert("开庭事项必填");
                 var params = $("#addFrom").serializeArray().toObject();
-                params.sCaseIntroduce = sCaseIntroduce;
                 params.RealName = RealName;
+
                 $('#ok').prop("disabled", true);
-                modal.Ajax("@(ViewData["Mulu"])/Admin/LawsCase/Insert", params, function (r) {
+                modal.Ajax("@(ViewData["Mulu"])/Admin/JudgeStudio/Insert", params, function (r) {
                     modal.alert("添加成功");
-                    $('#LawsCase').datagrid('reload');
-                    modal.hideModal();
+                    $('#JudgeStudio').datagrid('reload');
+                    modal.hideModal();    
                 });
             }
         });
@@ -158,24 +135,17 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                sCaseNum: {
+                sJobName: {
                     validators: {
                         notEmpty: {
-                            message: '案号不能为空'
+                            message: '法官工作室名称不能为空'
                         }
                     }
                 },
-                iLawsId: {
+                iRoomOrder: {
                     validators: {
                         notEmpty: {
-                            message: '请选择法庭'
-                        }
-                    }
-                },
-                sCaseIntroduce: {
-                    validators: {
-                        notEmpty: {
-                            message: '开庭事项不能为空'
+                            message: '法官工作室排序不能为空'
                         }
                     }
                 },

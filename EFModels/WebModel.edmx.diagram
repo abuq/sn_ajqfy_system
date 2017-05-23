@@ -22,6 +22,11 @@
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.BigClass_New" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Cdelink_Config" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.SmallClass_Article" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.Lawyer" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.JudgeStudio" Width="1.5" PointX="7.375" PointY="12.75" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.JudgeStudioCase" Width="1.5" PointX="13.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.LawyerCase" Width="1.5" PointX="13.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ssfw_sn_ajqfyModel.LawyerRoom" Width="1.5" PointX="9.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

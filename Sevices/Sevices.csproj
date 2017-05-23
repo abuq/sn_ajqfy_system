@@ -45,7 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JudgeStudioCaseManage.cs" />
     <Compile Include="LawsCaseManage.cs" />
+    <Compile Include="JudgeStudioManage.cs" />
+    <Compile Include="LawyerRoomManage.cs" />
+    <Compile Include="LawyerManage.cs" />
+    <Compile Include="LawyerCaseManage.cs" />
     <Compile Include="TjCaseManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LawsManage.cs" />

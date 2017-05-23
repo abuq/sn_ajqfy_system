@@ -1,0 +1,118 @@
+﻿<!--添加法官案件视图-->
+@using EFModels;
+@{
+    var list = ViewBag.roomList as List<JudgeStudio>;
+}
+@model JudgeStudioCase
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">编辑案件</h4>
+        </div>
+        <!--主体内容-->
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" id="editFrom">
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <input type="hidden" name="dAclStaTime" value="@Model.dAclStaTime" />
+                <input type="hidden" name="dAclEndTime" value="@Model.dAclEndTime" />
+                <input type="hidden" name="sCaseName" value="@Model.sCaseName" />
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">法官工作室</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="iJudgeStudioId" name="iJudgeStudioId">
+                            @foreach (var m in list)
+                            {
+                                <option value="@m.ID">
+                                    @m.sJobName
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">预计时间</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="dPreStaTime" name="dPreStaTime" class="form-control" readonly="readonly" value="@Model.dPreStaTime"
+                               style="width:38%;float:left;cursor: pointer" placeholder="点击选择开始时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+                        <input type="text" id="dPreEndTime" class="form-control" readonly="readonly"
+                               name="dPreEndTime" style="width:38%;float:left;margin-left:10px;cursor: pointer" placeholder="点击选择结束时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})" value="@Model.dPreEndTime">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">调解事项</label>
+                    <div class="col-sm-10">
+                        <textarea id="sCaseIntroduce" name="sCaseIntroduce" style="width:100%;">@Html.Raw(Model.sCaseIntroduce)</textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--主体内容-->
+        <div class="modal-footer" style="padding:10px;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="ok" type="button" class="btn btn-primary">确认提交</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#iJudgeStudioId').val("@Model.iJudgeStudioId.ToString()");
+        var editor = new kindeditor();
+        editor.create("#sCaseIntroduce");
+
+        var modal = new myBootstarp();
+
+        //添加操作
+        $('#ok').on("click", function () {
+            var bootstrapValidator = $("#editFrom").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            var res = bootstrapValidator.isValid();
+            if (res) {//验证通过
+                var StaTime = $('#dPreStaTime').val();//开始时间
+                var EndTime = $('#dPreEndTime').val();//结束时间
+                if (StaTime.length == 0 || EndTime.length == 0) return modal.alert("预计开始和结束时间必填");
+                if (new Date(EndTime).getTime() - new Date(StaTime).getTime() <= 0) return modal.alert("结束时间必须大于开始时间");
+
+                var sCaseIntroduce = editor.gethtml();
+                if (sCaseIntroduce.length == 0) return modal.alert("调解事项必填");
+
+                var params = $("#editFrom").serializeArray().toObject();
+                params.sCaseIntroduce = sCaseIntroduce;
+                $('#ok').prop("disabled", true);
+                modal.Ajax("@(ViewData["Mulu"])/Admin/JudgeStudioCase/Update", params, function (r) {
+                    modal.alert("编辑成功");
+                    $('#JudgeStudioCase').datagrid('reload');
+                    modal.hideModal();
+                });
+            }
+        });
+        //表单验证
+        $('#editFrom').bootstrapValidator({
+            //live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                iLawsId: {
+                    validators: {
+                        notEmpty: {
+                            message: '请选择法庭'
+                        }
+                    }
+                },
+                sCaseIntroduce: {
+                    validators: {
+                        notEmpty: {
+                            message: '开庭事项不能为空'
+                        }
+                    }
+                },
+            }
+        });
+    });
+</script>
+

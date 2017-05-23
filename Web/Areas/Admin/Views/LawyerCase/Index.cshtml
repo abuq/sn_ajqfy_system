@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "律师案件管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_EuiAndBoot.cshtml";
+}
+<script src="~/Scripts/mylib/myboot.js"></script>
+<script src="~/Scripts/plug-in/picture/upload.js"></script>
+<link href="~/Areas/Admin/Content/Calendar/skin/WdatePicker.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/Calendar/WdatePicker.js"></script>
+
+<script src="~/Content/kindeditor/kindeditor.js"></script>
+<script src="~/Content/kindeditor/lang/zh_CN.js"></script>
+<script src="~/Scripts/plug-in/kindeditor.js"></script>
+<table id="LawyerCase"></table>
+<div id="LawyerCase_toolbar" style="padding:8px;">
+    <form id="search">
+        <button type="button" class="btn btn-success btn-sm LawyerCase_add">添加案件</button> &nbsp;
+        <button type="button" class="btn btn-danger  btn-sm LawyerCase_cancel">删除案件</button>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span>模糊查询:</span><input type="text" class="form-control" placeholder="律师名称/接待室名称"
+                                 style="width:200px;height:30px;vertical-align:bottom;display:inline-block">
+        <button type="button" class="btn btn-default  btn-sm searchText">查 询</button>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        var modal = new myBootstarp();
+
+        //模糊查询
+        $('.searchText').on("click", function () {
+            var searchText = $('#search input').val();
+            $('#LawyerCase').datagrid({
+                queryParams: {
+                    searchText: searchText
+                }
+            });
+        });
+
+        //添加操作
+        $('.LawyerCase_add').on("click", function () {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/LawyerCase/Add");
+        });
+
+        //编辑操作
+        function LawyerCaseUpdate(ID) {
+            modal.creatModal("@(ViewData["Mulu"])/Admin/LawyerCase/Edit?iLawyerCaseId=" + ID);
+        }
+
+        //删除操作
+        $('.LawyerCase_cancel').on("click", function () {
+            var selected = $('#LawyerCase').datagrid('getSelections');
+            if (selected.length>0) {
+                var array = [];
+                $(selected).each(function () {
+                    array.push(this.ID);
+                });
+                modal.Confirm("确定要删除所选择的数据", function () {
+                    modal.Ajax("@(ViewData["Mulu"])/Admin/LawyerCase/Cancel", { Ids: array.join() }, function (r) {
+                        $('#LawyerCase').datagrid("reload");
+                        modal.tipAlert("删除成功", 800);
+                    });
+                });
+            }
+            else {
+                modal.tipAlert("请选择一条数据进行操作!");
+            }
+        });
+
+        /*!
+        * method:案件数据列表(datagrid)的绑定
+        */
+        $('#LawyerCase').datagrid({
+            fit:true,
+            url: '@(ViewData["Mulu"])/Admin/LawyerCase/List',
+            toolbar: $('#LawyerCase_toolbar'),
+            fitColumns:true,
+            rownumbers:true,
+            striped: true,
+            pagination: true,
+            pageSize:20,
+            loadMsg: "正在加载...",
+            columns: [[
+               // { field: 'sCaseName', title: '案件名称', align: 'center', sortable: true, width: 120 },
+                { field: 'sLawyerName', title: '律师名称', align: 'center', sortable: true, width: 80 },
+                { field: 'sRoomName', title: '接待室名称', align: 'center', sortable: true, width: 80 },
+                {
+                    field: 'fsdf', title: '预计时间段', align: 'center', sortable: false, width: 150, formatter: function (value, row) {
+                        if (row.dPreStaTime && row.dPreEndTime) {
+                            return row.dPreStaTime + "---" + row.dPreEndTime;
+                        }
+                        else return "--";
+                    }
+                },
+                { field: 'dAclStaTime', title: '实际开始时间', align: 'center', sortable: true, width: 120 },
+                { field: 'dAclEndTime', title: '实际结束时间', align: 'center', sortable: true, width: 120 },
+                {
+                    field: 'ds', title: '操作', align: 'center', width:120, formatter: function (value, rows) {
+                        var html = [];
+                        html.push('<button type="button" class="btn btn-info btn-sm LawyerCase_edit" data-id="' + rows.ID + '">编 辑</button>&nbsp&nbsp');
+                        html.push('<button type="button" class="btn btn-danger btn-sm LawyerCase_delete" data-id="' + rows.ID + '">删 除</button>&nbsp&nbsp');
+                        if (rows.dAclEndTime==null)
+                            html.push('<button type="button" class="btn btn-primary btn-sm LawyerCase_over" data-id="' + rows.ID + '">结束接访</button>');
+                        else
+                            html.push('<button type="button" class="btn btn-primary btn-sm" disabled="disabled">已经结束</button>');
+                        return html.join('');
+                    }
+                },
+            ]],
+            onLoadSuccess: function () {
+                $('.LawyerCase_edit').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    LawyerCaseUpdate(ID);
+                });
+
+                //删除事件绑定
+                $('.LawyerCase_delete').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.Confirm("确认要删除这条数据?", function () {
+                        modal.Ajax("@(ViewData["Mulu"])/Admin/LawyerCase/Cancel", { Ids: ID }, function (r) {
+                            $('#LawyerCase').datagrid("reload");
+                            modal.tipAlert("删除成功", 800);
+                        });
+                    });
+                });
+
+                //结束案件绑定
+                $('.LawyerCase_over').on("click", function (event) {
+                    event.stopPropagation();
+                    var ID = $(this).attr("data-id");
+                    modal.creatModal("@(ViewData["Mulu"])/Admin/LawyerCase/Over?iLawyerCaseId=" + ID);
+                });
+            }
+        });
+    });
+
+</script>

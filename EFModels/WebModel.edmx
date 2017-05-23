@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ssfw_sn_ajqfyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ssfw_sn_ajqfyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aboutuszxb">
           <Key>
             <PropertyRef Name="ID" />
@@ -145,6 +145,30 @@
           <Property Name="lvalue" Type="image" />
           <Property Name="version" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="JudgeStudio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sJobName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="iState" Type="bit" Nullable="false" />
+          <Property Name="iUserId" Type="int" Nullable="false" />
+          <Property Name="iRoomOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JudgeStudioCase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iJudgeStudioId" Type="int" Nullable="false" />
+          <Property Name="sCaseIntroduce" Type="nvarchar(max)" />
+          <Property Name="dPreStaTime" Type="datetime" />
+          <Property Name="dPreEndTime" Type="datetime" />
+          <Property Name="dAclStaTime" Type="datetime" />
+          <Property Name="dAclEndTime" Type="datetime" />
+          <Property Name="sCaseName" Type="nvarchar" MaxLength="255" />
+          <Property Name="iRoomOrder" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Laws">
           <Key>
             <PropertyRef Name="ID" />
@@ -171,6 +195,44 @@
           <Property Name="sCaseName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="iUserId" Type="int" />
           <Property Name="iLawOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lawyer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sLawyerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bSex" Type="bit" Nullable="false" />
+          <Property Name="iAges" Type="int" Nullable="false" />
+          <Property Name="sPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="sJobAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="sExecutionNum" Type="nvarchar" MaxLength="255" />
+          <Property Name="sPicture" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="LawyerCase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sCaseName" Type="nvarchar" MaxLength="100" />
+          <Property Name="sCaseIntroduce" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="iLawyerId" Type="int" Nullable="false" />
+          <Property Name="iLawyerRoomId" Type="int" Nullable="false" />
+          <Property Name="dPreStaTime" Type="datetime" />
+          <Property Name="dPreEndTime" Type="datetime" />
+          <Property Name="dAclStaTime" Type="datetime" />
+          <Property Name="dAclEndTime" Type="datetime" />
+          <Property Name="iRoomOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LawyerRoom">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sRoomName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="iState" Type="bit" Nullable="false" />
+          <Property Name="iRoomOrder" Type="int" Nullable="false" />
+          <Property Name="iRoomPicture" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.SmallClass_Article”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -277,8 +339,13 @@
           <EntitySet Name="AdminMessage" EntityType="Self.AdminMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cdelinknews" EntityType="Self.Cdelinknews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JudgeStudio" EntityType="Self.JudgeStudio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JudgeStudioCase" EntityType="Self.JudgeStudioCase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Laws" EntityType="Self.Laws" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LawsCase" EntityType="Self.LawsCase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lawyer" EntityType="Self.Lawyer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LawyerCase" EntityType="Self.LawyerCase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LawyerRoom" EntityType="Self.LawyerRoom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sxr" EntityType="Self.Sxr" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tj_Room" EntityType="Self.Tj_Room" Schema="dbo" store:Type="Tables" />
@@ -343,8 +410,7 @@
     FROM [dbo].[SmallClass_Article] AS [SmallClass_Article]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ssfw_sn_ajqfyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -624,7 +690,74 @@
           <EntitySet Name="BigClass_New" EntityType="Self.BigClass_New" />
           <EntitySet Name="Cdelink_Config" EntityType="Self.Cdelink_Config" />
           <EntitySet Name="SmallClass_Article" EntityType="Self.SmallClass_Article" />
+          <EntitySet Name="Lawyer" EntityType="ssfw_sn_ajqfyModel.Lawyer" />
+          <EntitySet Name="JudgeStudio" EntityType="ssfw_sn_ajqfyModel.JudgeStudio" />
+          <EntitySet Name="JudgeStudioCase" EntityType="ssfw_sn_ajqfyModel.JudgeStudioCase" />
+          <EntitySet Name="LawyerCase" EntityType="ssfw_sn_ajqfyModel.LawyerCase" />
+          <EntitySet Name="LawyerRoom" EntityType="ssfw_sn_ajqfyModel.LawyerRoom" />
         </EntityContainer>
+        <EntityType Name="Lawyer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="sLawyerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bSex" Type="Boolean" Nullable="false" />
+          <Property Name="iAges" Type="Int32" Nullable="false" />
+          <Property Name="sPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sJobAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sExecutionNum" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sPicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JudgeStudio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sJobName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="iState" Type="Boolean" Nullable="false" />
+          <Property Name="iUserId" Type="Int32" Nullable="false" />
+          <Property Name="iRoomOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JudgeStudioCase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iJudgeStudioId" Type="Int32" Nullable="false" />
+          <Property Name="sCaseIntroduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dPreStaTime" Type="DateTime" Precision="3" />
+          <Property Name="dPreEndTime" Type="DateTime" Precision="3" />
+          <Property Name="dAclStaTime" Type="DateTime" Precision="3" />
+          <Property Name="sCaseName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="iRoomOrder" Type="Int32" Nullable="false" />
+          <Property Name="dAclEndTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="LawyerCase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sCaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sCaseIntroduce" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="iLawyerId" Type="Int32" Nullable="false" />
+          <Property Name="iLawyerRoomId" Type="Int32" Nullable="false" />
+          <Property Name="dPreStaTime" Type="DateTime" Precision="3" />
+          <Property Name="dPreEndTime" Type="DateTime" Precision="3" />
+          <Property Name="dAclStaTime" Type="DateTime" Precision="3" />
+          <Property Name="dAclEndTime" Type="DateTime" Precision="3" />
+          <Property Name="iRoomOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LawyerRoom">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sRoomName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="iState" Type="Boolean" Nullable="false" />
+          <Property Name="iRoomOrder" Type="Int32" Nullable="false" />
+          <Property Name="iRoomPicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -900,6 +1033,73 @@
                 <ScalarProperty Name="BigClassName" ColumnName="BigClassName" />
                 <ScalarProperty Name="BigClassNumber" ColumnName="BigClassNumber" />
                 <ScalarProperty Name="BigClassID" ColumnName="BigClassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lawyer">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Lawyer">
+              <MappingFragment StoreEntitySet="Lawyer">
+                <ScalarProperty Name="sPicture" ColumnName="sPicture" />
+                <ScalarProperty Name="sExecutionNum" ColumnName="sExecutionNum" />
+                <ScalarProperty Name="sJobAddress" ColumnName="sJobAddress" />
+                <ScalarProperty Name="sPhone" ColumnName="sPhone" />
+                <ScalarProperty Name="iAges" ColumnName="iAges" />
+                <ScalarProperty Name="bSex" ColumnName="bSex" />
+                <ScalarProperty Name="sLawyerName" ColumnName="sLawyerName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JudgeStudio">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.JudgeStudio">
+              <MappingFragment StoreEntitySet="JudgeStudio">
+                <ScalarProperty Name="iRoomOrder" ColumnName="iRoomOrder" />
+                <ScalarProperty Name="iUserId" ColumnName="iUserId" />
+                <ScalarProperty Name="iState" ColumnName="iState" />
+                <ScalarProperty Name="sJobName" ColumnName="sJobName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JudgeStudioCase">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.JudgeStudioCase">
+              <MappingFragment StoreEntitySet="JudgeStudioCase">
+                <ScalarProperty Name="dAclEndTime" ColumnName="dAclEndTime" />
+                <ScalarProperty Name="iRoomOrder" ColumnName="iRoomOrder" />
+                <ScalarProperty Name="sCaseName" ColumnName="sCaseName" />
+                <ScalarProperty Name="dAclStaTime" ColumnName="dAclStaTime" />
+                <ScalarProperty Name="dPreEndTime" ColumnName="dPreEndTime" />
+                <ScalarProperty Name="dPreStaTime" ColumnName="dPreStaTime" />
+                <ScalarProperty Name="sCaseIntroduce" ColumnName="sCaseIntroduce" />
+                <ScalarProperty Name="iJudgeStudioId" ColumnName="iJudgeStudioId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LawyerCase">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.LawyerCase">
+              <MappingFragment StoreEntitySet="LawyerCase">
+                <ScalarProperty Name="iRoomOrder" ColumnName="iRoomOrder" />
+                <ScalarProperty Name="dAclEndTime" ColumnName="dAclEndTime" />
+                <ScalarProperty Name="dAclStaTime" ColumnName="dAclStaTime" />
+                <ScalarProperty Name="dPreEndTime" ColumnName="dPreEndTime" />
+                <ScalarProperty Name="dPreStaTime" ColumnName="dPreStaTime" />
+                <ScalarProperty Name="iLawyerRoomId" ColumnName="iLawyerRoomId" />
+                <ScalarProperty Name="iLawyerId" ColumnName="iLawyerId" />
+                <ScalarProperty Name="sCaseIntroduce" ColumnName="sCaseIntroduce" />
+                <ScalarProperty Name="sCaseName" ColumnName="sCaseName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LawyerRoom">
+            <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.LawyerRoom">
+              <MappingFragment StoreEntitySet="LawyerRoom">
+                <ScalarProperty Name="iRoomPicture" ColumnName="iRoomPicture" />
+                <ScalarProperty Name="iRoomOrder" ColumnName="iRoomOrder" />
+                <ScalarProperty Name="iState" ColumnName="iState" />
+                <ScalarProperty Name="sRoomName" ColumnName="sRoomName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

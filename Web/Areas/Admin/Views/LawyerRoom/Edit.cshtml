@@ -1,0 +1,103 @@
+﻿
+@using EFModels;
+@model LawyerRoom
+<link href="~/Areas/Admin/Content/icheck/skins/square/blue.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/icheck/icheck.min.js"></script>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">添加接待室</h4>
+        </div>
+        <!--主体内容-->
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" id="editFrom">
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <input type="hidden" name="iRoomPicture" value="@Model.iRoomPicture" />
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入接待室名称" name="sRoomName" value="@Model.sRoomName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">排序</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" placeholder="请输入接待室排序" name="iRoomOrder" value="@Model.iRoomOrder">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="padding-top:0">状态选择</label>
+                    <div class="col-sm-10">
+                        <label>开放<input class="iState" name="iState" type="radio" value="True"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>关闭<input class="iState" name="iState" type="radio" value="False"></label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--主体内容-->
+        <div class="modal-footer" style="padding:10px;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="ok" type="button" class="btn btn-primary">确认提交</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('.iState').iCheck({
+            labelHover: false,
+            cursor: true,
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
+        var iState = '@Model.iState';
+        if (iState == "True") $('.iState').eq(0).iCheck('check');
+        else $('.iState').eq(1).iCheck('check');
+
+        var modal = new myBootstarp();
+        //添加操作
+        $('#ok').on("click", function () {
+            var bootstrapValidator = $("#editFrom").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            var res = bootstrapValidator.isValid();
+            if (res) {//验证通过
+                if ($('input[name=iState]:checked').length == 0)
+                    return modal.alert("请选择接待室状态");
+                $('#ok').prop("disabled", true);
+                modal.Ajax("@(ViewData["Mulu"])/Admin/LawyerRoom/Update", $("#editFrom").serialize(), function (r) {
+                    modal.alert("编辑成功");
+                    $('#LawyerRoom').datagrid('reload');
+                    modal.hideModal();
+                });
+            }
+        });
+        //表单验证
+        $('#editFrom').bootstrapValidator({
+            //live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                sRoomName: {
+                    validators: {
+                        notEmpty: {
+                            message: '接待室名称不能为空'
+                        }
+                    }
+                },
+                iLawOrder: {
+                    validators: {
+                        notEmpty: {
+                            message: '请输入接待室排序'
+                        }
+                    }
+                },
+            }
+        });
+    });
+</script>
+

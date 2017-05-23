@@ -1,0 +1,159 @@
+﻿
+
+<!--律师添加视图-->
+<link href="~/Areas/Admin/Content/icheck/skins/square/blue.css" rel="stylesheet" />
+<script src="~/Areas/Admin/Content/icheck/icheck.min.js"></script>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">添加律师</h4>
+        </div>
+        <!--主体内容-->
+        <div class="modal-body">
+            <form class="form-horizontal" role="form" id="addForm">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">律师姓名</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入律师姓名" name="sLawyerName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">年龄</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" placeholder="请输入年龄" name="iAges">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="padding-top:0">性别</label>
+                    <div class="col-sm-10">
+                        <label>男<input class="iSex" name="bSex" type="radio" value="True"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>女<input class="iSex" name="bSex" type="radio" value="False"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">手机号码</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入手机号码" name="sPhone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">工作单位</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入工作单位" name="sJobAddress">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">执行证号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="请输入执行证号" name="sExecutionNum">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">上传图片(宽高3:4)</label>
+                    <div class="col-sm-10" id="sPicture"> </div>
+                    <input type="hidden" name="sPicture" value="" />
+                </div>
+            </form>
+        </div>
+        <!--主体内容-->
+        <div class="modal-footer" style="padding:10px;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="ok" type="button" class="btn btn-primary">确认提交</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.iSex').iCheck({
+            labelHover: false,
+            cursor: true,
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
+
+        var picture = new upload();
+        picture.create("sPicture", { height: 120, width: 100 });
+
+        var modal = new myBootstarp();
+    
+        //添加操作
+        $('#ok').on("click", function () {
+            var bootstrapValidator = $("#addForm").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            var res = bootstrapValidator.isValid();
+            if (res) {//验证通过
+                if ($('input[name=bSex]:checked').length == 0)
+                    return modal.alert("请选择性别");
+                var sPicture = $('#sPicture').next().val();
+                if (sPicture.length == 0) return modal.alert("请上传律师图片");
+
+                var params = $("#addForm").serializeArray().toObject();
+                $('#ok').prop("disabled", true);
+                modal.Ajax("@(ViewData["Mulu"])/Admin/Lawyer/Insert", params, function (r) {
+                    modal.alert("添加成功");
+                    $('#Lawyer').datagrid('reload');
+                    modal.hideModal();
+                });
+            }
+        });
+        //表单验证
+        $('#addForm').bootstrapValidator({
+            //live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                sLawyerName: {
+                    validators: {
+                        notEmpty: {
+                            message: '律师姓名不能为空'
+                        }
+                    }
+                },
+                iAges: {
+                    validators: {
+                        notEmpty: {
+                            message: '年龄不能为空'
+                        },
+                        regexp: {
+                            regexp: /^\d{1,2}$/,
+                            message: '年龄数据错误'
+                        },
+                    }
+                },
+                sPhone: {
+                    validators: {
+                        notEmpty: {
+                            message: '手机号码不能为空'
+                        },
+                        regexp: {
+                            regexp: /^((13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8})*$/,
+                            message: '手机号码格式错误'
+                        },
+                    }
+                },
+                sJobAddress: {
+                    validators: {
+                        notEmpty: {
+                            message: '工作单位不能为空'
+                        }
+                    }
+                },
+                sExecutionNum: {
+                    validators: {
+                        notEmpty: {
+                            message: '执行证号不能为空'
+                        }
+                    }
+                },
+            }
+        });
+    });
+</script>
+

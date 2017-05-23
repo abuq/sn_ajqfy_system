@@ -1,58 +1,54 @@
-﻿@using EFModels;
-@{
-    var list = ViewBag.roomList as List<Laws>;
-}
+﻿
+
+
 @using EFModels;
-@model LawsCase
+@{
+    var list = ViewBag.roomList as List<LawyerRoom>;
+}
 <style>
     #tjPerson li:hover {
         background-color: #5bc0de;
     }
 </style>
+@model LawyerCase
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">编辑法庭案件</h4>
+            <h4 class="modal-title" id="myModalLabel">添加案件</h4>
         </div>
         <!--主体内容-->
         <div class="modal-body">
             <form class="form-horizontal" role="form" id="editFrom">
-                <input  type="hidden" name="ID" value="@Model.ID"/>
-                <input type="hidden" name="sCaseType" value="@Model.sCaseType" />
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <input type="hidden" name="sCaseName" value="@Model.sCaseName" />
                 <input type="hidden" name="dAclStaTime" value="@Model.dAclStaTime" />
                 <input type="hidden" name="dAclEndTime" value="@Model.dAclEndTime" />
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">案号</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="请输入案号" name="sCaseNum" value="@Model.sCaseNum">
-                    </div>
-                </div>
                 @*<div class="form-group">
-                    <label class="col-sm-2 control-label">案由</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="案由" name="sCaseName" value="@Model.sCaseName">
-                    </div>
-                </div>*@
+                        <label class="col-sm-2 control-label">案件</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="请输入案件名称" name="sCaseName">
+                        </div>
+                    </div>*@
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">法庭选择</label>
+                    <label class="col-sm-2 control-label">接待室</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="iLawsId" name="iLawsId">
+                        <select class="form-control" id="iLawyerRoomId" name="iLawyerRoomId">
                             @foreach (var m in list)
                             {
                                 <option value="@m.ID">
-                                    @m.sLawName
+                                    @m.sRoomName
                                 </option>
                             }
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">调解员</label>
+                    <label class="col-sm-2 control-label">律师</label>
                     <div class="col-sm-10">
                         <div class="btn-group">
-                            <input type="text" class="form-control" placeholder="调解员名字搜索" id="iUserId" value="@ViewBag.sRealName" style="width:80%;float:left">
-                            <input type="hidden" name="iUserId" value="@Model.iUserId">
+                            <input type="text" class="form-control" placeholder="律师名字搜索" id="iLawyerId" style="width:80%;float:left" value="@ViewBag.sRealName">
+                            <input type="hidden" name="iLawyerId" value="@Model.iLawyerId">
                             <button type="button" class="btn btn-default dropdown-toggle"
                                     data-toggle="dropdown" style="float:left">
                                 <span class="caret"></span>
@@ -63,18 +59,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">开庭时间</label>
+                    <label class="col-sm-2 control-label">预计时间</label>
                     <div class="col-sm-10">
-                        <input type="text" id="dPreStaTime" name="dPreStaTime" class="form-control" readonly="readonly"
-                               style="width:38%;float:left;cursor: pointer" placeholder="点击选择开始时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})" value="@Model.dPreStaTime">
-                        <input type="text" id="dPreEndTime" class="form-control" readonly="readonly" value="@Model.dPreEndTime"
-                               name="dPreEndTime" style="width:38%;float:left;margin-left:10px;cursor: pointer" placeholder="点击选择结束时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+                        <input type="text" id="dPreStaTime" name="dPreStaTime" class="form-control" readonly="readonly" value="@Model.dPreStaTime"
+                               style="width:38%;float:left;cursor: pointer" placeholder="点击选择开始时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
+                        <input type="text" id="dPreEndTime" class="form-control" readonly="readonly"
+                               name="dPreEndTime" style="width:38%;float:left;margin-left:10px;cursor: pointer" placeholder="点击选择结束时间" onClick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})" value="@Model.dPreEndTime">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">开庭事项</label>
+                    <label class="col-sm-2 control-label">接访事项</label>
                     <div class="col-sm-10">
-                        <textarea id="sCaseIntroduce" name="sCaseIntroduce" style="width:100%;">@Html.Raw(Model.sCaseIntroduce)</textarea>
+                        <textarea id="sCaseIntroduce" name="sCaseIntroduce" style="width:100%">@Model.sCaseIntroduce</textarea>
                     </div>
                 </div>
             </form>
@@ -88,20 +84,21 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        $('#iLawsId').val("@Model.iLawsId.ToString()");
         var editor = new kindeditor();
         editor.create("#sCaseIntroduce");
-        var modal = new myBootstarp();
 
+        $('#iLawyerRoomId').val("@Model.iLawyerRoomId.ToString()");
+
+       var modal = new myBootstarp();
         LoadUser();
         function LoadUser(searchText) {
             //加载调解员数据
-            modal.Ajax("@(ViewData["Mulu"])/Admin/TjCase/UserList", { searchText: searchText }, function (r) {
+            modal.Ajax("@(ViewData["Mulu"])/Admin/LawyerCase/UserList", { searchText: searchText }, function (r) {
                 var rows = r.data;
                 var html = [];
                 $(rows).each(function () {
                     html.push("<li data-id="+this.ID+">");
-                    html.push('<img style="width:70px;height:90px;margin-left:10px;margin-top:5px;margin-right:10px;" src="' +"@(ViewData["Mulu"])"+this.UserPic + '" /><span>'+this.RealName+'</span>');
+                    html.push('<img style="width:70px;height:90px;margin-left:10px;margin-top:5px;margin-right:10px;" src="' + "@(ViewData["Mulu"])" + this.sPicture + '" /><span>' + this.sLawyerName + '</span>');
                     html.push("</li>");
                     html.push('<li class="divider"></li>');
                 });
@@ -111,53 +108,52 @@
                 $('#tjPerson li').on("click", function () {
                     var name = $(this).find('span').text();
                     var ID = $(this).attr("data-id");
-                    $('#iUserId').val(name);
-                    $('#iUserId').next().val(ID);
+                    $('#iLawyerId').val(name);
+                    $('#iLawyerId').next().val(ID);
                 });
             });
         }
 
         //绑定搜索框
-        $('#iUserId').on("input", function () {
+        $('#iLawyerId').on("input", function () {
             var search = $(this).val();
             $('#tjPerson').html("");
             LoadUser(search);
             $('.btn-group').addClass("open");
         });
 
-
-        //编辑操作
+        //添加操作
         $('#ok').on("click", function () {
             var bootstrapValidator = $("#editFrom").data('bootstrapValidator');
             bootstrapValidator.validate();
             var res = bootstrapValidator.isValid();
             if (res) {//验证通过
+
+                var iLawyerId = $('#iLawyerId').next().val();
+                var RealName = $('#iLawyerId').val();
+                if (iLawyerId.length == 0 || RealName.length == 0) return modal.alert("请选择律师");
+
                 var StaTime = $('#dPreStaTime').val();//开始时间
                 var EndTime = $('#dPreEndTime').val();//结束时间
-                if (StaTime.length == 0 || EndTime.length == 0) return modal.alert("开庭开始和结束时间必填");
+                if (StaTime.length == 0 || EndTime.length == 0) return modal.alert("接访开始和结束时间必填");
                 if (new Date(EndTime).getTime() - new Date(StaTime).getTime() <= 0) return modal.alert("结束时间必须大于开始时间");
 
-
-                var iUserId = $('#iUserId').next().val();
-                var RealName = $('#iUserId').val();
-                if (iUserId.length == 0 || RealName.length == 0) return modal.alert("请选择法官");
-
                 var sCaseIntroduce = editor.gethtml();
-                if (sCaseIntroduce.length == 0) return modal.alert("开庭事项必填");
+                if (sCaseIntroduce.length == 0) return modal.alert("接访事项必填");
                 var params = $("#editFrom").serializeArray().toObject();
                 params.sCaseIntroduce = sCaseIntroduce;
                 params.RealName = RealName;
                 $('#ok').prop("disabled", true);
-                modal.Ajax("@(ViewData["Mulu"])/Admin/LawsCase/Update", params, function (r) {
+                modal.Ajax("@(ViewData["Mulu"])/Admin/LawyerCase/Update", params, function (r) {
                     modal.alert("编辑成功");
-                    $('#LawsCase').datagrid('reload');
+                    $('#LawyerCase').datagrid('reload');
                     modal.hideModal();
                 });
             }
         });
         //表单验证
         $('#editFrom').bootstrapValidator({
-          //  live: 'disabled',
+           // live: 'disabled',
             message: 'This value is not valid',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
@@ -165,27 +161,13 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                sCaseNum: {
-                    validators: {
-                        notEmpty: {
-                            message: '案号不能为空'
-                        }
-                    }
-                },
-                iLawsId: {
-                    validators: {
-                        notEmpty: {
-                            message: '请选择法庭'
-                        }
-                    }
-                },
-                sCaseIntroduce: {
-                    validators: {
-                        notEmpty: {
-                            message: '开庭事项不能为空'
-                        }
-                    }
-                },
+                //sCaseName: {
+                //    validators: {
+                //        notEmpty: {
+                //            message: '案件名称不能为空'
+                //        }
+                //    }
+                //}
             }
         });
     });
