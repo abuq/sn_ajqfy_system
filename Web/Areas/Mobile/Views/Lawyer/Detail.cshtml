@@ -1,0 +1,183 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="Copyright" content="宜联科技" />
+    <meta name="author" content="">
+
+    @*<meta http-equiv="refresh" content="20">*@
+
+    <link rel="shortcut icon" href="../images/favicon/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../images/favicon/favicon.png" type="image/x-icon">
+
+    <title>遂宁市安居区法院</title>
+
+    <link href="~/Areas/Mobile/Content/JudgeStudio/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Areas/Mobile/Content/JudgeStudio/css/normalize.css" rel="stylesheet" />
+    <link href="~/Areas/Mobile/Content/JudgeStudio/css/tjs.css" rel="stylesheet" />
+
+    <link href="~/Areas/Mobile/Content/JudgeStudio/css/lawyer.css" rel="stylesheet" />
+</head>
+@using EFModels.MyModels;
+@model ViewLawyerCase
+<body data-spy="scroll">
+    <div class="headbox">
+        <div class="header">
+            <div class="fyname row text-left vertical-middle-sm">
+                <div class="col-sm-8 text-left">
+                    <h1>遂宁市安居区人民法院</h1>
+                    <p class="lead">诉讼服务中心——法官工作室</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page1">
+        <p class="title_big">律师列表</p>
+    </div>
+    <div class="content_list">
+        <div class="my_content_box ">
+            <div class="my_content_radius">
+                <table style="width: 100%;text-align: center">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;text-align: center">姓名</th>
+                            <th style="width: 10%;text-align: center">性别</th>
+                            <th style="width: 10%;text-align: center">年龄</th>
+                            <th style="width: 20%;text-align: center">工作单位</th>
+                            <th style="width: 20%;text-align: center">执业证号</th>
+                            <th style="width: 20%;text-align: center">联系电话</th>
+                        </tr>
+                    </thead>
+                    <tbody id="LawyerData">
+                      
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="6">
+                                <input type="text" class="form-control" placeholder="姓名/案号" id="searchText"
+                                       style="width:200px; float:left;height:30px;background-color: #337ab7;color: white;background-color:#2e6da4">
+                                <button type="button" class="btn btn-primary btn-sm" style="display:block;float:left;margin-left:5px;" id="searchBtn">查 询</button>
+                                <span style="display:block;float:right;margin-left:10px;margin-right:5px;margin-top:2px;">共<span id="totalPage">18</span>页</span>
+                                <span style="display:block;float:right">
+                                    <button type="button" class="btn btn-sm btn-primary">第一页</button>
+                                    <button type="button" class="btn btn-sm btn-primary">上一页</button>
+                                    <button type="button" class="btn btn-sm btn-primary">1</button>
+                                    <button type="button" class="btn btn-sm btn-primary">2</button>
+                                    <button type="button" class="btn btn-sm btn-primary">3</button>
+                                    <button type="button" class="btn btn-sm btn-primary">4</button>
+                                    <button type="button" class="btn btn-sm btn-primary">5</button>
+                                    <button type="button" class="btn btn-sm btn-primary">6</button>
+                                    <button type="button" class="btn btn-sm btn-primary">...</button>
+                                    <button type="button" class="btn btn-sm btn-primary">下一页</button>
+                                    <button type="button" class="btn btn-sm btn-primary">最后一页</button>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="pagebg">
+        <div class="page">
+            @if (Model.IsBusy)
+            {
+                <p class="title_big">接访事项</p>
+                <div class="myContent">
+                    <div class="my_content_box">
+                        <p class="name_title">调解员：@Model.sLawyerName</p>
+                        <div class="img_box">
+                            <img src="@Model.sPicture">
+                        </div>
+                        <p class="name_title">接访事项</p>
+                        <div class="content_box">
+                            <div>
+                                @Html.Raw(Model.sCaseIntroduce)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p class="title_big">接访事项(空闲中)</p>
+                <div class="myContent"></div>
+            }
+        </div>
+    </div>
+    <div class="footer divbgtransparent_white7"><div class="copyrights"></div></div>
+</body>
+</html>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        
+        domin.loadData();
+       
+    });
+
+    var domin = (function (obj) { return obj; }(new function () {
+        var VirtualDirectory = "@ViewData["Mulu"]";
+
+        var params = {
+            url: VirtualDirectory + '/Admin/Lawyer/List',
+            page: 1,
+            rows: 4,
+            sort: 'ID',
+            searchText: '',
+        }
+
+        //加载数据
+        function loadData(IsCalculate) {
+            $('#LawyerData').html('');
+            $.ajax({
+                url: params.url,
+                data: params,
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                success: function (r) {
+                    debugger
+                    if (r.rows.length > 0) {
+                        var html = [];
+                        $(r.rows).each(function () {
+                            var bSexName = this.bSex == true ? "男" : "女";
+                            html.push('<tr>');
+                            html.push('<td>' + this.sLawyerName + '</td>');
+                            html.push('<td>' + bSexName + '</td>');
+                            html.push('<td>' + this.iAges + '</td>');
+                            html.push('<td>' + this.sJobAddress + '</td>');
+                            html.push('<td>' + this.sExecutionNum + '</td>');
+                            html.push('<td>' +this.sPhone + '</td>');
+                            html.push('</tr>');
+                        });
+                        $('#LawyerData').append(html.join(''));
+                    }
+                    //计算分页
+                    if (IsCalculate)
+                        Calculate(r.total);
+
+                },
+                // jqXHR 是经过jQuery封装的XMLHttpRequest对象
+                // textStatus 可能为null、 'timeout（超时）'、 'error（错误）'、 'abort(中止)'和'parsererror（解析错误)'等
+                // errorMsg 是错误信息字符串(响应状态的文本描述部分，例如'Not Found'或'Internal Server Error')
+                error: function (jqXHR, textStatus, errorMsg) {
+                    switch (jqXHR.status) {
+                        case 404: alert('链接地址错误!'); break;
+                        case 500: alert('服务器内部错误!'); break;
+                        default: alert(jqXHR.status + ":" + jqXHR.statusText);
+                    }
+                }
+            });
+        }
+
+        return {
+            loadData: loadData
+        }
+
+    }));
+</script>

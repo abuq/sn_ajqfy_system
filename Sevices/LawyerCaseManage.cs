@@ -254,5 +254,46 @@ namespace Sevices
                 return res;
             }
         }
+
+
+        /// <summary>
+        /// 根据律师接待室的ID获取律师案件
+        /// </summary>
+        /// <param name="iRoomOrder"></param>
+        /// <returns></returns>
+        public ViewLawyerCase GetLayerCaseByiRoomOrder(int iRoomOrder)
+        {
+            using (var db=new Entities())
+            {
+                var result = new ViewLawyerCase();
+                var query = (from a in db.LawyerCase
+                             join b in db.LawyerRoom
+                             on a.iLawyerRoomId equals b.ID
+                             join c in db.Lawyer
+                             on a.iLawyerId equals c.ID
+                             where a.iRoomOrder == iRoomOrder && a.dAclStaTime == null && a.dPreStaTime <= DateTime.Now && a.dPreEndTime >= DateTime.Now
+                             select new ViewLawyerCase()
+                             {
+                                 IsBusy = true,
+                                 sCaseIntroduce = a.sCaseIntroduce,
+                                 sRoomName = b.sRoomName,
+                                 sCaseName = a.sCaseName,
+                                 sLawyerName = c.sLawyerName,
+                                 sPicture = c.sPicture,
+                                 dPreStaTime = a.dPreStaTime.Value,
+                                 dPreEndTime = a.dPreEndTime.Value
+                             }).SingleOrDefault();
+                if (query == null)
+                {
+                    result.IsBusy = false;
+                    return result;
+                }
+                else
+                {
+                    return query;
+                }
+            }
+
+        }
     }
 }

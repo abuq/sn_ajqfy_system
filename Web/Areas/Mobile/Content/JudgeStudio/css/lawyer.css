@@ -1,0 +1,95 @@
+﻿ 
+.page {
+margin: 0 auto;
+width: 1000px;
+height: 1000px;
+background: url(/Areas/Mobile/Content/JudgeStudio/images/img-2.png) no-repeat;
+background-size: 100% 95%;
+
+}
+.page1 {
+    margin: 0 auto;
+    width: 1000px;
+    height: 50px;
+    background: url(/Areas/Mobile/Content/JudgeStudio/images/img-2.png) no-repeat top;
+    background-size: 100%;
+
+}
+.myContent{
+    background: url(/Areas/Mobile/Content/JudgeStudio/images/tcmb_03.png) no-repeat;
+    height: 1228px;
+    width:1000px;
+    margin: 0 auto;
+    background-size: 100% 95%;
+    position: relative;
+
+}
+.my_content_box{
+    padding: 0 10px;
+}
+.img_box{
+    width: 980px;
+    height: 400px;
+    border: 1px solid #f7f9fa;
+    border-radius: 4px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.name_title{
+    border-bottom: 1px solid #f7f9fa;
+    padding: 10px 0;
+    text-align: left;
+}
+.img_box img{
+    text-align: center;
+    width: 26%;
+    height: 90%;
+
+}
+.page1 .title_big{
+    line-height: 50px;
+    margin-bottom: 0;
+        font-size: 18px;
+}
+.content_list{
+    padding-top: 20px;
+}
+.content_list{
+    background: url(/Areas/Mobile/Content/JudgeStudio/images/tcmb_03.png) no-repeat;
+    height: 300px;
+    width:1000px;
+    margin: 0 auto;
+    background-size: 100%;
+}
+.page .title_big{
+    margin-bottom: 0;
+    padding: 5px 0;
+    font-size: 18px;
+}
+.content_box{
+    width: 980px;
+    border: 1px solid #f7f9fa;
+    border-radius: 4px;
+}
+    .content_box div p {
+        margin-bottom: 0;
+        padding: 5px 2px 2px 0px;
+        margin: 0px;
+        line-height: 1;
+    }
+.my_content_radius{
+    border: 6px solid #528bba;
+    border-radius: 5px;
+}
+    .my_content_box table tr{
+        height: 35px;
+    }
+.my_content_box table tr td{
+    border-bottom: 1px solid #4c82b4;
+    border-right: 1px solid #4c82b4;
+
+        }
+.my_content_box table tr th{
+    border-bottom: 1px solid #4c82b4;
+    border-right: 1px solid #4c82b4;
+}

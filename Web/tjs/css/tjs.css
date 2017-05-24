@@ -5,7 +5,7 @@ body {
 	margin:0 auto;
 	padding: 0px;
 	text-align:center;
-	background:url(../images/ditu.png) no-repeat center top;
+	background:url(../images/indexbg.png) no-repeat center top;
 	/*拉升背景*/
 	background-size: cover;
 	-webkit-background-size: cover;
@@ -57,7 +57,7 @@ a:hover { color: #2fcae9; text-decoration: none;outline:none;}
 	width: 100%;
 	height: 384px;
 	overflow:hidden;
-	background:url(../images/headerbg.png) no-repeat center top;
+	background:url(../images/headerbg.png) no-repeat center top -66px;
 	}
 .header{
 	margin:0 auto;
@@ -87,12 +87,12 @@ a:hover { color: #2fcae9; text-decoration: none;outline:none;}
     width:100%;
 	min-height:1536px;
 	}
-.page{
-	margin:0 auto;
-	width:1080px;
-	height:1536px;
-	padding:40px 55px 40px 55px;
-	}
+/*.page{*/
+	/*margin:0 auto;*/
+	/*width:1080px;*/
+	/*height:1536px;*/
+	/*padding:40px 55px 40px 55px;*/
+	/*}*/
 .fan{
 	width:1080px;
 	height:580px;

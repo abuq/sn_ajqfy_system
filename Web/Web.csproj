@@ -145,6 +145,7 @@
     <Compile Include="Areas\Admin\Controllers\SxrController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Mobile\Controllers\JudgeStudioController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\LawyerController.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Pays\PaysAreaRegistration.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -833,17 +834,22 @@
     <Content Include="Areas\Admin\Content\icheck\skins\square\yellow.png" />
     <Content Include="Areas\Admin\Content\icheck\skins\square\_all.css" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\css\bootstrap.min.css" />
+    <Content Include="Areas\Mobile\Content\JudgeStudio\css\juds.css" />
+    <Content Include="Areas\Mobile\Content\JudgeStudio\css\lawyer.css" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\css\normalize.css" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\css\tjs.css" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\bg.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\btnbg.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\company.png" />
+    <Content Include="Areas\Mobile\Content\JudgeStudio\images\ditu.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\fahui.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\fan.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\headerbg.png" />
+    <Content Include="Areas\Mobile\Content\JudgeStudio\images\img-2.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\indexbg.jpg" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\indexbg.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\linear.png" />
+    <Content Include="Areas\Mobile\Content\JudgeStudio\images\tcmb_03.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\tjbtn.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\tjfm1.png" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\tjfm1_free.png" />
@@ -1249,6 +1255,8 @@
     <Content Include="Areas\Admin\Views\LawyerCase\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\LawyerCase\Over.cshtml" />
     <Content Include="Areas\Mobile\Views\JudgeStudio\Detail.cshtml" />
+    <Content Include="Areas\Mobile\Views\Lawyer\Detail.cshtml" />
+    <Content Include="Areas\Mobile\Content\JudgeStudio\images\.DS_Store" />
     <Content Include="Areas\Mobile\Content\JudgeStudio\images\Thumbs.db" />
     <None Include="Properties\PublishProfiles\安居区法院.pubxml" />
     <None Include="Properties\PublishProfiles\怡佳之城.pubxml" />
@@ -1346,25 +1354,20 @@
     <Content Include="shixin\css\bootstrap.min.css" />
     <Content Include="shixin\css\normalize.css" />
     <Content Include="shixin\css\shixin.css" />
-    <Content Include="shixin\foot.asp" />
-    <Content Include="shixin\head.asp" />
     <Content Include="shixin\images\bg.png" />
     <Content Include="shixin\images\bp.png" />
     <Content Include="shixin\images\company.png" />
     <Content Include="shixin\images\fahui.png" />
     <Content Include="shixin\images\headbg.png" />
     <Content Include="shixin\images\tabbg.png" />
-    <Content Include="shixin\index.asp" />
     <Content Include="shixin\index.html" />
     <Content Include="shixin\js\custom%28old%29.js" />
     <Content Include="shixin\js\custom.js" />
     <Content Include="shixin\css\main.css" />
-    <Content Include="shixin\table_dynamic.html" />
     <Content Include="tjs\css\bootstrap.min.css" />
     <Content Include="tjs\css\normalize.css" />
     <Content Include="tjs\css\tjs.css" />
-    <Content Include="tjs\foot.asp" />
-    <Content Include="tjs\head.asp" />
+    <Content Include="tjs\images\1.png" />
     <Content Include="tjs\images\bg.png" />
     <Content Include="tjs\images\btnbg.png" />
     <Content Include="tjs\images\company.png" />
@@ -1372,9 +1375,11 @@
     <Content Include="tjs\images\fahui.png" />
     <Content Include="tjs\images\fan.png" />
     <Content Include="tjs\images\headerbg.png" />
+    <Content Include="tjs\images\img-2.png" />
     <Content Include="tjs\images\indexbg.jpg" />
     <Content Include="tjs\images\indexbg.png" />
     <Content Include="tjs\images\linear.png" />
+    <Content Include="tjs\images\tcmb_03.png" />
     <Content Include="tjs\images\tjbtn.png" />
     <Content Include="tjs\images\tjfm1.png" />
     <Content Include="tjs\images\tjfm1_free.png" />
@@ -1388,10 +1393,8 @@
     <Content Include="tjs\images\tjfm4.png" />
     <Content Include="tjs\images\tjfm4_free.png" />
     <Content Include="tjs\images\tjfm4_ing.png" />
-    <Content Include="tjs\index.asp" />
     <Content Include="tjs\Index.html" />
     <Content Include="tjs\js\custom.js" />
-    <Content Include="tjs\showpage.asp" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1408,6 +1411,8 @@
     <Content Include="Unity.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="tjs\.DS_Store" />
+    <Content Include="tjs\images\.DS_Store" />
     <Content Include="tjs\images\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>

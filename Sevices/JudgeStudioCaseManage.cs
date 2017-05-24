@@ -224,5 +224,36 @@ namespace Sevices
         }
 
 
+
+        /// <summary>
+        /// 根据法官工作室设置位置唯一标识获取案件
+        /// </summary>
+        /// <returns></returns>
+        public ViewJudgeStudio GetCaseByiRoomOrder(int iRoomOrder)
+        {
+            using (var db=new Entities())
+            {
+                var result = new ViewJudgeStudio();
+
+                var obj = db.JudgeStudioCase.
+                    FirstOrDefault(m => m.iRoomOrder == iRoomOrder && m.dAclStaTime == null && m.dPreStaTime <= DateTime.Now && m.dPreEndTime >= DateTime.Now);
+                var room = db.JudgeStudio.FirstOrDefault(m => m.iRoomOrder == iRoomOrder);
+                var user = db.User.Find(room.iUserId);
+                result.IsBusy = false;
+                result.UserPic = user.UserPic;
+                result.RealName = user.RealName;
+                result.sJobName = room.sJobName;
+                result.Mobile = user.Mobile;
+                if (obj != null)
+                {//正在调解
+                    result.IsBusy = true;
+                    result.dPreStaTime = obj.dPreStaTime.Value;
+                    result.dPreEndTime = obj.dPreEndTime.Value;
+                    result.sCaseIntroduce = obj.sCaseIntroduce;
+                    result.sCaseName = obj.sCaseName;
+                }
+                return result;
+            }
+        }
     }
 }
