@@ -29,61 +29,59 @@
             <div class="fyname row text-left vertical-middle-sm">
                 <div class="col-sm-8 text-left">
                     <h1>遂宁市安居区人民法院</h1>
-                    <p class="lead">诉讼服务中心——法官工作室</p>
+                    <p class="lead">诉讼服务中心——律师工作室</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="page1">
-        <p class="title_big">律师列表</p>
-    </div>
-    <div class="content_list">
-        <div class="my_content_box ">
-            <div class="my_content_radius">
-                <table style="width: 100%;text-align: center">
-                    <thead>
-                        <tr>
-                            <th style="width: 10%;text-align: center">姓名</th>
-                            <th style="width: 10%;text-align: center">性别</th>
-                            <th style="width: 10%;text-align: center">年龄</th>
-                            <th style="width: 20%;text-align: center">工作单位</th>
-                            <th style="width: 20%;text-align: center">执业证号</th>
-                            <th style="width: 20%;text-align: center">联系电话</th>
-                        </tr>
-                    </thead>
-                    <tbody id="LawyerData">
-                      
-                    </tbody>
-                    <tbody>
-                        <tr>
-                            <td colspan="6">
-                                <input type="text" class="form-control" placeholder="姓名/案号" id="searchText"
-                                       style="width:200px; float:left;height:30px;background-color: #337ab7;color: white;background-color:#2e6da4">
-                                <button type="button" class="btn btn-primary btn-sm" style="display:block;float:left;margin-left:5px;" id="searchBtn">查 询</button>
-                                <span style="display:block;float:right;margin-left:10px;margin-right:5px;margin-top:2px;">共<span id="totalPage">18</span>页</span>
-                                <span style="display:block;float:right">
-                                    <button type="button" class="btn btn-sm btn-primary">第一页</button>
-                                    <button type="button" class="btn btn-sm btn-primary">上一页</button>
-                                    <button type="button" class="btn btn-sm btn-primary">1</button>
-                                    <button type="button" class="btn btn-sm btn-primary">2</button>
-                                    <button type="button" class="btn btn-sm btn-primary">3</button>
-                                    <button type="button" class="btn btn-sm btn-primary">4</button>
-                                    <button type="button" class="btn btn-sm btn-primary">5</button>
-                                    <button type="button" class="btn btn-sm btn-primary">6</button>
-                                    <button type="button" class="btn btn-sm btn-primary">...</button>
-                                    <button type="button" class="btn btn-sm btn-primary">下一页</button>
-                                    <button type="button" class="btn btn-sm btn-primary">最后一页</button>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-    </div>
     <div class="pagebg">
         <div class="page">
+            <div class="page1">
+                <p class="title_big">律师列表</p>
+            </div>
+            <div class="content_list">
+                <div class="my_content_box ">
+                    <div class="my_content_radius">
+                        <table style="width: 100%;text-align: center">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;text-align: center">姓名</th>
+                                    <th style="width: 10%;text-align: center">性别</th>
+                                    <th style="width: 10%;text-align: center">年龄</th>
+                                    <th style="width: 20%;text-align: center">工作单位</th>
+                                    <th style="width: 20%;text-align: center">执业证号</th>
+                                    <th style="width: 20%;text-align: center">联系电话</th>
+                                </tr>
+                            </thead>
+                            <tbody id="LawyerData"></tbody>
+                            <tbody>
+                                <tr>
+                                    <td colspan="6">
+                                        <input type="text" class="form-control" placeholder="姓名/案号" id="searchText"
+                                               style="width:200px; float:left;height:30px;background-color: #337ab7;color: white;background-color:#2e6da4">
+                                        <button type="button" class="btn btn-primary btn-sm" style="display:block;float:left;margin-left:5px;" id="searchBtn">查 询</button>
+                                        <span style="display:block;float:right;margin-left:10px;margin-right:5px;margin-top:2px;">共<span id="totalPage">18</span>页</span>
+                                        <span style="display:block;float:right">
+                                            <button type="button" class="btn btn-sm btn-primary">第一页</button>
+                                            <button type="button" class="btn btn-sm btn-primary">上一页</button>
+                                            <button type="button" class="btn btn-sm btn-primary">1</button>
+                                            <button type="button" class="btn btn-sm btn-primary">2</button>
+                                            <button type="button" class="btn btn-sm btn-primary">3</button>
+                                            <button type="button" class="btn btn-sm btn-primary">4</button>
+                                            <button type="button" class="btn btn-sm btn-primary">5</button>
+                                            <button type="button" class="btn btn-sm btn-primary">6</button>
+                                            <button type="button" class="btn btn-sm btn-primary">...</button>
+                                            <button type="button" class="btn btn-sm btn-primary">下一页</button>
+                                            <button type="button" class="btn btn-sm btn-primary">最后一页</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
             @if (Model.IsBusy)
             {
                 <p class="title_big">接访事项</p>
@@ -95,7 +93,7 @@
                         </div>
                         <p class="name_title">接访事项</p>
                         <div class="content_box">
-                            <div>
+                            <div style="min-height:100px">
                                 @Html.Raw(Model.sCaseIntroduce)
                             </div>
                         </div>
