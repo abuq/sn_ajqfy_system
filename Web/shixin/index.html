@@ -330,11 +330,19 @@
             //按钮点击
             $('.mybtn').on("click", function () {
                 var select = $(this).text();
+                var preSelect =parseInt($('.btn-primary').text());
                 if (!isNaN(Number(select))) {
+                    if (select == num) $('.nextPage').addClass("disabled");
+                    if (select < num) $('.nextPage').removeClass("disabled");
+                    if (preSelect >= 7) {
+                        $('.btn-primary').text("...");
+                        $('.btn-primary').removeClass("btn-primary").addClass("btn-default");   
+                    }
                     $('.mybtn').removeClass("btn-primary").addClass("btn-default");
                     $(this).removeClass("btn-default").addClass("btn-primary");
                     if (select == 1)
                         $('.prePage').addClass("disabled");
+                    else $('.prePage').removeClass("disabled");
                     if (select == num) $('.nextPage').addClass("disabled");
                     params.page = select;
                     loadData(false);

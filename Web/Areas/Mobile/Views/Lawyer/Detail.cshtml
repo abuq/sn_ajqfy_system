@@ -8,7 +8,7 @@
     <meta name="Copyright" content="宜联科技" />
     <meta name="author" content="">
 
-    <meta http-equiv="refresh" content="10">
+    @*<meta http-equiv="refresh" content="10">*@
 
     <link rel="shortcut icon" href="../images/favicon/favicon.png" type="image/x-icon">
     <link rel="icon" href="../images/favicon/favicon.png" type="image/x-icon">
@@ -309,11 +309,19 @@
             //按钮点击
             $('.mybtn').on("click", function () {
                 var select = $(this).text();
+                var preSelect = parseInt($('.btn-primary').text());
                 if (!isNaN(Number(select))) {
+                    if (select == num) $('.nextPage').addClass("disabled");
+                    if (select < num) $('.nextPage').removeClass("disabled");
+                    if (preSelect >= 7) {
+                        $('.btn-default').text("...");
+                        $('.btn-default').removeClass("btn-default").addClass("btn-primary");
+                    }
                     $('.mybtn').removeClass("btn-default").addClass("btn-primary");
                     $(this).removeClass("btn-primary").addClass("btn-default");
                     if (select == 1)
                         $('.prePage').addClass("disabled");
+                    else $('.prePage').removeClass("disabled");
                     if (select == num) $('.nextPage').addClass("disabled");
                     params.page = select;
                     loadData(false);
