@@ -3,12 +3,12 @@
     margin: 0 auto;
     width: 1000px;
     height: 1000px;
-    background: url(/Areas/Mobile/Content/JudgeStudio/images/ditu.png) no-repeat;
+    background: url(../images/ditu.png) no-repeat;
     background-size: 100% 100%;
 }
 
 .myContent {
-    background: url(/Areas/Mobile/Content/JudgeStudio/images/tcmb_03.png) no-repeat;
+    background: url(../images/tcmb_03.png) no-repeat;
     height: 1228px;
     width: 1000px;
     margin: 0 auto;
