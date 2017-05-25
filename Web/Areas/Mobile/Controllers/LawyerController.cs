@@ -19,8 +19,9 @@ namespace Web.Areas.Mobile.Controllers
         /// </summary>
         /// <param name="iRoomOrder"></param>
         /// <returns></returns>
-        public ActionResult Detail(int iRoomOrder=2)
+        public ActionResult Detail(int iRoomOrder)
         {
+            ViewBag.XUNIMULU=C_Config.ReadAppSetting("XUNIMULU");
             LawyerCaseManage manage = new LawyerCaseManage();
             return View(manage.GetLayerCaseByiRoomOrder(iRoomOrder));
         }

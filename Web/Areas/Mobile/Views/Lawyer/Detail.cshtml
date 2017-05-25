@@ -8,18 +8,23 @@
     <meta name="Copyright" content="宜联科技" />
     <meta name="author" content="">
 
-    @*<meta http-equiv="refresh" content="20">*@
+    <meta http-equiv="refresh" content="10">
 
     <link rel="shortcut icon" href="../images/favicon/favicon.png" type="image/x-icon">
     <link rel="icon" href="../images/favicon/favicon.png" type="image/x-icon">
 
-    <title>遂宁市安居区法院</title>
+    <title>律师工作室-遂宁市安居区法院</title>
 
     <link href="~/Areas/Mobile/Content/JudgeStudio/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Areas/Mobile/Content/JudgeStudio/css/normalize.css" rel="stylesheet" />
     <link href="~/Areas/Mobile/Content/JudgeStudio/css/tjs.css" rel="stylesheet" />
 
     <link href="~/Areas/Mobile/Content/JudgeStudio/css/lawyer.css" rel="stylesheet" />
+    <style>
+        .btn{
+            margin-left: 2px
+        }
+    </style>
 </head>
 @using EFModels.MyModels;
 @model ViewLawyerCase
@@ -57,12 +62,12 @@
                             <tbody>
                                 <tr>
                                     <td colspan="6">
-                                        <input type="text" class="form-control" placeholder="姓名/案号" id="searchText"
+                                        <input type="text" class="form-control" placeholder="姓名/联系电话" id="searchText"
                                                style="width:200px; float:left;height:30px;background-color: #337ab7;color: white;background-color:#2e6da4">
                                         <button type="button" class="btn btn-primary btn-sm" style="display:block;float:left;margin-left:5px;" id="searchBtn">查 询</button>
                                         <span style="display:block;float:right;margin-left:10px;margin-right:5px;margin-top:2px;">共<span id="totalPage">18</span>页</span>
-                                        <span style="display:block;float:right">
-                                            <button type="button" class="btn btn-sm btn-primary">第一页</button>
+                                        <span style="display:block;float:right;" id="btn">
+                                            @*<button type="button" class="btn btn-sm btn-primary">第一页</button>&nbsp;
                                             <button type="button" class="btn btn-sm btn-primary">上一页</button>
                                             <button type="button" class="btn btn-sm btn-primary">1</button>
                                             <button type="button" class="btn btn-sm btn-primary">2</button>
@@ -72,7 +77,7 @@
                                             <button type="button" class="btn btn-sm btn-primary">6</button>
                                             <button type="button" class="btn btn-sm btn-primary">...</button>
                                             <button type="button" class="btn btn-sm btn-primary">下一页</button>
-                                            <button type="button" class="btn btn-sm btn-primary">最后一页</button>
+                                            <button type="button" class="btn btn-sm btn-primary">最后一页</button>*@
                                         </span>
                                     </td>
                                 </tr>
@@ -89,11 +94,12 @@
                     <div class="my_content_box">
                         <p class="name_title">调解员：@Model.sLawyerName</p>
                         <div class="img_box">
-                            <img src="@Model.sPicture">
+                            @{string userPic = string.Format("{0}{1}", ViewBag.XUNIMULU, Model.sPicture); }
+                            <img src="@userPic">
                         </div>
                         <p class="name_title">接访事项</p>
                         <div class="content_box">
-                            <div style="min-height:100px">
+                            <div style="min-height:100px;">
                                 @Html.Raw(Model.sCaseIntroduce)
                             </div>
                         </div>
@@ -113,16 +119,17 @@
 <script src="~/Scripts/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        
-        domin.loadData();
-       
+
+        domin.loadData(true);
+        domin.search();
+
     });
 
     var domin = (function (obj) { return obj; }(new function () {
-        var VirtualDirectory = "@ViewData["Mulu"]";
+        var VirtualDirectory = "@ViewBag.XUNIMULU";
 
         var params = {
-            url: VirtualDirectory + '/Admin/Lawyer/List',
+            url: VirtualDirectory + '/Mobile/Lawyer/List',
             page: 1,
             rows: 4,
             sort: 'ID',
@@ -139,7 +146,6 @@
                 dataType: 'json',
                 async: true,
                 success: function (r) {
-                    debugger
                     if (r.rows.length > 0) {
                         var html = [];
                         $(r.rows).each(function () {
@@ -150,7 +156,7 @@
                             html.push('<td>' + this.iAges + '</td>');
                             html.push('<td>' + this.sJobAddress + '</td>');
                             html.push('<td>' + this.sExecutionNum + '</td>');
-                            html.push('<td>' +this.sPhone + '</td>');
+                            html.push('<td>' + this.sPhone + '</td>');
                             html.push('</tr>');
                         });
                         $('#LawyerData').append(html.join(''));
@@ -173,8 +179,161 @@
             });
         }
 
+
+        //按钮的显示计算
+        function Calculate(total) {
+            $('#btn').html('');
+            var yushu = total % (params.rows);
+            var num = parseInt(total / params.rows);
+            if (yushu > 0) num = num + 1;
+            $('#totalPage').text(num);//计算页数
+            var btnHtml = [];
+            btnHtml.push('<button type="button" class="btn btn-primary btn-sm firstPage">第一页</button>&nbsp;');
+            btnHtml.push('<button type="button" class="btn btn-primary btn-sm prePage disabled">上一页</button>&nbsp;');
+            for (var i = 1; i <= num; i++) {
+                if (i >= 7) {
+                    btnHtml.push('<button type="button" class="btn btn-primary btn-sm">...</button>');
+                    break;
+                }
+                else
+                    if (i == 1)
+                        btnHtml.push('<button type="button" class="btn btn-default btn-sm mybtn">' + i + '</button>');
+                    else
+                        btnHtml.push('<button type="button" class="btn btn-primary btn-sm mybtn">' + i + '</button>');
+            }
+            if (num == 1) {
+                btnHtml.push('&nbsp;<button type="button" class="btn btn-primary btn-sm nextPage disabled">下一页</button>');
+            }
+            else
+                btnHtml.push('<button type="button" class="btn btn-primary btn-sm nextPage">下一页</button>');
+            btnHtml.push('<button type="button" class="btn btn-primary btn-sm LastPage">最后一页</button>');
+            $('#btn').append(btnHtml.join(''));
+
+            //如果查询没有结果
+            if (total == 0) {
+                $('.btn').addClass("disabled");
+                $('#searchBtn').removeClass("disabled");
+            }
+
+            //绑定事件
+            $('.firstPage').on("click", function () {
+                if (!$(this).hasClass("disabled")) {
+                    $('.btn-default').removeClass('btn-default').addClass('btn-primary');
+                    if (num >= 1) {
+                        $('.prePage').addClass("disabled");
+                        if (num > 1) {
+                            $('.nextPage').removeClass("disabled");
+                        }
+                        $('.prePage').next().removeClass("btn-primary").addClass("btn-default");
+                        params.page = 1;
+                        loadData(false);
+                    }
+                }
+            });
+
+            //上一页
+            $('.prePage').on("click", function () {
+                if (!$(this).hasClass("disabled")) {
+                    //如果不能点击将不产生动作
+                    $('.nextPage').removeClass('disabled');
+                    var selected = parseInt($('.btn-default').text());
+                    var thisBtn = $('.btn-default');
+                    if (selected < 7) {
+                        $('.btn-default').removeClass("btn-default").addClass("btn-primary");
+                        $(thisBtn).prev().removeClass("btn-primary").addClass("btn-default");
+                        if (selected == 2)
+                            $('.prePage').addClass('disabled');
+                    }
+                    else {
+                        if (selected == 7) {
+                            $('.btn-default').removeClass("btn-default").addClass("btn-primary");
+                            $(thisBtn).prev().removeClass("btn-primary").addClass("btn-default");
+                            $(thisBtn).text("....");
+                        }
+                        else
+                            $(thisBtn).text(selected - 1);
+
+                    }
+
+                    //加载数据
+                    params.page = selected - 1;
+                    loadData(false);
+                }
+            });
+
+            //下一页
+            $('.nextPage').on("click", function () {
+                if (!$(this).hasClass("disabled")) {
+                    //如果不能点击将不产生动作
+                    if (num > 1) $('.prePage').removeClass('disabled');
+                    var selected = parseInt($('.btn-default').text());
+                    if (num == selected + 1) $(this).addClass('disabled');
+                    var thisbtn = $('.btn-default');
+                    if (selected < 6) {
+                        $('.btn-default').next().removeClass("btn-primary").addClass("btn-default");
+                        $(thisbtn).removeClass("btn-default").addClass("btn-primary");
+                    }
+                    else {
+                        if (selected < num) {
+                            if (selected == 6) {
+                                $('.btn-default').next().removeClass("btn-primary").addClass("btn-default");
+                                $(thisbtn).removeClass("btn-default").addClass("btn-primary");
+                                $(thisbtn).next().text(selected + 1);
+                            }
+                            else
+                                $(thisbtn).text(selected + 1);
+                            if (selected == num - 1)
+                                $('.nextPage').addClass('disabled')
+                        }
+                    }
+
+                    //加载数据
+                    params.page = selected + 1;
+                    loadData(false);
+                }
+            });
+
+            //最后一页
+            $('.LastPage').on("click", function () {
+                if (!$(this).hasClass("disabled")) {
+                    if (num != 1) $('.prePage').removeClass('disabled');
+                    $('.btn-default').removeClass('btn-default').addClass('btn-primary');
+                    $('.nextPage').addClass('disabled');
+                    $('.nextPage').prev().text(num);
+                    $('.nextPage').prev().addClass('btn-default').removeClass('btn-primary');;
+                    params.page = num;
+                    loadData(false);
+                }
+            });
+
+            //按钮点击
+            $('.mybtn').on("click", function () {
+                var select = $(this).text();
+                if (!isNaN(Number(select))) {
+                    $('.mybtn').removeClass("btn-default").addClass("btn-primary");
+                    $(this).removeClass("btn-primary").addClass("btn-default");
+                    if (select == 1)
+                        $('.prePage').addClass("disabled");
+                    if (select == num) $('.nextPage').addClass("disabled");
+                    params.page = select;
+                    loadData(false);
+                }
+            })
+        }
+
+        //模糊查询
+        function search() {
+            $('#searchBtn').on("click", function () {
+                var searchText = $("#searchText").val();
+                params.searchText = searchText;
+                params.page = 1;
+                loadData(true)
+            })
+        }
+
         return {
-            loadData: loadData
+            loadData: loadData,
+            search: search
         }
 
     }));

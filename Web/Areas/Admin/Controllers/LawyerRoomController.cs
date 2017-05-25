@@ -53,8 +53,13 @@ namespace Web.Areas.Admin.Controllers
         {
             if (!manage.check(lawyerRoom.sRoomName))
             {
-                if (manage.Add(lawyerRoom) > 0)
-                    result.success = true;
+                if (!manage.checkOrder(lawyerRoom.iRoomOrder))
+                {
+                    if (manage.Add(lawyerRoom) > 0)
+                        result.success = true;
+                }
+                else
+                    result.info = string.Format("序号{0}律师接待室已存在,请重新设置", lawyerRoom.iRoomOrder);
             }
             else
             {

@@ -99,6 +99,47 @@ namespace Sevices
         }
 
         /// <summary>
+        /// 检查律法官工作室唯一标识
+        /// </summary>
+        /// <param name="iRoomOrder"></param>
+        /// <returns></returns>
+        public bool checkOrder(int iRoomOrder)
+        {
+            using (var db = new Entities())
+            {
+                return db.JudgeStudio.Any(m => m.iRoomOrder == iRoomOrder);
+            }
+        }
+
+        /// <summary>
+        /// 检查同名的律师接待室
+        /// </summary>
+        /// <param name="sJobName"></param>
+        /// <returns></returns>
+        public bool check(string sJobName)
+        {
+            using (var db = new Entities())
+            {
+                return db.JudgeStudio.Any(m => m.sJobName == sJobName);
+            }
+        }
+
+        /// <summary>
+        /// 检查同名的律师接待室
+        /// </summary>
+        /// <param name="sLawyerName"></param>
+        /// <returns></returns>
+        public bool checkUpdate(string sJobName, int ID)
+        {
+            using (var db = new Entities())
+            {
+                return db.JudgeStudio.Any(m => m.sJobName == sJobName && m.ID != ID);
+            }
+        }
+
+
+
+        /// <summary>
         /// 添加法官工作室
         /// </summary>
         /// <param name="lawyer"></param>

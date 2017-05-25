@@ -17,7 +17,7 @@ namespace Web.Areas.Mobile.Controllers
         /// </summary>
         /// <returns></returns>
         
-        public ActionResult Detail(int iRoomOrder=1)
+        public ActionResult Detail(int iRoomOrder)
         {
             JudgeStudioCaseManage manage = new JudgeStudioCaseManage();
             return View(manage.GetCaseByiRoomOrder(iRoomOrder));

@@ -59,13 +59,26 @@ namespace Web.Areas.Admin.Controllers
         /// <param name="juds"></param>
         public void Insert(JudgeStudio juds,string RealName)
         {
-            var user = Resolve<UserManage>().Get(juds.iUserId);
-            if (user.RealName == RealName)
+            if (!manage.check(juds.sJobName))
             {
-                if (manage.Add(juds) > 0)
-                    result.success = true;
+                var user = Resolve<UserManage>().Get(juds.iUserId);
+                if (user.RealName == RealName)
+                {
+                    if (!manage.checkOrder(juds.iRoomOrder))
+                    {
+                        if (manage.Add(juds) > 0)
+                            result.success = true;
+                    }
+                    else
+                        result.info = string.Format("序号{0}法官工作室已存在存在,请重新输入!", juds.iRoomOrder);
+                }
+                else
+                {
+                    result.info = string.Format("{0}法官不存在,请重新选择!", RealName);
+                }
             }
-            result.info = string.Format("{0}法官不存在,请重新选择!", RealName);
+            else
+                result.info = string.Format("{0}法官工作室已存在,请重新命名", juds.sJobName);
         }
 
 
@@ -75,13 +88,20 @@ namespace Web.Areas.Admin.Controllers
         /// <param name="juds"></param>
         public void Update(JudgeStudio juds, string RealName)
         {
-            var user = Resolve<UserManage>().Get(juds.iUserId);
-            if (user.RealName == RealName)
+            if (!manage.checkUpdate(juds.sJobName,juds.ID))
             {
-                if (manage.Edit(juds) > 0)
-                    result.success = true;
+                var user = Resolve<UserManage>().Get(juds.iUserId);
+                if (user.RealName == RealName)
+                {
+                    if (manage.Edit(juds) > 0)
+                        result.success = true;
+                }
+                result.info = string.Format("{0}法官不存在,请重新选择!", RealName);
             }
-            result.info = string.Format("{0}法官不存在,请重新选择!", RealName);
+            else
+            {
+                result.info = string.Format("{0}法官工作室已存在,请重新命名", juds.sJobName);
+            }
         }
 
         /// <summary>

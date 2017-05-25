@@ -329,17 +329,17 @@
 
             //按钮点击
             $('.mybtn').on("click", function () {
-                $('.nextPage').removeClass('disabled');
                 var select = $(this).text();
-                $('.nextPage').prev().removeClass('btn-primary').addClass('btn-default');
-                $('.nextPage').prev().text("...");
-                $('.mybtn').removeClass('btn-primary').addClass("btn-default");
-                $(this).addClass('btn-primary');
-
-
-                params.page = select;
-                loadData(false);
-            })
+                if (!isNaN(Number(select))) {
+                    $('.mybtn').removeClass("btn-primary").addClass("btn-default");
+                    $(this).removeClass("btn-default").addClass("btn-primary");
+                    if (select == 1)
+                        $('.prePage').addClass("disabled");
+                    if (select == num) $('.nextPage').addClass("disabled");
+                    params.page = select;
+                    loadData(false);
+                }
+            });
         }
 
         //模糊查询

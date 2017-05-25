@@ -161,6 +161,13 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
+                iLawyerRoomId: {
+                    validators: {
+                        notEmpty: {
+                            message: '请选择接待室'
+                        }
+                    }
+                },
                 //sCaseName: {
                 //    validators: {
                 //        notEmpty: {

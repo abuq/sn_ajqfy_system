@@ -71,6 +71,20 @@ namespace Sevices
         }
 
         /// <summary>
+        /// 检查律师接待室唯一标识
+        /// </summary>
+        /// <param name="iRoomOrder"></param>
+        /// <returns></returns>
+        public bool checkOrder(int iRoomOrder)
+        {
+            using (var db=new Entities())
+            {
+                return db.LawyerRoom.Any(m => m.iRoomOrder == iRoomOrder);
+            }
+        }
+
+
+        /// <summary>
         /// 检查同名的律师接待室
         /// </summary>
         /// <param name="sLawyerName"></param>
