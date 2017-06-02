@@ -1354,6 +1354,7 @@
     <Content Include="shixin\css\bootstrap.min.css" />
     <Content Include="shixin\css\normalize.css" />
     <Content Include="shixin\css\shixin.css" />
+    <Content Include="shixin\HtmlPage1.html" />
     <Content Include="shixin\images\bg.png" />
     <Content Include="shixin\images\bp.png" />
     <Content Include="shixin\images\company.png" />

@@ -13,45 +13,46 @@
     <title>遂宁市安居区人民法院</title>
 
     <!--Library Styles-->
-    <!--<link href="../css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="../css/normalize.css" rel="stylesheet" type="text/css" />
     <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/shixin.css" rel="stylesheet" />
+
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/normalize.css" rel="stylesheet" />
     <link href="css/shixin.css" rel="stylesheet" />-->
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/normalize.css" rel="stylesheet" />
-    <link href="css/shixin.css" rel="stylesheet" />
- 
     <style>
         table tr {
-            border:1px solid #ffffff;
+            border: 1px solid #ffffff;
             /*background-color: #D5D5D5*/
-            
         }
-          table tr td{
-            border:1px solid #ffffff;
-            padding:1px 5px
-        }
-        .first_tr_td{
-            width:18%;
-        }
- 
-        .other_td{
-            text-align:left;
-       
 
-            color:white;
-            font-size:14px;
-            font-weight:100;
+            table tr td {
+                border: 1px solid #ffffff;
+                padding: 1px 5px;
+            }
+
+        .first_tr_td {
+            width: 18%;
         }
-         .other_td strong{
-             font-size:14px;
-             margin-right:8px
-         }
+
+        .other_td {
+            text-align: left;
+            color: white;
+            font-size: 14px;
+            font-weight: 100;
+        }
+
+            .other_td strong {
+                font-size: 14px;
+                margin-right: 8px;
+            }
+
         .first_tr_td img {
             width: 100%;
             padding: 5% 4%;
         }
-          /*tr:nth-child(odd){background-color:#ffffff; #2E7BC6}
+        /*tr:nth-child(odd){background-color:#ffffff; #2E7BC6}
         tr:nth-child(even){background-color:#F0F0F0;}*/
     </style>
 </head>
@@ -74,28 +75,11 @@
                 <div class="title">
                     <h6>(查询提示：在输入框输入姓名、身份证号、案号可快速定位，点击标题可重新排序。)</h6>
                 </div>
-                <div id="sxrTable">
 
-                </div>
-                <div class="title clearfix" style="background-color:#F0F0F0;padding:5px 20px;">
-                    <span style="display:block;float:left;color:black;margin-top: 3px">模糊查询：</span>
-                    <input type="text" class="form-control" placeholder="姓名/案号" id="searchText" style="width:200px; float:left;height:30px">
-                    <button type="button" class="btn btn-default btn-sm" style="display:block;float:left;margin-left:5px;" id="searchBtn">查 询</button>
-                    <span style="display:block;float:right;color:black;margin-top: 3px;margin-left:10px">共<span id="total">18</span>页</span>
-                    <div class="btn-group clearfix" style="float:right;margin-top:2px" id="btn">
-                        <!--<button type="button" class="btn btn-default btn-sm">第一页</button>
-            <button type="button" class="btn btn-default btn-sm">上一页</button>
-            <button type="button" class="btn btn-default btn-sm"> 1</button>
-            <button type="button" class="btn btn-default btn-sm"> 2</button>
-            <button type="button" class="btn btn-default btn-sm"> 3</button>
-            <button type="button" class="btn btn-default btn-sm"> 3</button>
-            <button type="button" class="btn btn-default btn-sm"> 3</button>
-            <button type="button" class="btn btn-default btn-sm">下一页</button>
-            <button type="button" class="btn btn-default btn-sm">最后一页</button>-->
-                    </div>
-                </div>
-            <!--<div id="sxrTable">-->
-            <!--
+
+
+                <div id="sxrTable">
+                    <!--
             <table class="display dTable" id="sxrTable" cellspacing="0" style="width:100%;border-collapse: collapse">
                 <tr>
                     <td rowspan="6" class="first_tr_td">
@@ -122,13 +106,33 @@
                     <td class="other_td"><strong>具体情形:</strong>反抗精神凤凰健康尽快发货尽快回复空间十分健康和房价开始反抗精神凤凰健康</td>
                 </tr>
             </table>-->
-           </div>
+                </div>
+
+                <div class="title clearfix" style="background-color:#F0F0F0;padding:5px 20px;">
+                    <span style="display:block;float:left;color:black;margin-top: 3px">模糊查询：</span>
+                    <input type="text" class="form-control" placeholder="姓名/案号" id="searchText" style="width:200px; float:left;height:30px">
+                    <button type="button" class="btn btn-default btn-sm" style="display:block;float:left;margin-left:5px;" id="searchBtn">查 询</button>
+                    <span style="display:block;float:right;color:black;margin-top: 3px;margin-left:10px">共<span id="total">18</span>页</span>
+                    <div class="btn-group clearfix" style="float:right;margin-top:2px" id="btn">
+                        <!--<button type="button" class="btn btn-default btn-sm">第一页</button>
+                <button type="button" class="btn btn-default btn-sm">上一页</button>
+                <button type="button" class="btn btn-default btn-sm"> 1</button>
+                <button type="button" class="btn btn-default btn-sm"> 2</button>
+                <button type="button" class="btn btn-default btn-sm"> 3</button>
+                <button type="button" class="btn btn-default btn-sm"> 3</button>
+                <button type="button" class="btn btn-default btn-sm"> 3</button>
+                <button type="button" class="btn btn-default btn-sm">下一页</button>
+                <button type="button" class="btn btn-default btn-sm">最后一页</button>-->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
- <div class="footer divbgtransparent_white7"><div class="copyrights"></div></div>
+    <div class="footer divbgtransparent_white7"><div class="copyrights"></div></div>
 </body>
 </html>
-<script src="../Scripts/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+
 <script type="text/javascript">
     $(function () {
         domin.loadData(true);
@@ -136,7 +140,7 @@
     });
 
     var domin = (function (obj) { return obj; }(new function () {
-        var VirtualDirectory = "";
+        var VirtualDirectory = "/sn_ajqfy/Manage";
 
         var params = {
             url: VirtualDirectory + '/Admin/Sxr/ListBySxr',
@@ -238,7 +242,8 @@
                 $('#searchBtn').removeClass("disabled");
             }
 
-            //绑定事件 
+
+            //绑定事件
             $('.firstPage').on("click", function () {
                 if (!$(this).hasClass("disabled")) {
                     $('.btn-primary').removeClass('btn-primary').addClass('btn-default');
@@ -276,7 +281,7 @@
                         }
                         else
                             $(thisBtn).text(selected - 1);
-                        
+
                     }
 
                     //加载数据
@@ -284,6 +289,7 @@
                     loadData(false);
                 }
             });
+
 
             //下一页
             $('.nextPage').on("click", function () {
@@ -330,7 +336,7 @@
                 }
             });
 
-            //按钮点击
+             //按钮点击
             $('.mybtn').on("click", function () {
                 var select = $(this).text();
                 var preSelect =parseInt($('.btn-primary').text());
@@ -339,7 +345,7 @@
                     if (select < num) $('.nextPage').removeClass("disabled");
                     if (preSelect >= 7) {
                         $('.btn-primary').text("...");
-                        $('.btn-primary').removeClass("btn-primary").addClass("btn-default");   
+                        $('.btn-primary').removeClass("btn-primary").addClass("btn-default");
                     }
                     $('.mybtn').removeClass("btn-primary").addClass("btn-default");
                     $(this).removeClass("btn-default").addClass("btn-primary");
