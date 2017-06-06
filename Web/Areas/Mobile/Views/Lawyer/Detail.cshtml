@@ -44,12 +44,13 @@
             <div class="page1">
                 <p class="title_big">律师列表</p>
             </div>
-            <div class="content_list">
+            <div class="content_list" style="height:auto">
                 <div class="my_content_box ">
                     <div class="my_content_radius">
                         <table style="width: 100%;text-align: center">
                             <thead>
                                 <tr>
+                                    <th style="width: 10%;text-align: center">值班时间</th>
                                     <th style="width: 10%;text-align: center">姓名</th>
                                     <th style="width: 10%;text-align: center">性别</th>
                                     <th style="width: 10%;text-align: center">年龄</th>
@@ -61,7 +62,7 @@
                             <tbody id="LawyerData"></tbody>
                             <tbody>
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <input type="text" class="form-control" placeholder="姓名/联系电话" id="searchText"
                                                style="width:200px; float:left;height:30px;background-color: #337ab7;color: white;background-color:#2e6da4">
                                         <button type="button" class="btn btn-primary btn-sm" style="display:block;float:left;margin-left:5px;" id="searchBtn">查 询</button>
@@ -93,13 +94,13 @@
                 <div class="myContent">
                     <div class="my_content_box">
                         <p class="name_title">调解员：@Model.sLawyerName</p>
-                        <div class="img_box">
+                        <div class="img_box" style="height:280px">
                             @{string userPic = string.Format("{0}{1}", ViewBag.XUNIMULU, Model.sPicture); }
-                            <img src="@userPic">
+                            <img src="@userPic" style="width:22%">
                         </div>
                         <p class="name_title">接访事项</p>
                         <div class="content_box">
-                            <div style="min-height:100px;">
+                            <div style="min-height:80px;">
                                 @Html.Raw(Model.sCaseIntroduce)
                             </div>
                         </div>
@@ -127,7 +128,6 @@
 
     var domin = (function (obj) { return obj; }(new function () {
         var VirtualDirectory = "@ViewBag.XUNIMULU";
-
         var params = {
             url: VirtualDirectory + '/Mobile/Lawyer/List',
             page: 1,
@@ -150,7 +150,13 @@
                         var html = [];
                         $(r.rows).each(function () {
                             var bSexName = this.bSex == true ? "男" : "女";
+                            var sAttendedTime="";
+                            if (this.sAttendedTime) {
+                                sAttendedTime = this.sAttendedTime.split(',');
+                                sAttendedTime = sAttendedTime.join("<br/>");
+                            }
                             html.push('<tr>');
+                            html.push('<td>' + sAttendedTime + '</td>');
                             html.push('<td>' + this.sLawyerName + '</td>');
                             html.push('<td>' + bSexName + '</td>');
                             html.push('<td>' + this.iAges + '</td>');

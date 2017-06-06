@@ -22,5 +22,6 @@ namespace EFModels
         public string sJobAddress { get; set; }
         public string sExecutionNum { get; set; }
         public string sPicture { get; set; }
+        public string sAttendedTime { get; set; }
     }
 }

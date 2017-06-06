@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ssfw_sn_ajqfyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ssfw_sn_ajqfyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aboutuszxb">
           <Key>
             <PropertyRef Name="ID" />
@@ -15,8 +15,6 @@
           <Property Name="Aboutusorder" Type="smallint" />
           <Property Name="Language" Type="nvarchar" MaxLength="2" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“ssfw_sn_ajqfy.dbo.Admin”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="ID" />
@@ -210,6 +208,7 @@
           <Property Name="sJobAddress" Type="nvarchar" MaxLength="100" />
           <Property Name="sExecutionNum" Type="nvarchar" MaxLength="255" />
           <Property Name="sPicture" Type="nvarchar" MaxLength="255" />
+          <Property Name="sAttendedTime" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="LawyerCase">
           <Key>
@@ -337,6 +336,7 @@
         </EntityType>
         <EntityContainer Name="ssfw_sn_ajqfyModelStoreContainer">
           <EntitySet Name="Aboutuszxb" EntityType="Self.Aboutuszxb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdminMessage" EntityType="Self.AdminMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cdelinknews" EntityType="Self.Cdelinknews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
@@ -353,24 +353,6 @@
           <EntitySet Name="TjCase" EntityType="Self.TjCase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserComment" EntityType="Self.UserComment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Admin].[ID] AS [ID], 
-    [Admin].[UserName] AS [UserName], 
-    [Admin].[Password] AS [Password], 
-    [Admin].[Purview] AS [Purview], 
-    [Admin].[LastLoginIP] AS [LastLoginIP], 
-    [Admin].[LastLoginTime] AS [LastLoginTime], 
-    [Admin].[LastLogoutTime] AS [LastLogoutTime], 
-    [Admin].[LoginTimes] AS [LoginTimes], 
-    [Admin].[AdminPurview_Article] AS [AdminPurview_Article], 
-    [Admin].[AdminPurview_Soft] AS [AdminPurview_Soft], 
-    [Admin].[AdminPurview_Photo] AS [AdminPurview_Photo], 
-    [Admin].[AdminPurview_Guest] AS [AdminPurview_Guest], 
-    [Admin].[AdminPurview_Others] AS [AdminPurview_Others], 
-    [Admin].[RndPassword] AS [RndPassword]
-    FROM [dbo].[Admin] AS [Admin]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="BigClass_Dept" EntityType="Self.BigClass_Dept" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [BigClass_Dept].[BigClassID] AS [BigClassID], 
@@ -429,8 +411,7 @@
     FROM [dbo].[SmallClass_Article] AS [SmallClass_Article]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ssfw_sn_ajqfyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -560,6 +541,7 @@
           <Property Name="sJobAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="sExecutionNum" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="sPicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sAttendedTime" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LawyerCase">
           <Key>
@@ -908,6 +890,7 @@
           <EntitySetMapping Name="Lawyer">
             <EntityTypeMapping TypeName="ssfw_sn_ajqfyModel.Lawyer">
               <MappingFragment StoreEntitySet="Lawyer">
+                <ScalarProperty Name="sAttendedTime" ColumnName="sAttendedTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="sLawyerName" ColumnName="sLawyerName" />
                 <ScalarProperty Name="bSex" ColumnName="bSex" />
