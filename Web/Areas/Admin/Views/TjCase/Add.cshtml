@@ -130,7 +130,7 @@
                 if (iUserId.length == 0 || RealName.length == 0) return modal.alert("请选择调解员");
 
                 var sCaseIntroduce = editor.gethtml();
-                if (sCaseIntroduce.length == 0) return modal.alert("调解事项必填");
+                if (sCaseIntroduce.length == 0) return modal.alert("当事人及调解事项必填");
                 var params = $("#addFrom").serializeArray().toObject();
                 params.sCaseIntroduce = sCaseIntroduce;
                 params.RealName = RealName;
